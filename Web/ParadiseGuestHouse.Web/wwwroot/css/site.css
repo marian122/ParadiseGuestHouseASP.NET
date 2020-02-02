@@ -175,16 +175,46 @@ footer {
     font-variant: small-caps;
     font-weight: 100;
     line-height: 24px;
+    text-decoration: none;
 }
 
 
-    footer .form-control {
-        box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
-        border: none;
-        resize: none;
-        padding: 0.7em 1em;
+footer .form-control {
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    border: none;
+    resize: none;
+    padding: 0.7em 1em;
+}
+
+
+
+#footerContact{
+    margin-left: 80px;
+}
+
+ul {
+    list-style: none;
+}
+
+    ul > li > a {
+        color: grey;
+        text-decoration: none;
+        line-height: 1.8;
     }
 
-#logoFooter {
-    margin-right: 315px;
+        ul > li > a:hover,
+        a:hover {
+            color: #ff6600;
+        }
+
+.fa {
+    color: #304f50;
+    margin-right: 10px;
+    font-size: 18px;
+    width: 2.25rem;
 }
+
+#address {
+    font-size: 13px;
+}
+
