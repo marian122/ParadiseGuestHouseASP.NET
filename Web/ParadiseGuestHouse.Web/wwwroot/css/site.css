@@ -63,10 +63,15 @@ p {
     font-weight: 100;
     line-height: 24px;
 }
-
-#leftTabsNavbar {
-    margin-top: 11px;
+.navbar-nav li a {
+ line-height: 30px;
+ align-content: center;
 }
+
+#rightTabsNavbar {
+    margin-top: 6px;
+}
+
 
 .sticky {
     top: 0;
@@ -75,7 +80,6 @@ p {
     width: 100%;
     opacity: 0.9;
     height: 90px;
-    
 }
 
 
@@ -111,12 +115,7 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 90%;
-}
+
 
 body {
     /* Margin bottom by footer height */
@@ -124,11 +123,68 @@ body {
     background-color: antiquewhite;
 }
 
+
+/*Footer*/
+
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:300);
+
+body {
+    font-family: 'Alegreya Sans', sans-serif;
+}
+
+/* Sticky footer position and size
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 300px;
+}
+
 .footer {
-    background-color: lightgray;
+    position: absolute;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px; /* Vertically center the text there */
+    height: 300px;
+}
+
+/* Taller footer on small screens */
+@media (max-width: 34em) {
+    body {
+        margin-bottom: 500px;
+    }
+
+    .footer {
+        height: 500px;
+    }
+}
+
+/* Sticky footer style and color
+-------------------------------------------------- */
+footer {
+    padding-top: 30px;
+    background-color: seashell;
+    color: #bbb;
+    font-family: Lato;
+    font-size: 19px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: 100;
+    line-height: 24px;
+}
+
+
+    footer .form-control {
+        box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+        border: none;
+        resize: none;
+        padding: 0.7em 1em;
+    }
+
+#logoFooter {
+    margin-right: 315px;
 }

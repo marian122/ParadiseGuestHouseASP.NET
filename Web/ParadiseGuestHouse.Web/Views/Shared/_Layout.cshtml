@@ -21,7 +21,6 @@
 
         <nav id="sticknav" class="navbar navbar-expand-lg h-auto py-md-1">
             <div id="leftTabsNavbar" class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-0">
-                
                 <ul class="navbar-nav ml-auto text-center">
                     <li class="nav-item active">
                         <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">РЕЗЕРВИРАЙ</a>
@@ -44,8 +43,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-3">
-
+            <div id="rightTabsNavbar" class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-3">
                 <ul class="navbar-nav mr-auto text-center">
                     <li class="nav-item">
                         <a class="nav-link text-secondary" asp-area="" asp-controller="Restaurant" asp-action="Index">Ресторант</a>
@@ -60,24 +58,54 @@
                         <partial name="_LoginPartial" />
                     </li>
                 </ul>
-                
+
             </div>
         </nav>
 
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
-    <footer id="footer" class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
+    <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5><i class="fa fa-road"></i> Paradise Guest House</h5>
+                        <div class="row">
+                            <a class="mx-auto" href="#">
+                                <img id="logoFooter" src="~/Images/kisspng-hotel-euclidean-vector-icon-vector-hotels-5a7c3e0ce378d2.0899997515180917889317.png" class="rounded-circle" width="120" height="120">
+                            </a>
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h5><i class="fa fa-road"></i>Разкажете ни за Вашето прекарване.</h5>
+                        <form>
+                            <fieldset class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Въведете E-Mail">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <textarea class="form-control" id="exampleMessage" placeholder="Вашето съобщение."></textarea>
+                            </fieldset>
+                            <fieldset class="form-group text-xs-right">
+                                <button type="button" class="btn btn-outline-dark">Изпрати</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+
+
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
