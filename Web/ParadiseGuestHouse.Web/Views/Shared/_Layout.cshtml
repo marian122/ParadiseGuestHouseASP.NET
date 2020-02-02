@@ -1,0 +1,99 @@
+﻿@using ParadiseGuestHouse.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+
+    <environment names="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <header>
+        <!-- Navigation -->
+
+        <nav id="sticknav" class="navbar navbar-expand-lg h-auto py-md-1">
+            <div id="leftTabsNavbar" class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-0">
+                
+                <ul class="navbar-nav ml-auto text-center">
+                    <li class="nav-item active">
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">РЕЗЕРВИРАЙ</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Хотел</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" asp-area="" asp-controller="Accomodation" asp-action="Index">Настаняване</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" asp-area="" asp-controller="ConferenceHall" asp-action="Index">Конферентни зали</a>
+                </ul>
+            </div>
+            <div class="mx-auto my-2 order-0 order-md-1 position-sticky">
+                <a class="mx-auto" href="#">
+                    <img id="logo" src="~/Images/kisspng-hotel-euclidean-vector-icon-vector-hotels-5a7c3e0ce378d2.0899997515180917889317.png" class="rounded-circle" width="120" height="120">
+                </a>
+                <button class="navbar-light navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-3">
+
+                <ul class="navbar-nav mr-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" asp-area="" asp-controller="Restaurant" asp-action="Index">Ресторант</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" asp-area="" asp-controller="Spa" asp-action="Index">Спа</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Contacts">Контакти</a>
+                    </li>
+                    <li class="nav-item">
+                        <partial name="_LoginPartial" />
+                    </li>
+                </ul>
+                
+            </div>
+        </nav>
+
+    </header>
+    
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @this.RenderBody()
+        </main>
+    </div>
+    
+    <footer id="footer" class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @this.RenderSection("Scripts", required: false)
+</body>
+</html>
