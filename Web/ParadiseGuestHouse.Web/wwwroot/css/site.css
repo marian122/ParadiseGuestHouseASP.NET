@@ -43,11 +43,11 @@ li {
     padding-bottom: 16px;
 }
 
-h1 {
+h1, h2, h3{
     font-family: 'Special Elite', cursive;
 }
 
-p {
+p, a {
     font-family: 'Cardo', serif;
 }
 
@@ -82,13 +82,46 @@ p {
     height: 90px;
 }
 
-
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    font-size: 14px;
+#singleRoom {
+    margin-top: 10px;
+    border: solid;
+    background-color:seashell;
+    border-color: antiquewhite;
+    padding-bottom: 16px;
 }
+
+    #singleRoom:hover {
+        border-color: burlywood;
+    }
+
+    #singleRoom h2 {
+        left: 0;
+        margin-top: 70px;
+        color: burlywood;
+    }
+
+#singleRoomView {   
+    background-color: seashell;
+}
+
+    #singleRoomView h1 {
+        color: burlywood;
+    }
+
+    #singleRoomView img {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #singleRoomView ul li a {
+        font-size: 17px;
+        color:gray;
+    }
+
+
+    html {
+        font-size: 14px;
+    }
 
 @media (min-width: 768px) {
     html {
@@ -118,7 +151,6 @@ button.accept-policy {
 
 
 body {
-    /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-color: antiquewhite;
 }
