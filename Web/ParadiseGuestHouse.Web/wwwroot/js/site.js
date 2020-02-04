@@ -21,5 +21,3 @@ function myFunction() {
         logo.style.width = "100px";
     }
 }
-
- 
