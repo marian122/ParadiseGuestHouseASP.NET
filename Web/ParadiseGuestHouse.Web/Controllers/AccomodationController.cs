@@ -13,5 +13,10 @@
         {
             return this.View();
         }
+
+        public IActionResult Reserve()
+        {
+            return this.View();
+        }
     }
 }

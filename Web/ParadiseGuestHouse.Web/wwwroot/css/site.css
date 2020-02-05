@@ -32,20 +32,23 @@ li {
     margin-top: 20px;
 }
 
-#firstSectionHome {
+#homeSection {
     margin-top: 10px;
     border: double;
-    border-color: #343a40 /*#ffc107*//*burlywood*/;
+    border-color: #343a40 /*#ffc107*/ /*burlywood*/;
     padding-bottom: 16px;
 }
 
-    #firstSectionHome img {
-        width: 100%;
-        height: 100%;
-    }
-
 h1, h2, h3{
     font-family: 'Special Elite', cursive;
+}
+
+#homeSection p {
+    color: grey;
+}
+
+#homeSection h1 {
+    color: burlywood;
 }
 
 p, a {
@@ -82,20 +85,62 @@ p, a {
     opacity: 0.9;
     height: 90px;
 }
-/*ConfHall*/
 
-/*#carouselExampleIndicators {
-    height:900px;
-}*/
+/*Contacts*/
+
+#contacts a {
+    font-size: 20px;
+    color: grey;
+}
+
+#contacts i {
+    font-size: 23px;
+}
+
+#contactsForm {
+    margin-top: 30px;
+    border: double;
+    border-color: #343a40
+}
+
+#contactsForm iframe{
+    width: 100%;
+}
+
+/*Restaurant*/
+#restaurant h2 {
+    color: burlywood;
+}
+
+#restaurant p {
+    color: grey;
+}
+
+/*Spa*/
+
+#spa h2 {
+    color: burlywood;
+}
+
+#spa p {
+    color: grey;
+}
+
+/*ConfHall*/
 
 #conferenceHall img {
     max-height: 500px;
     width: 100%;
 }
 
+#conferenceHall p {
+    color: grey;
+}
+
 #hallDescription {
     text-align:center;
 }
+
 /*Rooms*/
 #singleRoom {
     margin-top: 10px;
@@ -115,12 +160,12 @@ p, a {
         color: burlywood;
     }
 
-    #singleRoom img {
-        width: 100%;
-        height: 100%;
-    }
 
-#singleRoomView, #conferenceHall {
+#singleRoomView,
+#conferenceHall,
+#restaurant,
+#spa,
+#conferenceHallReserveForm {
     margin-top: 10px;
     border: solid;
     background-color: seashell;
@@ -134,13 +179,8 @@ p, a {
 
     #singleRoomView a {
         font-size: 16px;
+        color: grey;
     }
-
-    #singleRoomView img{
-        width: 100%;
-        height: 100%;
-    }
-
 
     html {
         font-size: 14px;
@@ -152,6 +192,17 @@ p, a {
     }
 }
 
+/*Images*/
+
+#singleRoomView img,
+#singleRoom img,
+#homeSection img,
+#restaurantImgSlider img,
+#spaImgSlider img,
+#confHallReserveSlider img{
+    width: 100%;
+    height: 100%;
+}
 
   
 .border-top {
@@ -237,3 +288,20 @@ ul {
     font-size:15px;
 }
 
+/*Reserve Room Form*/
+.icon {
+    padding: 10px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.form-group {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#conferenceHallReserveForm a {
+    margin-left: 60px;
+}

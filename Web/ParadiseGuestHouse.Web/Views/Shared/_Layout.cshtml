@@ -25,7 +25,7 @@
             <div id="leftTabsNavbar" class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-0">
                 <ul class="navbar-nav ml-auto text-center">
                     <li class="nav-item active">
-                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">РЕЗЕРВИРАЙ</a>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Accomodation" asp-action="Reserve">РЕЗЕРВИРАЙ</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Хотел</a>
@@ -96,7 +96,9 @@
                             <textarea class="form-control" id="exampleMessage" placeholder="Вашето съобщение."></textarea>
                         </fieldset>
                         <fieldset class="form-group text-xs-right">
-                            <button type="button" class="btn btn-outline-dark">Изпрати</button>
+                            <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>Изпрати
+                            </a>
                         </fieldset>
                     </form>
                 </div>
