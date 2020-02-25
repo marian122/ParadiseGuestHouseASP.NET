@@ -12,7 +12,9 @@
     color: grey;
 }
 
-
+#profileButton {
+    padding-right: 10px;
+}
 
 #sticknav {
     background-color: seashell;
@@ -73,7 +75,6 @@ p, a {
 }
 
 #rightTabsNavbar {
-    margin-top: 6px;
 }
 
 
@@ -196,6 +197,20 @@ p, a {
     html {
         font-size: 16px;
     }
+}
+
+/*login*/
+#userAccountViewButton {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#userAccountView {
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 /*Images*/

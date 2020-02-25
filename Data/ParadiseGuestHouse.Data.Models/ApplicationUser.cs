@@ -17,6 +17,10 @@ namespace ParadiseGuestHouse.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 
