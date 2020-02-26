@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParadiseGuestHouse.Data;
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200226144933_RoomsAdded")]
+    partial class RoomsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -297,6 +299,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DescriptionId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -309,19 +314,16 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("RoomDescriptionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoomType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DescriptionId");
+
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("PictureId");
-
-                    b.HasIndex("RoomDescriptionId");
 
                     b.ToTable("Rooms");
                 });
@@ -450,13 +452,13 @@ namespace ParadiseGuestHouse.Data.Migrations
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Room", b =>
                 {
+                    b.HasOne("ParadiseGuestHouse.Data.Models.RoomDescription", "Description")
+                        .WithMany()
+                        .HasForeignKey("DescriptionId");
+
                     b.HasOne("ParadiseGuestHouse.Data.Models.Picture", "Picture")
                         .WithMany()
                         .HasForeignKey("PictureId");
-
-                    b.HasOne("ParadiseGuestHouse.Data.Models.RoomDescription", "RoomDescription")
-                        .WithMany()
-                        .HasForeignKey("RoomDescriptionId");
                 });
 #pragma warning restore 612, 618
         }

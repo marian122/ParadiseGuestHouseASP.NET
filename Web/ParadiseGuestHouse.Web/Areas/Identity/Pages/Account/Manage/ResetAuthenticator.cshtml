@@ -1,0 +1,26 @@
+﻿@page
+@model ResetAuthenticatorModel
+@{
+    ViewData["Title"] = "Reset authenticator key";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>Нулиране на ключа за удостоверяване</h4>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Ако рестартирате ключа за удостоверяване, приложението ви за удостоверяване няма да работи, докато не го конфигурирате отново.</strong>
+    </p>
+    <p>
+        Този процес деактивира 2FA, докато не потвърдите приложението си за удостоверяване.
+        Ако не завършите конфигурацията на приложението си за удостоверяване, може да загубите достъп до акаунта си.
+    </p>
+</div>
+<div>
+    <form id="reset-authenticator-form" method="post" class="form-group">
+        <button id="reset-authenticator-button" class="btn btn-danger" type="submit">
+            Нулиране на ключа за удостоверяване
+        </button>
+    </form>
+</div>
