@@ -1,0 +1,67 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Two-factor authentication (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>Двуфакторна автентификация (2FA)</h4>
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>
+                Нямате кодове за възстановяване.
+            </strong>
+            <p>You must <a asp-page="./GenerateRecoveryCodes">генерирайте нов набор от кодове за възстановяване,</a> преди да можете да влезете с код за възстановяване.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>
+                Имате 1 код за възстановяване.
+            </strong>
+            <p>Можете <a asp-page="./GenerateRecoveryCodes">да генерирате нов набор от кодове за възстановяване</a>.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>Остават ви @Model.RecoveryCodesLeft кодове за възстановяване.</strong>
+            <p>Трябва <a asp-page="./GenerateRecoveryCodes">да генерирате нов набор от кодове за възстановяване</a>.</p>
+        </div>
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+        <form method="post" style="display: inline-block">
+            <button type="submit" class="btn btn-outline-dark">Забравете този браузър</button>
+        </form>
+    }
+    <a asp-page="./Disable2fa" class="btn btn-primary">Disable 2FA</a>
+    <a asp-page="./GenerateRecoveryCodes" class="btn btn-outline-dark">
+        Нулирайте кодовете за възстановяване
+    </a>
+}
+
+<h5>
+    Приложение за удостоверяване
+</h5>
+@if (!Model.HasAuthenticator)
+{
+<a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-outline-dark">Добавете приложение за удостоверяване</a>
+}
+else
+{
+<a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-outline-dark">Настройване на приложението за удостоверяване</a>
+<a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-outline-dark">
+    Нулиране на приложението за удостоверяване
+</a>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

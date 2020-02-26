@@ -12,6 +12,10 @@
     color: grey;
 }
 
+#leftTabsNavbar{
+    margin-bottom: 8px;
+}
+
 #profileButton {
     padding-right: 10px;
 }
@@ -74,7 +78,22 @@ p, a {
  align-content: center;
 }
 
-#rightTabsNavbar {
+/*Inside Profile Options*/
+
+#profileSettingsButtons li :hover {
+    color: rgba(21, 16, 16, 0.99);
+    border: solid;
+    border-color: rgba(21, 16, 16, 0.99);
+}
+
+#email-verification{
+    margin-top: 15px;
+}
+
+#profile-form,
+#email-form,
+#change-password-form {
+    margin-left: 15px;
 }
 
 
