@@ -96,15 +96,21 @@ p, a {
     margin-left: 15px;
 }
 
+    #change-password-form button,
+    #profile-form button,
+    #change-email-button {
+        margin-left: -15px;
+    }
 
-.sticky {
-    top: 0;
-    z-index: 100;
-    position: fixed;
-    width: 100%;
-    opacity: 0.9;
-    height: 90px;
-}
+
+    .sticky {
+        top: 0;
+        z-index: 100;
+        position: fixed;
+        width: 100%;
+        opacity: 0.9;
+        height: 90px;
+    }
 
 /*Contacts*/
 
