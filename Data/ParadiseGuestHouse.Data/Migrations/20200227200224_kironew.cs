@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
-    public partial class kiro : Migration
+    public partial class kironew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -136,15 +136,14 @@ namespace ParadiseGuestHouse.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    ReservationId = table.Column<int>(nullable: false),
-                    ReservationId1 = table.Column<string>(nullable: true)
+                    ReservationId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Reservations_ReservationId1",
-                        column: x => x.ReservationId1,
+                        name: "FK_AspNetUsers_Reservations_ReservationId",
+                        column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -163,15 +162,14 @@ namespace ParadiseGuestHouse.Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true),
-                    ReservationId = table.Column<int>(nullable: false),
-                    ReservationId1 = table.Column<string>(nullable: true)
+                    ReservationId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Guests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Guests_Reservations_ReservationId1",
-                        column: x => x.ReservationId1,
+                        name: "FK_Guests_Reservations_ReservationId",
+                        column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -204,28 +202,26 @@ namespace ParadiseGuestHouse.Data.Migrations
                 name: "ReservedRooms",
                 columns: table => new
                 {
-                    RoomId = table.Column<int>(nullable: false),
-                    ReservationId = table.Column<int>(nullable: false),
+                    RoomId = table.Column<string>(nullable: false),
+                    ReservationId = table.Column<string>(nullable: false),
                     Id = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    RoomId1 = table.Column<string>(nullable: true),
-                    ReservationId1 = table.Column<string>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ReservedRooms", x => new { x.RoomId, x.ReservationId });
                     table.ForeignKey(
-                        name: "FK_ReservedRooms_Reservations_ReservationId1",
-                        column: x => x.ReservationId1,
+                        name: "FK_ReservedRooms_Reservations_ReservationId",
+                        column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ReservedRooms_Rooms_RoomId1",
-                        column: x => x.RoomId1,
+                        name: "FK_ReservedRooms_Rooms_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -366,9 +362,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_ReservationId1",
+                name: "IX_AspNetUsers_ReservationId",
                 table: "AspNetUsers",
-                column: "ReservationId1");
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Guests_IsDeleted",
@@ -376,9 +372,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Guests_ReservationId1",
+                name: "IX_Guests_ReservationId",
                 table: "Guests",
-                column: "ReservationId1");
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_IsDeleted",
@@ -401,14 +397,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReservedRooms_ReservationId1",
+                name: "IX_ReservedRooms_ReservationId",
                 table: "ReservedRooms",
-                column: "ReservationId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ReservedRooms_RoomId1",
-                table: "ReservedRooms",
-                column: "RoomId1");
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_IsDeleted",

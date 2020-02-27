@@ -31,7 +31,7 @@ namespace ParadiseGuestHouse.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public int ReservationId { get; set; }
+        public string ReservationId { get; set; }
 
         public Reservation Reservation { get; set; }
 
