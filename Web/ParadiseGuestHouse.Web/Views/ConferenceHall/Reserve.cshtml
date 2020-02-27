@@ -1,8 +1,10 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using ParadiseGuestHouse.Data.Models
 @{
     ViewData["Title"] = "Резервация";
 }
 
+@inject SignInManager<ApplicationUser> SignInManager
 <section id="conferenceHallReserveForm">
     <div class="container">
         <div id="reserveHeader" class="d-flex justify-content-center">
@@ -20,10 +22,13 @@
                         <i class="fa fa-user icon"></i>
                         <input type="text" class="form-control" name="" value="" placeholder="Имена">
                     </div>
-                    <div class="form-group">
-                        <i class="fa fa-envelope icon"></i>
-                        <input type="email" class="form-control" name="" value="" placeholder="E-mail">
-                    </div>
+                    @if (!this.SignInManager.IsSignedIn(this.User))
+                    {
+                        <div class="form-group">
+                            <i class="fa fa-envelope icon"></i>
+                            <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                        </div>
+                    }
                     <div class="form-group">
                         <i class="fa fa-phone icon"></i>
                         <input type="tel" class="form-control" name="" value="" placeholder="Тел. номер">
