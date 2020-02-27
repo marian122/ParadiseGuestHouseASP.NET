@@ -224,6 +224,12 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReservationId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -246,15 +252,59 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("ReservationId1");
+
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Guest", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReservationId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ReservationId1");
+
+                    b.ToTable("Guests");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Picture", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -266,30 +316,33 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Link")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RoomDescriptionId")
-                        .HasColumnType("int");
+                    b.Property<string>("RoomId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("RoomDescriptionId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Pictures");
                 });
 
-            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Room", b =>
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Reservation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CheckIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckOut")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -303,59 +356,120 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PictureId")
+                    b.Property<int>("NumberOfGuests")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfNights")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ReservedRoom", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReservationId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoomId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RoomId", "ReservationId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ReservationId1");
+
+                    b.HasIndex("RoomId1");
+
+                    b.ToTable("ReservedRooms");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Room", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("HasAirConditioner")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasBathroom")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasHeater")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasMountainView")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasPhone")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasRoomService")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasSeaView")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasTv")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasWifi")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumberOfBeds")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("RoomDescriptionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoomType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("PictureId");
-
-                    b.HasIndex("RoomDescriptionId");
 
                     b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RoomDescription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RoomType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("RoomDescription");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Setting", b =>
@@ -441,22 +555,36 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Picture", b =>
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.RoomDescription", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("RoomDescriptionId");
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId1");
                 });
 
-            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Room", b =>
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Guest", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.Picture", "Picture")
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Reservation", "Reservation")
                         .WithMany()
-                        .HasForeignKey("PictureId");
+                        .HasForeignKey("ReservationId1");
+                });
 
-                    b.HasOne("ParadiseGuestHouse.Data.Models.RoomDescription", "RoomDescription")
-                        .WithMany()
-                        .HasForeignKey("RoomDescriptionId");
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Picture", b =>
+                {
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Room", null)
+                        .WithMany("Pictures")
+                        .HasForeignKey("RoomId");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ReservedRoom", b =>
+                {
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Reservation", "Reservation")
+                        .WithMany("ReservedRoom")
+                        .HasForeignKey("ReservationId1");
+
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Room", "Room")
+                        .WithMany("ReservedRoom")
+                        .HasForeignKey("RoomId1");
                 });
 #pragma warning restore 612, 618
         }

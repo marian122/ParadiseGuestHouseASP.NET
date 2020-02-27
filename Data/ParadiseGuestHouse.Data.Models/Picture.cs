@@ -5,9 +5,13 @@
 
     using ParadiseGuestHouse.Data.Common.Models;
 
-    public class Picture : BaseDeletableModel<int>
+    public class Picture : BaseDeletableModel<string>
     {
-        [Required]
+        public Picture()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Link { get; set; }
     }
 }

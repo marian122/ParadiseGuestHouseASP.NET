@@ -31,6 +31,10 @@ namespace ParadiseGuestHouse.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public int ReservationId { get; set; }
+
+        public Reservation Reservation { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
