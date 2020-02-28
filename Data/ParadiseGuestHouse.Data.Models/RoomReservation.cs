@@ -6,9 +6,9 @@
     using ParadiseGuestHouse.Data.Common.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
 
-    public class Reservation : BaseDeletableModel<string>
+    public class RoomReservation : BaseDeletableModel<string>
     {
-        public Reservation()
+        public RoomReservation()
         {
             this.Id = Guid.NewGuid().ToString();
             this.ReservedRoom = new HashSet<ReservedRoom>();

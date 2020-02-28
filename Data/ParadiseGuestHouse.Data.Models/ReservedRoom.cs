@@ -10,8 +10,8 @@
 
         public Room Room { get; set; }
 
-        public string ReservationId { get; set; }
+        public string RoomReservationId { get; set; }
 
-        public Reservation Reservation { get; set; }
+        public RoomReservation RoomReservation { get; set; }
     }
 }

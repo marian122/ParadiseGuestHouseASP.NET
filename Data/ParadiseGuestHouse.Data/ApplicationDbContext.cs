@@ -29,11 +29,18 @@
 
         public DbSet<Picture> Pictures { get; set; }
 
-        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<RoomReservation> RoomReservations { get; set; }
 
         public DbSet<Guest> Guests { get; set; }
 
         public DbSet<ReservedRoom> ReservedRooms { get; set; }
+
+        public DbSet<ConferenceHall> ConferenceHalls { get; set; }
+
+        public DbSet<ConferenceHallReservation> ConferenceHallReservations { get; set; }
+        
+        public DbSet<ReservedConferenceHall> ReservedConferenceHalls { get; set; }
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -61,7 +68,9 @@
 
             ConfigureUserIdentityRelations(builder);
 
-            builder.Entity<ReservedRoom>().HasKey(rr => new { rr.RoomId, rr.ReservationId });
+            builder.Entity<ReservedRoom>().HasKey(rr => new { rr.RoomId, rr.RoomReservationId });
+
+            builder.Entity<ReservedConferenceHall>().HasKey(rc => new { rc.ConferenceHallId, rc.ConferenceHallReservationId });
 
             EntityIndexesConfiguration.Configure(builder);
 

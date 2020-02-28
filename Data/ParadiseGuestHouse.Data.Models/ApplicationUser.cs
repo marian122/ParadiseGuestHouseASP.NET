@@ -33,7 +33,11 @@ namespace ParadiseGuestHouse.Data.Models
 
         public string ReservationId { get; set; }
 
-        public Reservation Reservation { get; set; }
+        public RoomReservation Reservation { get; set; }
+
+        public string ConferenceHallReservationId { get; set; }
+
+        public ConferenceHallReservation ConferenceHallReservation { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
