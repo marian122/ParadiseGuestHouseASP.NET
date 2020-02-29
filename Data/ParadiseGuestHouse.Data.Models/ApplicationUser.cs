@@ -31,13 +31,17 @@ namespace ParadiseGuestHouse.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public string ReservationId { get; set; }
+        public string RoomReservationId { get; set; }
 
         public RoomReservation Reservation { get; set; }
 
         public string ConferenceHallReservationId { get; set; }
 
         public ConferenceHallReservation ConferenceHallReservation { get; set; }
+
+        public string RestaurantReservationId { get; set; }
+
+        public RestaurantReservation RestaurantReservation { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

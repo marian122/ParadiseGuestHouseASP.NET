@@ -3,6 +3,7 @@
     using System;
 
     using ParadiseGuestHouse.Data.Common.Models;
+    using ParadiseGuestHouse.Data.Models.Enums;
 
     public class ConferenceHallReservation : BaseDeletableModel<string>
     {
@@ -12,6 +13,8 @@
         }
 
         public int NumberOfGuests { get; set; }
+
+        public EventType EventType { get; set; }
 
         public DateTime DateOfEvent { get; set; }
 

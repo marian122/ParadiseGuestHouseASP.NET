@@ -27,5 +27,9 @@
         public string ConferenceHallReservationId { get; set; }
 
         public ConferenceHallReservation ConferenceHallReservation { get; set; }
+
+        public string RestaurantReservationId { get; set; }
+
+        public RestaurantReservation RestaurantReservation { get; set; }
     }
 }

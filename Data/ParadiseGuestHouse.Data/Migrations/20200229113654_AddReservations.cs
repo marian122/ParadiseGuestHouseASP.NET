@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
-    public partial class kironew : Migration
+    public partial class AddReservations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,80 @@ namespace ParadiseGuestHouse.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
+                name: "ConferenceHallReservations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    NumberOfGuests = table.Column<int>(nullable: false),
+                    EventType = table.Column<int>(nullable: false),
+                    DateOfEvent = table.Column<DateTime>(nullable: false),
+                    ArrivalTime = table.Column<DateTime>(nullable: false),
+                    LeaveTime = table.Column<DateTime>(nullable: false),
+                    Message = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConferenceHallReservations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConferenceHalls",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConferenceHalls", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaurantReservations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    NumberOfGuests = table.Column<int>(nullable: false),
+                    DateOfMeeting = table.Column<DateTime>(nullable: false),
+                    ArrivalTime = table.Column<DateTime>(nullable: false),
+                    Message = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantReservations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Restaurants",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Restaurants", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomReservations",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -42,7 +115,7 @@ namespace ParadiseGuestHouse.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.PrimaryKey("PK_RoomReservations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,6 +185,54 @@ namespace ParadiseGuestHouse.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ReservedConferenceHalls",
+                columns: table => new
+                {
+                    ConferenceHallId = table.Column<string>(nullable: false),
+                    ConferenceHallReservationId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservedConferenceHalls", x => new { x.ConferenceHallId, x.ConferenceHallReservationId });
+                    table.ForeignKey(
+                        name: "FK_ReservedConferenceHalls_ConferenceHalls_ConferenceHallId",
+                        column: x => x.ConferenceHallId,
+                        principalTable: "ConferenceHalls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReservedConferenceHalls_ConferenceHallReservations_ConferenceHallReservationId",
+                        column: x => x.ConferenceHallReservationId,
+                        principalTable: "ConferenceHallReservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservedRestaurants",
+                columns: table => new
+                {
+                    RestaurantId = table.Column<string>(nullable: false),
+                    RestaurantReservationId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservedRestaurants", x => new { x.RestaurantId, x.RestaurantReservationId });
+                    table.ForeignKey(
+                        name: "FK_ReservedRestaurants_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReservedRestaurants_RestaurantReservations_RestaurantReservationId",
+                        column: x => x.RestaurantReservationId,
+                        principalTable: "RestaurantReservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -136,15 +257,29 @@ namespace ParadiseGuestHouse.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    ReservationId = table.Column<string>(nullable: true)
+                    RoomReservationId = table.Column<string>(nullable: true),
+                    ConferenceHallReservationId = table.Column<string>(nullable: true),
+                    RestaurantReservationId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
+                        name: "FK_AspNetUsers_ConferenceHallReservations_ConferenceHallReservationId",
+                        column: x => x.ConferenceHallReservationId,
+                        principalTable: "ConferenceHallReservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_RestaurantReservations_RestaurantReservationId",
+                        column: x => x.RestaurantReservationId,
+                        principalTable: "RestaurantReservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_RoomReservations_RoomReservationId",
+                        column: x => x.RoomReservationId,
+                        principalTable: "RoomReservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -162,15 +297,29 @@ namespace ParadiseGuestHouse.Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true),
-                    ReservationId = table.Column<string>(nullable: true)
+                    RoomReservationId = table.Column<string>(nullable: true),
+                    ConferenceHallReservationId = table.Column<string>(nullable: true),
+                    RestaurantReservationId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Guests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Guests_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
+                        name: "FK_Guests_ConferenceHallReservations_ConferenceHallReservationId",
+                        column: x => x.ConferenceHallReservationId,
+                        principalTable: "ConferenceHallReservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Guests_RestaurantReservations_RestaurantReservationId",
+                        column: x => x.RestaurantReservationId,
+                        principalTable: "RestaurantReservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Guests_RoomReservations_RoomReservationId",
+                        column: x => x.RoomReservationId,
+                        principalTable: "RoomReservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -185,11 +334,25 @@ namespace ParadiseGuestHouse.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Link = table.Column<string>(nullable: true),
+                    ConferenceHallId = table.Column<string>(nullable: true),
+                    RestaurantId = table.Column<string>(nullable: true),
                     RoomId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pictures_ConferenceHalls_ConferenceHallId",
+                        column: x => x.ConferenceHallId,
+                        principalTable: "ConferenceHalls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pictures_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Pictures_Rooms_RoomId",
                         column: x => x.RoomId,
@@ -203,26 +366,21 @@ namespace ParadiseGuestHouse.Data.Migrations
                 columns: table => new
                 {
                     RoomId = table.Column<string>(nullable: false),
-                    ReservationId = table.Column<string>(nullable: false),
-                    Id = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    RoomReservationId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReservedRooms", x => new { x.RoomId, x.ReservationId });
-                    table.ForeignKey(
-                        name: "FK_ReservedRooms_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_ReservedRooms", x => new { x.RoomId, x.RoomReservationId });
                     table.ForeignKey(
                         name: "FK_ReservedRooms_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReservedRooms_RoomReservations_RoomReservationId",
+                        column: x => x.RoomReservationId,
+                        principalTable: "RoomReservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -312,6 +470,45 @@ namespace ParadiseGuestHouse.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    ReservedRoomRoomId = table.Column<string>(nullable: true),
+                    ReservedRoomRoomReservationId = table.Column<string>(nullable: true),
+                    ReservedConferenceHallConferenceHallId = table.Column<string>(nullable: true),
+                    ReservedConferenceHallConferenceHallReservationId = table.Column<string>(nullable: true),
+                    ReservedRestaurantRestaurantId = table.Column<string>(nullable: true),
+                    ReservedRestaurantRestaurantReservationId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservedConferenceHalls_ReservedConferenceHallConferenceHallId_ReservedConferenceHallConferenceHallReservationId",
+                        columns: x => new { x.ReservedConferenceHallConferenceHallId, x.ReservedConferenceHallConferenceHallReservationId },
+                        principalTable: "ReservedConferenceHalls",
+                        principalColumns: new[] { "ConferenceHallId", "ConferenceHallReservationId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservedRestaurants_ReservedRestaurantRestaurantId_ReservedRestaurantRestaurantReservationId",
+                        columns: x => new { x.ReservedRestaurantRestaurantId, x.ReservedRestaurantRestaurantReservationId },
+                        principalTable: "ReservedRestaurants",
+                        principalColumns: new[] { "RestaurantId", "RestaurantReservationId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservedRooms_ReservedRoomRoomId_ReservedRoomRoomReservationId",
+                        columns: x => new { x.ReservedRoomRoomId, x.ReservedRoomRoomReservationId },
+                        principalTable: "ReservedRooms",
+                        principalColumns: new[] { "RoomId", "RoomReservationId" },
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -345,6 +542,11 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ConferenceHallReservationId",
+                table: "AspNetUsers",
+                column: "ConferenceHallReservationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_IsDeleted",
                 table: "AspNetUsers",
                 column: "IsDeleted");
@@ -362,9 +564,29 @@ namespace ParadiseGuestHouse.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_ReservationId",
+                name: "IX_AspNetUsers_RestaurantReservationId",
                 table: "AspNetUsers",
-                column: "ReservationId");
+                column: "RestaurantReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_RoomReservationId",
+                table: "AspNetUsers",
+                column: "RoomReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConferenceHallReservations_IsDeleted",
+                table: "ConferenceHallReservations",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConferenceHalls_IsDeleted",
+                table: "ConferenceHalls",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Guests_ConferenceHallReservationId",
+                table: "Guests",
+                column: "ConferenceHallReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Guests_IsDeleted",
@@ -372,14 +594,29 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Guests_ReservationId",
+                name: "IX_Guests_RestaurantReservationId",
                 table: "Guests",
-                column: "ReservationId");
+                column: "RestaurantReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Guests_RoomReservationId",
+                table: "Guests",
+                column: "RoomReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pictures_ConferenceHallId",
+                table: "Pictures",
+                column: "ConferenceHallId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_IsDeleted",
                 table: "Pictures",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pictures_RestaurantId",
+                table: "Pictures",
+                column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_RoomId",
@@ -392,14 +629,51 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReservedRooms_IsDeleted",
+                name: "IX_Reservations_ReservedConferenceHallConferenceHallId_ReservedConferenceHallConferenceHallReservationId",
+                table: "Reservations",
+                columns: new[] { "ReservedConferenceHallConferenceHallId", "ReservedConferenceHallConferenceHallReservationId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservedRestaurantRestaurantId_ReservedRestaurantRestaurantReservationId",
+                table: "Reservations",
+                columns: new[] { "ReservedRestaurantRestaurantId", "ReservedRestaurantRestaurantReservationId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservedRoomRoomId_ReservedRoomRoomReservationId",
+                table: "Reservations",
+                columns: new[] { "ReservedRoomRoomId", "ReservedRoomRoomReservationId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservedConferenceHalls_ConferenceHallReservationId",
+                table: "ReservedConferenceHalls",
+                column: "ConferenceHallReservationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservedRestaurants_RestaurantReservationId",
+                table: "ReservedRestaurants",
+                column: "RestaurantReservationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservedRooms_RoomReservationId",
                 table: "ReservedRooms",
+                column: "RoomReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantReservations_IsDeleted",
+                table: "RestaurantReservations",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReservedRooms_ReservationId",
-                table: "ReservedRooms",
-                column: "ReservationId");
+                name: "IX_Restaurants_IsDeleted",
+                table: "Restaurants",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomReservations_IsDeleted",
+                table: "RoomReservations",
+                column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_IsDeleted",
@@ -436,7 +710,7 @@ namespace ParadiseGuestHouse.Data.Migrations
                 name: "Pictures");
 
             migrationBuilder.DropTable(
-                name: "ReservedRooms");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Settings");
@@ -448,10 +722,31 @@ namespace ParadiseGuestHouse.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "ReservedConferenceHalls");
+
+            migrationBuilder.DropTable(
+                name: "ReservedRestaurants");
+
+            migrationBuilder.DropTable(
+                name: "ReservedRooms");
+
+            migrationBuilder.DropTable(
+                name: "ConferenceHalls");
+
+            migrationBuilder.DropTable(
+                name: "ConferenceHallReservations");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants");
+
+            migrationBuilder.DropTable(
+                name: "RestaurantReservations");
+
+            migrationBuilder.DropTable(
                 name: "Rooms");
 
             migrationBuilder.DropTable(
-                name: "Reservations");
+                name: "RoomReservations");
         }
     }
 }

@@ -4,7 +4,7 @@
 
     using ParadiseGuestHouse.Data.Common.Models;
 
-    public class ReservedRoom : BaseDeletableModel<string>
+    public class ReservedRoom
     {
         public string RoomId { get; set; }
 

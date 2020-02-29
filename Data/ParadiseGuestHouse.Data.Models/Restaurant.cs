@@ -5,17 +5,18 @@
     using System.Text;
 
     using ParadiseGuestHouse.Data.Common.Models;
-    using ParadiseGuestHouse.Data.Models.Enums;
 
-    public class ConferenceHall : BaseDeletableModel<string>
+    public class Restaurant : BaseDeletableModel<string>
     {
-        public ConferenceHall()
+        public Restaurant()
         {
             this.Id = Guid.NewGuid().ToString();
             this.Pictures = new List<Picture>();
         }
 
         public IList<Picture> Pictures { get; set; }
+
+        public string Title { get; set; }
 
         public string Description { get; set; }
     }

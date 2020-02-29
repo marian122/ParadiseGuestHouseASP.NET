@@ -38,9 +38,14 @@
         public DbSet<ConferenceHall> ConferenceHalls { get; set; }
 
         public DbSet<ConferenceHallReservation> ConferenceHallReservations { get; set; }
-        
+
         public DbSet<ReservedConferenceHall> ReservedConferenceHalls { get; set; }
 
+        public DbSet<Restaurant> Restaurants { get; set; }
+
+        public DbSet<RestaurantReservation> RestaurantReservations { get; set; }
+
+        public DbSet<ReservedRestaurant> ReservedRestaurants { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -71,6 +76,8 @@
             builder.Entity<ReservedRoom>().HasKey(rr => new { rr.RoomId, rr.RoomReservationId });
 
             builder.Entity<ReservedConferenceHall>().HasKey(rc => new { rc.ConferenceHallId, rc.ConferenceHallReservationId });
+
+            builder.Entity<ReservedRestaurant>().HasKey(rr => new { rr.RestaurantId, rr.RestaurantReservationId });
 
             EntityIndexesConfiguration.Configure(builder);
 

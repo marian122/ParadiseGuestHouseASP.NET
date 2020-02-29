@@ -2,7 +2,7 @@
 {
     using ParadiseGuestHouse.Data.Common.Models;
 
-    public class ReservedConferenceHall : BaseDeletableModel<string>
+    public class ReservedConferenceHall
     {
         public string ConferenceHallId { get; set; }
 
