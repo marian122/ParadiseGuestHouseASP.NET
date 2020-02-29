@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ParadiseGuestHouse.Data.Models
+
 @{
     ViewData["Title"] = "Reserve";
 }
 @inject SignInManager<ApplicationUser> SignInManager
+@model ParadiseGuestHouse.Web.InputModels.RestaurantInputModel
 
 <section id="conferenceHallReserveForm">
     <div class="container">
@@ -44,40 +46,44 @@
             </div>
 
             <div class="col-lg-5">
-                <form>
+                <form asp-controller="Restaurant" asp-action="Reserve">
                     <div class="form-group">
                         <i class="fa fa-user icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Имена">
+                        <input class="form-control" asp-for="FirstName" placeholder="Име">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-user icon"></i>
+                        <input class="form-control" asp-for="LastName" placeholder="Фамилия">
                     </div>
                     @if (!this.SignInManager.IsSignedIn(this.User))
                     {
                         <div class="form-group">
                             <i class="fa fa-envelope icon"></i>
-                            <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                            <input class="form-control" asp-for="Email" placeholder="E-mail">
                         </div>
                     }
                     <div class="form-group">
                         <i class="fa fa-phone icon"></i>
-                        <input type="tel" class="form-control" name="" value="" placeholder="Тел. номер">
+                        <input class="form-control" asp-for="PhoneNumber" placeholder="Тел. номер">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-group icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Брой хора">
+                        <input class="form-control" asp-for="NumberOfPeople" placeholder="Брой хора">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Дата на събитието" onfocus="(this.type='date')" id="date">
+                        <input class="form-control" asp-for="DateOfMeeting" placeholder="Дата на събитието" onfocus="(this.type='date')" id="date">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
-                        <input type="datetime" class="form-control" name="" value="" placeholder="Начален час">
+                        <input class="form-control" asp-for="StartingHour" placeholder="Начален час">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-commenting icon"></i>
-                        <textarea class="form-control" name="" rows="3" placeholder="Вашето съобщение."></textarea>
+                        <textarea class="form-control"asp-for="Message" rows="3" placeholder="Вашето съобщение."></textarea>
                     </div>
 
-                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">Резервирай</a>
+                    <input type="submit" value="Резервирай" class="btn btn-outline-dark" asp-area="" asp-controller="Restaurant" asp-action="Reserve">
 
                 </form>
             </div>

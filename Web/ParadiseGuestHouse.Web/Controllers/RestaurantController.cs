@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Web.InputModels;
 
     public class RestaurantController : Controller
     {
@@ -17,6 +18,12 @@
         public IActionResult Reserve()
         {
             return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Reserve(RestaurantInputModel input)
+        {
+            return this.Json(input);
         }
     }
 }
