@@ -1,6 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     public class RestaurantInputModel
     {
@@ -14,9 +15,11 @@
 
         public int NumberOfPeople { get; set; }
 
-        //public DateTime DateOfMeeting { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateOfMeeting { get; set; }
 
-        //public DateTime StartingHour { get; set; }
+        [DataType(DataType.Time)]
+        public DateTime StartingHour { get; set; }
 
         public string Message { get; set; }
     }
