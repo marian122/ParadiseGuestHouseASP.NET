@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
@@ -41,5 +43,38 @@
 
             return result > 0;
         }
+
+        public async Task<bool> DeleteRoom(string id)
+        {
+            var room = this.repository
+                .All()
+                .FirstOrDefault(r => r.Id == id);
+
+            if (room != null)
+            {
+                this.repository
+                    .Delete(room);
+
+                int result = await this.repository.SaveChangesAsync();
+                return result > 0;
+            }
+
+            throw new NullReferenceException();
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>()
+            => await this.repository
+            .All()
+            .Where(r => r.IsDeleted != true)
+            .OrderBy(p => p.Price)
+            .To<TViewModel>()
+            .ToListAsync();
+
+        public async Task<TViewModel> GetRoomAsync<TViewModel>(string id)
+            => await this.repository
+            .All()
+            .Where(r => r.Id == id && r.IsDeleted != true)
+            .To<TViewModel>()
+            .FirstOrDefaultAsync();
     }
 }

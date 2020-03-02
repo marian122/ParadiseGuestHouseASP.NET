@@ -5,5 +5,7 @@
         public const string SystemName = "ParadiseGuestHouse";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string UserRoleName = "User";
     }
 }

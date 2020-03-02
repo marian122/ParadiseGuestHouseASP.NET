@@ -6,6 +6,7 @@ namespace ParadiseGuestHouse.Data.Models
 
     using Microsoft.AspNetCore.Identity;
     using ParadiseGuestHouse.Data.Common.Models;
+    using ParadiseGuestHouse.Data.Models.Enums;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

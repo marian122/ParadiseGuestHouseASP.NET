@@ -12,6 +12,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Pictures = new List<Picture>();
+            this.RestaurantReservations = new HashSet<RestaurantReservation>();
         }
 
         public IList<Picture> Pictures { get; set; }
@@ -19,5 +20,7 @@
         public string Title { get; set; }
 
         public string Description { get; set; }
+
+        public ICollection<RestaurantReservation> RestaurantReservations { get; set; }
     }
 }

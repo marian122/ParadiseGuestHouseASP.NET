@@ -19,6 +19,7 @@
     using ParadiseGuestHouse.Services.Mapping;
     using ParadiseGuestHouse.Services.Messaging;
     using ParadiseGuestHouse.Web.ViewModels;
+    using ParadiseGuestHouse.Web.ViewModels.Room;
 
     public class Startup
     {
@@ -65,7 +66,8 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(
+                typeof(ErrorViewModel).GetTypeInfo().Assembly, typeof(RoomsAllViewModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

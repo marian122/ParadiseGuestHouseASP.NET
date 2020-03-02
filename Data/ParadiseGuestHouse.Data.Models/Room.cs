@@ -13,7 +13,6 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Pictures = new List<Picture>();
-            this.ReservedRoom = new HashSet<ReservedRoom>();
         }
 
         public RoomType RoomType { get; set; }
@@ -42,6 +41,6 @@
 
         public IList<Picture> Pictures { get; set; }
 
-        public ICollection<ReservedRoom> ReservedRoom { get; set; }
+        public ICollection<RoomReservation> RoomReservations { get; set; }
     }
 }

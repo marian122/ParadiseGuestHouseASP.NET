@@ -14,13 +14,11 @@
         }
 
         public int NumberOfGuests { get; set; }
-        
+
         public DateTime DateOfMeeting { get; set; }
 
         public DateTime ArrivalTime { get; set; }
 
         public string Message { get; set; }
-
-        public ReservedRestaurant ReservedRestaurant { get; set; }
     }
 }

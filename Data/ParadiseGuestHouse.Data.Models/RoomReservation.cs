@@ -11,7 +11,6 @@
         public RoomReservation()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.ReservedRoom = new HashSet<ReservedRoom>();
         }
 
         public DateTime CheckIn { get; set; }
@@ -23,7 +22,5 @@
         public int NumberOfGuests { get; set; }
 
         public int NumberOfNights { get; set; }
-
-        public ICollection<ReservedRoom> ReservedRoom { get; set; }
     }
 }

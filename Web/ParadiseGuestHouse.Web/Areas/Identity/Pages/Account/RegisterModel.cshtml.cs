@@ -16,7 +16,9 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models;
+    using ParadiseGuestHouse.Data.Models.Enums;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -100,9 +102,17 @@
                     Email = this.Input.Email,
                     PhoneNumber = this.Input.PhoneNumber,
                 };
+
+                var isRoot = !this.userManager.Users.Any();
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
+                    if (isRoot)
+                    {
+                        await this.userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
+                    }
+
                     this.logger.LogInformation("Потребителят създаде нов акаунт.");
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);

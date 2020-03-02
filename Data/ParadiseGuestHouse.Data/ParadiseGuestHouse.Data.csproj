@@ -11,11 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200229113459_AddReservationsBase.cs" />
-    <Compile Remove="Migrations\20200229113459_AddReservationsBase.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 

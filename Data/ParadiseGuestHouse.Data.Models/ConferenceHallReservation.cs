@@ -23,7 +23,5 @@
         public DateTime LeaveTime { get; set; }
 
         public string Message { get; set; }
-
-        public ReservedConferenceHall ReservedConferenceHall { get; set; }
     }
 }

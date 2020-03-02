@@ -13,10 +13,13 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Pictures = new List<Picture>();
+            this.ConferenceHallReservations = new HashSet<ConferenceHallReservation>();
         }
 
         public IList<Picture> Pictures { get; set; }
 
         public string Description { get; set; }
+
+        public ICollection<ConferenceHallReservation> ConferenceHallReservations { get; set; }
     }
 }

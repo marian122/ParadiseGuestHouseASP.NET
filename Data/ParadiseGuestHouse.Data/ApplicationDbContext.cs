@@ -33,19 +33,13 @@
 
         public DbSet<Guest> Guests { get; set; }
 
-        public DbSet<ReservedRoom> ReservedRooms { get; set; }
-
         public DbSet<ConferenceHall> ConferenceHalls { get; set; }
 
         public DbSet<ConferenceHallReservation> ConferenceHallReservations { get; set; }
 
-        public DbSet<ReservedConferenceHall> ReservedConferenceHalls { get; set; }
-
         public DbSet<Restaurant> Restaurants { get; set; }
 
         public DbSet<RestaurantReservation> RestaurantReservations { get; set; }
-
-        public DbSet<ReservedRestaurant> ReservedRestaurants { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -72,12 +66,6 @@
             base.OnModelCreating(builder);
 
             ConfigureUserIdentityRelations(builder);
-
-            builder.Entity<ReservedRoom>().HasKey(rr => new { rr.RoomId, rr.RoomReservationId });
-
-            builder.Entity<ReservedConferenceHall>().HasKey(rc => new { rc.ConferenceHallId, rc.ConferenceHallReservationId });
-
-            builder.Entity<ReservedRestaurant>().HasKey(rr => new { rr.RestaurantId, rr.RestaurantReservationId });
 
             EntityIndexesConfiguration.Configure(builder);
 

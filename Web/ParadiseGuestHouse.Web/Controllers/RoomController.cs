@@ -5,22 +5,32 @@
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.InputModels;
+    using ParadiseGuestHouse.Web.ViewModels.Room;
     using System.Threading.Tasks;
 
-    public class AccomodationController : Controller
+    public class RoomController : Controller
     {
         private readonly IRoomsService roomsService;
         private readonly IDeletableEntityRepository<Room> repository;
 
-        public AccomodationController(IRoomsService roomsService, IDeletableEntityRepository<Room> repository)
+        public RoomController(IRoomsService roomsService, IDeletableEntityRepository<Room> repository)
         {
             this.roomsService = roomsService;
             this.repository = repository;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> All()
         {
-            return this.View();
+            var rooms = await this.roomsService
+                .GetAllRoomsAsync<RoomsAllViewModel>();
+
+            var roomView = new RoomViewModel()
+            {
+                AllRooms = rooms,
+            };
+
+            return this.View(roomView);
         }
 
         public IActionResult SingleRoom()
@@ -48,7 +58,19 @@
 
             await this.roomsService.CreateRoom(input.RoomType, input.Price, input.NumberOfBeds, input.HasBathroom, input.HasRoomService, input.HasSeaView,input.HasMountainView, input.HasWifi, input.HasTv, input.HasPhone, input.HasAirConditioner, input.HasHeater);
 
-            return this.Redirect("/");
+            return this.Redirect("/Room/All");
+        }
+
+        public async Task<IActionResult> DeleteRoom(string roomId)
+        {
+            var result = await this.roomsService.DeleteRoom(roomId);
+
+            if (result == true)
+            {
+                return this.Redirect("/Room/All");
+            }
+
+            return this.NotFound();
         }
     }
 }
