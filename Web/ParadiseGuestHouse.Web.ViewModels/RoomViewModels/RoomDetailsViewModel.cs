@@ -1,13 +1,11 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.Room
+﻿namespace ParadiseGuestHouse.Web.ViewModels.RoomViewModels
 {
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
 
-    public class RoomsAllViewModel : IMapFrom<Room>
+    public class RoomDetailsViewModel : IMapFrom<Room>
     {
         public string RoomType { get; set; }
-
-        public decimal Price { get; set; }
 
         public int NumberOfBeds { get; set; }
 
@@ -28,7 +26,5 @@
         public bool HasAirConditioner { get; set; }
 
         public bool HasHeater { get; set; }
-
-        //public IList<Picture> Pictures { get; set; }
     }
 }

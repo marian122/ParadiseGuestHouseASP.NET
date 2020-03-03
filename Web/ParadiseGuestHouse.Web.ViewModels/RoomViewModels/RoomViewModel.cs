@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.Room
+﻿namespace ParadiseGuestHouse.Web.ViewModels.RoomViewModels
 {
     using System.Collections.Generic;
 

@@ -5,7 +5,7 @@
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.InputModels;
-    using ParadiseGuestHouse.Web.ViewModels.Room;
+    using ParadiseGuestHouse.Web.ViewModels.RoomViewModels;
     using System.Threading.Tasks;
 
     public class RoomController : Controller
@@ -33,44 +33,18 @@
             return this.View(roomView);
         }
 
-        public IActionResult SingleRoom()
+        [HttpGet]
+        [Route("Room/RoomDetails/{roomId}")]
+        public async Task<IActionResult> RoomDetails([FromRoute]string roomId)
         {
-            return this.View();
+            var room = await this.roomsService.GetRoomAsync<RoomDetailsViewModel>(roomId);
+
+            return this.View(room);
         }
 
         public IActionResult Reserve()
         {
             return this.View();
-        }
-
-        public IActionResult CreateRoom()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateRoom(CreateRoomInputModel input)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            await this.roomsService.CreateRoom(input.RoomType, input.Price, input.NumberOfBeds, input.HasBathroom, input.HasRoomService, input.HasSeaView,input.HasMountainView, input.HasWifi, input.HasTv, input.HasPhone, input.HasAirConditioner, input.HasHeater);
-
-            return this.Redirect("/Room/All");
-        }
-
-        public async Task<IActionResult> DeleteRoom(string roomId)
-        {
-            var result = await this.roomsService.DeleteRoom(roomId);
-
-            if (result == true)
-            {
-                return this.Redirect("/Room/All");
-            }
-
-            return this.NotFound();
         }
     }
 }
