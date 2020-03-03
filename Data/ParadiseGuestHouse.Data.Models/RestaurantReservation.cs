@@ -1,10 +1,9 @@
 ﻿namespace ParadiseGuestHouse.Data.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     using ParadiseGuestHouse.Data.Common.Models;
+    using ParadiseGuestHouse.Data.Models.Enums;
 
     public class RestaurantReservation : BaseDeletableModel<string>
     {
@@ -14,6 +13,8 @@
         }
 
         public int NumberOfGuests { get; set; }
+
+        public RestaurantEventType EventType { get; set; }
 
         public DateTime DateOfMeeting { get; set; }
 

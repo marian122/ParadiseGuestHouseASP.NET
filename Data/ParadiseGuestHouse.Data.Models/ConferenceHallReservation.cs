@@ -14,7 +14,7 @@
 
         public int NumberOfGuests { get; set; }
 
-        public EventType EventType { get; set; }
+        public ConfHallEventType EventType { get; set; }
 
         public DateTime DateOfEvent { get; set; }
 

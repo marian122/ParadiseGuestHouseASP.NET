@@ -1,14 +1,11 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.Restaurant
+﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.ConferenceHall
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
-    using ParadiseGuestHouse.Data.Models;
-    using ParadiseGuestHouse.Services.Mapping;
-
-    public class RestaurantInputModel : IMapFrom<Restaurant>
+    public class ConferenceHallInputModel
     {
         [Required(ErrorMessage = "Полето е задължително")]
         [MaxLength(20, ErrorMessage = "Полето може да съдържа най-много 20 символа")]
@@ -19,28 +16,33 @@
         public string LastName { get; set; }
 
         [EmailAddress(ErrorMessage = "Невалиден имейл!")]
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [RegularExpression(@"08[789]\d{7}", ErrorMessage = "Грешен телефонен номер")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
-        [Range(0, 120, ErrorMessage = "Полето трябва де бъде между 0 и 120")]
-        public int NumberOfPeople { get; set; }
+        [Range(0, 200, ErrorMessage = "Полето трябва де бъде между 0 и 200")]
+        public int NumberOfGuests { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         public string EventType { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Date)]
-        public DateTime DateOfMeeting { get; set; }
+        public string EventDate { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Time)]
-        public DateTime StartingHour { get; set; }
+        public string ArrivalTime { get; set; }
+
+        [Required(ErrorMessage = "Полето е задължително")]
+        [DataType(DataType.Time)]
+        public string LeavingTime { get; set; }
 
         [MaxLength(300)]
         public string Message { get; set; }
+
     }
 }

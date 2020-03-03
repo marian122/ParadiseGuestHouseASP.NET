@@ -5,6 +5,7 @@
 }
 
 @inject SignInManager<ApplicationUser> SignInManager
+@model ParadiseGuestHouse.Web.ViewModels.InputModels.ConferenceHall.ConferenceHallInputModel
 <section id="conferenceHallReserveForm">
     <div class="container">
         <div id="reserveHeader" class="d-flex justify-content-center">
@@ -17,44 +18,58 @@
         </div>
         <div class="row">
             <div class="col-lg-5">
-                <form>
+                <form asp-controller="ConferenceHall" asp-action="Reserve">
                     <div class="form-group">
                         <i class="fa fa-user icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Имена">
+                        <input class="form-control" asp-for="FirstName" placeholder="Име">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-user icon"></i>
+                        <input class="form-control" asp-for="LastName" placeholder="Фамилия">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                     @if (!this.SignInManager.IsSignedIn(this.User))
                     {
                         <div class="form-group">
                             <i class="fa fa-envelope icon"></i>
-                            <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                            <input class="form-control" asp-for="EmailAddress" placeholder="E-mail">
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
                         </div>
                     }
                     <div class="form-group">
                         <i class="fa fa-phone icon"></i>
-                        <input type="tel" class="form-control" name="" value="" placeholder="Тел. номер">
+                        <input class="form-control" asp-for="PhoneNumber" placeholder="Тел. номер">
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-group icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Брой хора">
+                        <input class="form-control" asp-for="NumberOfGuests" placeholder="Брой хора">
+                        <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Дата на събитието" onfocus="(this.type='date')" id="date">
+                        <input class="form-control" asp-for="EventDate" placeholder="Дата на събитието" onfocus="(this.type='date')" id="date">
+                        <span asp-validation-for="EventDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
-                        <input type="datetime" class="form-control" name="" value="" placeholder="Начален час">
+                        <input class="form-control" asp-for="ArrivalTime" placeholder="Начален час">
+                        <span asp-validation-for="ArrivalTime" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
-                        <input type="datetime" class="form-control" name="" value="" placeholder="Краен час">
+                        <input class="form-control" asp-for="LeavingTime" placeholder="Краен час">
+                        <span asp-validation-for="LeavingTime" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-commenting icon"></i>
-                        <textarea class="form-control" name="" rows="3" placeholder="Вашето съобщение."></textarea>
+                        <textarea class="form-control" asp-for="Message" rows="3" placeholder="Вашето съобщение."></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
                     </div>
 
-                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">Резервирай</a>
+                    <input type="submit" value="Резервирай" class="btn btn-outline-dark" asp-area="" asp-controller="ConferenceHall" asp-action="Reserve">
+
 
                 </form>
             </div>

@@ -4,7 +4,6 @@
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
-    using ParadiseGuestHouse.Web.InputModels;
     using ParadiseGuestHouse.Web.ViewModels.RoomViewModels;
     using System.Threading.Tasks;
 

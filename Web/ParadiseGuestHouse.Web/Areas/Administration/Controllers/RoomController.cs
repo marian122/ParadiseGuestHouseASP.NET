@@ -2,7 +2,7 @@
 using ParadiseGuestHouse.Data.Common.Repositories;
 using ParadiseGuestHouse.Data.Models;
 using ParadiseGuestHouse.Services.Data;
-using ParadiseGuestHouse.Web.InputModels;
+using ParadiseGuestHouse.Web.ViewModels.InputModels.Room;
 using System;
 using System.Collections.Generic;
 using System.Linq;
