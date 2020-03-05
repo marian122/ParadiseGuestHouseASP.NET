@@ -34,7 +34,18 @@
         </div>
 
         <div class="col-lg-5">
-            <h2>@Model.RoomType</h2>
+            @if (Model.RoomType == "SingleRoom")
+            {
+                <h2>Единична стая</h2>
+            }
+            @if (Model.RoomType == "DoubleRoom")
+            {
+                <h2>Двойна стая</h2>
+            }
+            @if (Model.RoomType == "Apartment")
+            {
+                <h2>Апартамент</h2>
+            }
             <ul class="social-network social-circle" style="list-style: none;">
                 @if (Model.RoomType == "SingleRoom" && Model.NumberOfBeds == 1)
                 {

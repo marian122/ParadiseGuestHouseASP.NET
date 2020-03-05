@@ -8,20 +8,21 @@
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
 
-    public class FeedbackService : IFeedbackService
+    public class FeedbacksService : IFeedbacksService
     {
         private readonly IDeletableEntityRepository<Feedback> repository;
 
-        public FeedbackService(IDeletableEntityRepository<Feedback> repository)
+        public FeedbacksService(IDeletableEntityRepository<Feedback> repository)
         {
             this.repository = repository;
         }
 
-        public async Task<bool> SendFeedback(string email, string message)
+        public async Task<bool> SendFeedback(string firstName,string lastName, string message)
         {
             var feedback = new Feedback()
             {
-                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
                 Message = message,
             };
 

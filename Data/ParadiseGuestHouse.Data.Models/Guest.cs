@@ -31,9 +31,5 @@
         public string RestaurantReservationId { get; set; }
 
         public RestaurantReservation RestaurantReservation { get; set; }
-
-        public string FeedbackId { get; set; }
-
-        public Feedback Feedback { get; set; }
     }
 }

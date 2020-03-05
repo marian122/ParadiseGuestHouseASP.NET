@@ -18,7 +18,18 @@
                         <img src="~/Images/singleRoom.jpg" />
                     </div>
                     <div class="col-lg-6">
-                        <h2>@item.RoomType</h2>
+                        @if (item.RoomType == "SingleRoom")
+                        {
+                            <h2>Единична стая</h2>
+                        }
+                        @if (item.RoomType == "DoubleRoom")
+                        {
+                            <h2>Двойна стая</h2>
+                        }
+                        @if (item.RoomType == "Apartment")
+                        {
+                            <h2>Апартамент</h2>
+                        }
                         <h3>Цена: @item.Price лв.</h3>
                         <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="RoomDetails" asp-route-roomId="@item.Id">Повече информация</a>
                         <a class="btn btn-outline-danger" asp-area="" asp-controller="Room" asp-action="DeleteRoom" asp-route-roomId="@item.Id">Изтрий</a>
@@ -34,7 +45,18 @@
                         <img src="~/Images/singleRoom.jpg" />
                     </div>
                     <div class="col-lg-6">
-                        <h2>@item.RoomType</h2>
+                        @if (item.RoomType == "SingleRoom")
+                        {
+                            <h2>Единична стая</h2>
+                        }
+                        @if (item.RoomType == "DoubleRoom")
+                        {
+                            <h2>Двойна стая</h2>
+                        }
+                        @if (item.RoomType == "Apartment")
+                        {
+                            <h2>Апартамент</h2>
+                        }
                         <h3>Цена: @item.Price лв.</h3>
                         <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="RoomDetails" asp-route-roomId="@item.Id">Повече информация</a>
 

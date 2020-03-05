@@ -6,13 +6,23 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.ViewModels.InputModels.Feedback;
 
     public class FeedbackController : Controller
     {
-        public IActionResult Send(FeedbackInputModel input)
+        private readonly IFeedbacksService feedbackService;
+
+        public FeedbackController(IFeedbacksService feedbackService)
         {
-            return this.Json(input);
+            this.feedbackService = feedbackService;
+        }
+
+        public async Task<IActionResult> Send(FeedbackInputModel input)
+        {
+            await this.feedbackService.SendFeedback(input.FirstName, input.LastName, input.Message);
+
+            return this.Redirect("/");
         }
     }
 }

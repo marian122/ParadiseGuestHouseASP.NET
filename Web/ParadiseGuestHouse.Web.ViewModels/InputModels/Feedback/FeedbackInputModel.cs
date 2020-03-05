@@ -5,11 +5,15 @@
     public class FeedbackInputModel
     {
         [Required(ErrorMessage = "Полето е задължително!")]
-        [EmailAddress(ErrorMessage = "Невалиден Имейл адрес!")]
-        public string Email { get; set; }
+        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(300, ErrorMessage = "Допустима дължина 300 символа.")]
+        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Полето е задължително!")]
+        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
         public string Message { get; set; }
     }
 }

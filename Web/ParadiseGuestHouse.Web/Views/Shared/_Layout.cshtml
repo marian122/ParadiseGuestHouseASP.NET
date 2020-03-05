@@ -87,7 +87,21 @@
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <partial name="_FeedbackPartial" />
+                    <h5>Разкажете ни за Вашето прекарване</h5>
+                    <form asp-controller="Feedback" asp-action="Send">
+                        <fieldset class="form-group">
+                            <input type="text" name="firstName" class="form-control" id="exampleInputEmail1" placeholder="Въведете име">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" name="lastName" class="form-control" id="exampleInputEmail1" placeholder="Въведете фамилия">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <textarea type="text" name="message" class="form-control" id="exampleMessage" placeholder="Вашето съобщение."></textarea>
+                        </fieldset>
+                        <fieldset class="form-group text-xs-right">
+                            <input type="submit" value="Изпрати" class="btn btn-outline-dark" asp-area="" asp-controller="Feedback" asp-action="Send">
+                        </fieldset>
+                    </form>
                 </div>
 
                 <div class="col-md-3 mb-3 mx-auto">
