@@ -44,6 +44,10 @@ namespace ParadiseGuestHouse.Data.Models
 
         public RestaurantReservation RestaurantReservation { get; set; }
 
+        public string FeedbackId { get; set; }
+
+        public Feedback Feedback { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
