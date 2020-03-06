@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.Controllers
+﻿namespace ParadiseGuestHouse.Web.Areas.Administration.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -7,8 +7,6 @@
 
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Services.Data;
-    using ParadiseGuestHouse.Web.ViewModels.Feedback;
-    using ParadiseGuestHouse.Web.ViewModels.InputModels.Feedback;
 
     public class FeedbackController : Controller
     {
@@ -19,11 +17,16 @@
             this.feedbackService = feedbackService;
         }
 
-        public async Task<IActionResult> Send(FeedbackInputModel input)
+        public async Task<IActionResult> DeleteFeedback(string feedbackId)
         {
-            await this.feedbackService.SendFeedback(input.FirstName, input.LastName, input.Message);
+            var result = await this.feedbackService.DeleteFeedback(feedbackId);
 
-            return this.Redirect("/");
+            if (result == true)
+            {
+                return this.Redirect("/");
+            }
+
+            return this.NotFound();
         }
     }
 }

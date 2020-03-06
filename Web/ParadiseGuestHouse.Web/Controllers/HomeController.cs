@@ -1,15 +1,33 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
     using System.Diagnostics;
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.ViewModels;
+    using ParadiseGuestHouse.Web.ViewModels.Feedback;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly IFeedbacksService feedbacksService;
+
+        public HomeController(IFeedbacksService feedbacksService)
         {
-            return this.View();
+            this.feedbacksService = feedbacksService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var feedbacks = await this.feedbacksService
+                .GetAllFeedbacksAsync<AllFeedbackViewModel>();
+
+            var feedback = new FeedbackViewModel()
+            {
+                AllFeedbacks = feedbacks,
+            };
+
+            return this.View(feedback);
         }
 
         public IActionResult Privacy()

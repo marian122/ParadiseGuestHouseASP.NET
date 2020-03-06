@@ -40,12 +40,16 @@ li {
 
 #homeSection {
     margin-top: 10px;
-    border: double;
-    border-color: #343a40 /*#ffc107*/ /*burlywood*/;
     padding-bottom: 16px;
+    background-color: seashell;
 }
 
-h1, h2, h3{
+    #homeSection div{
+        margin-top: 20px;
+    }
+
+
+h1, h2, h3 {
     font-family: 'Special Elite', cursive;
 }
 
@@ -266,6 +270,51 @@ p, a {
 button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
+}
+
+/*FeedbacksBottomPage*/
+
+
+
+.pull-left {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.media-body {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.media{
+    margin-top: 15px;
+}
+
+#homeSectionFeedback {
+    margin-top: 10px;
+    background-color: seashell;
+    padding-bottom: 16px;
+    overflow-y: scroll;
+    height: 500px;
+}
+    #homeSectionFeedback strong{
+        font-family:cursive;
+    }
+
+    #homeSectionFeedback p {
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    }
+
+    #homeSectionFeedback .btn {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        margin-right: 20px;
+    }
+
+#feedbackRow{
+    border-bottom: 3px inset;
+    border-bottom-color: antiquewhite;
+    padding-bottom: 20px;
 }
 
 

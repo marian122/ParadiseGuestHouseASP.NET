@@ -2,13 +2,14 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
+@model ParadiseGuestHouse.Web.ViewModels.Feedback.FeedbackViewModel
 
-    <link href="https://fonts.googleapis.com/css?family=Special+Elite|Cardo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Special+Elite|Cardo&display=swap" rel="stylesheet">
 
 <div id="homeSection" class="container ">
     <div class="row">
         <div class="col-lg-6">
-            <img src="~/Images/homePageFirstSection.jpg"/>
+            <img src="~/Images/homePageFirstSection.jpg" />
         </div>
         <div class="col-lg-6">
             <h1>Услуги в хотела</h1>
@@ -45,7 +46,7 @@
         </div>
 
         <div class="col-lg-6">
-            <img src="~/Images/homePageSecondSection.jpg" width="600"/>
+            <img src="~/Images/homePageSecondSection.jpg" width="600" />
         </div>
 
     </div>
@@ -54,7 +55,7 @@
 <div id="homeSection" class="container">
     <div class="row">
         <div class="col-lg-6">
-            <img src="~/Images/thirdSectionHome.jpg" width="600"/>
+            <img src="~/Images/thirdSectionHome.jpg" width="600" />
         </div>
         <div class="col-lg-6">
             <h1>Конферентни зали</h1>
@@ -77,9 +78,9 @@
         <div class="col-lg-6">
             <h1>Ресторант</h1>
             <p>
-                Централ Хотел София разполага с ресторант с капацитет от 130 места, 
-                който предлага разнообразни ястия и напитки, уютна атмосфера и стилна обстановка. 
-                Ресторантът е подходящ за организирането на сватби, рождени дни, абитуриентски балове, 
+                Централ Хотел София разполага с ресторант с капацитет от 130 места,
+                който предлага разнообразни ястия и напитки, уютна атмосфера и стилна обстановка.
+                Ресторантът е подходящ за организирането на сватби, рождени дни, абитуриентски балове,
                 корпоративни събития, фирмени тържества, коктейли, бизнес срещи.
             </p>
 
@@ -91,10 +92,27 @@
         </div>
 
         <div class="col-lg-6">
-            <img src="~/Images/forthSectionHome.jpg" width="600"/>
+            <img src="~/Images/forthSectionHome.jpg" width="600" />
         </div>
 
     </div>
 </div>
 
-
+<div id="homeSectionFeedback" class="container">
+    @foreach (var feedback in Model.AllFeedbacks)
+    {
+    <div id="feedbackRow" class="row">
+        <a href="#" class="pull-left">
+            <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+        </a>
+        <div class="media-body">
+            <strong class="text-break">@feedback.FirstName @feedback.LastName</strong>
+            <p>@feedback.Message</p>
+        </div>
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <a class="btn btn-outline-danger" asp-area="" asp-controller="Feedback" asp-action="DeleteFeedback" asp-route-feedbackId="@feedback.Id">X</a>
+        }
+    </div>
+    }
+</div>

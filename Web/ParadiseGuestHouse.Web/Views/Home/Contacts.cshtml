@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Contacts";
 }
-
+@model ParadiseGuestHouse.Web.ViewModels.Contact.ContactFormModel
 <div id="contacts" class="container">
     <div class="row">
         <div class="col-lg-5">
@@ -27,22 +27,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form>
+                <form asp-controller="Contact" asp-action="Contact">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="" value="" placeholder="Имена">
+                        <input asp-for="FirstName" class="form-control" placeholder="Име">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                        <input asp-for="LastName" class="form-control" placeholder="Фамилия">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="tel" class="form-control" name="" value="" placeholder="Тел. номер">
+                        <input asp-for="Email" class="form-control" placeholder="E-mail">
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <textarea class="form-control" name="" rows="3" placeholder="Вашето съобщение."></textarea>
-                    </div>
-                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>Изпрати
-                    </a>
+                    <fieldset class="form-group">
+                        <textarea asp-for="Message" class="form-control" placeholder="Вашето съобщение."></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </fieldset>
+
+                    <input type="submit" value="Изпрати" class="btn btn-outline-dark" asp-area="" asp-controller="Contact" asp-action="Contact">
 
                 </form>
             </div>
