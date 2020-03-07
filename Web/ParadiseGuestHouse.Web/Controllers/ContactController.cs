@@ -6,48 +6,67 @@
     using System.Net;
     using System.Net.Mail;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Common;
+    using ParadiseGuestHouse.Data.Common.Repositories;
+    using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Web.ViewModels.Contact;
 
     public class ContactController : Controller
     {
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Contact(ContactFormModel model)
+        private readonly IRepository<ContactForm> contactsRepository;
+        private readonly IEmailSender emailSender;
+
+        public ContactController(IRepository<ContactForm> contactsRepository, IEmailSender emailSender)
         {
-            if (this.ModelState.IsValid)
-            {
-                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-                var message = new MailMessage();
-                message.To.Add(new MailAddress("nqmazasq"));  // replace with valid value
-                message.From = new MailAddress(model.Email);  // replace with valid value
-                message.Subject = "Your email subject";
-                message.Body = string.Format(body, model.FirstName, model.LastName, model.Message);
-                message.IsBodyHtml = true;
-
-                using (var smtp = new SmtpClient())
-                {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "nqmazasq",  // replace with valid value
-                        Password = "nqmazasq",  // replace with valid value
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
-                    return this.RedirectToAction("Sent");
-                }
-            }
-
-            return this.View(model);
+            this.contactsRepository = contactsRepository;
+            this.emailSender = emailSender;
         }
 
-        public ActionResult Sent()
+        public IActionResult Index()
         {
-            return this.Content("<script language='javascript' type='text/javascript'>alert('Thanks for Feedback!');</script>");
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(ContactFormModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            // TODO: Extract to IP provider (service)
+            var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
+            var contactFormEntry = new ContactForm
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                Title = model.Title,
+                Content = model.Content,
+                Ip = ip,
+            };
+            await this.contactsRepository.AddAsync(contactFormEntry);
+            await this.contactsRepository.SaveChangesAsync();
+
+            await this.emailSender.SendEmailAsync(model.Email, model.Title, model.Content);
+
+            //await this.emailSender.SendEmailAsync(
+            //    model.Email,
+            //    model.FirstName,
+            //    model.LastName,
+            //    GlobalConstants.SystemEmail,
+            //    model.Title,
+            //    model.Content);
+
+            return this.RedirectToAction("ThankYou");
+        }
+
+        public IActionResult ThankYou()
+        {
+            return this.View();
         }
     }
 }

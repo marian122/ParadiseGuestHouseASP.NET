@@ -1,15 +1,19 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.Contact
+﻿namespace ParadiseGuestHouse.Data.Models
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
-    using Microsoft.AspNetCore.Mvc;
-    using PressCenters.Web.Infrastructure;
+    using ParadiseGuestHouse.Data.Common.Models;
 
-    public class ContactFormModel
+    public class ContactForm : BaseDeletableModel<string>
     {
+        public ContactForm()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         [Required]
         [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
         public string FirstName { get; set; }
@@ -19,7 +23,7 @@
         public string LastName { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = "Невалиден имей адрес.")]
+        [EmailAddress(ErrorMessage = "Невалиден имейл адрес.")]
         public string Email { get; set; }
 
         [Required]
@@ -27,10 +31,9 @@
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 300 символа.")]
+        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
         public string Content { get; set; }
 
-        //[GoogleReCaptchaValidation]
-        //public string RecaptchaValue { get; set; }
+        public string Ip { get; set; }
     }
 }

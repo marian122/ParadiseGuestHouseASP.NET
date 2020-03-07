@@ -1,4 +1,4 @@
-﻿
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @{
     ViewData["Title"] = "Contacts";
 }
@@ -13,7 +13,7 @@
         <div class="col-lg-4">
             <i class="fa fa-envelope"></i>
             <a>paradiseHotel@mail.com</a>
-            
+
         </div>
 
         <div class="col-lg-3">
@@ -27,7 +27,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form asp-controller="Contact" asp-action="Contact">
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <input asp-for="FirstName" class="form-control" placeholder="Име">
                         <span asp-validation-for="FirstName" class="text-danger"></span>
@@ -40,14 +41,20 @@
                         <input asp-for="Email" class="form-control" placeholder="E-mail">
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <input asp-for="Title" class="form-control" placeholder="Заглавие">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
                     <fieldset class="form-group">
-                        <textarea asp-for="Message" class="form-control" placeholder="Вашето съобщение."></textarea>
-                        <span asp-validation-for="Message" class="text-danger"></span>
+                        <textarea asp-for="Content" class="form-control" placeholder="Вашето съобщение."></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
                     </fieldset>
 
-                    <input type="submit" value="Изпрати" class="btn btn-outline-dark" asp-area="" asp-controller="Contact" asp-action="Contact">
-
+                    @*<input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />*@
+                    @*<input type="submit" value="Изпрати" class="btn btn-outline-dark" asp-area="" asp-controller="Contact" asp-action="ThankYou">*@
+                    <button type="submit" class="btn btn-outline-dark">Изпратете ни съобщение</button>
                 </form>
+
             </div>
 
             <div class="col-md-7">
@@ -56,3 +63,15 @@
         </div>
     </div>
 </section>
+
+@*@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}*@
