@@ -15,6 +15,6 @@
 
         Task<TViewModel> GetRoomAsync<TViewModel>(string id);
 
-        Task<bool> ReserveRoom()
+        Task<bool> ReserveRoom();
     }
 }
