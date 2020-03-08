@@ -20,6 +20,10 @@
     padding-right: 10px;
 }
 
+.alert {
+    display: none;
+}
+
 #sticknav {
     background-color: seashell;
 }

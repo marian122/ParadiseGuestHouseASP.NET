@@ -10,24 +10,24 @@
 
     public class ContactFormModel
     {
-        [Required]
+        [Required(ErrorMessage = "Името е задължително")]
         [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Фамилията е задължителна")]
         [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Имейл адреса е задължителен")]
         [EmailAddress(ErrorMessage = "Невалиден имей адрес.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Заглавието е задължително")]
         [MaxLength(30, ErrorMessage = "Максимална дължина 30 символа.")]
         public string Title { get; set; }
 
-        [Required]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 300 символа.")]
+        [Required(ErrorMessage = "Съобщението е задължително")]
+        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
         public string Content { get; set; }
 
         //[GoogleReCaptchaValidation]
