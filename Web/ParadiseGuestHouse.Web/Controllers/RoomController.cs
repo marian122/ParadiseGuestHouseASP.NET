@@ -4,6 +4,7 @@
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
+    using ParadiseGuestHouse.Web.ViewModels.InputModels.Room;
     using ParadiseGuestHouse.Web.ViewModels.RoomViewModels;
     using System.Threading.Tasks;
 
@@ -41,9 +42,19 @@
             return this.View(room);
         }
 
-        public IActionResult Reserve()
+        [HttpGet]
+        [Route("Room/Reserve/{roomId}")]
+        public async Task<IActionResult> Reserve([FromRoute]string roomId)
         {
+            var reserveRoom = await this.roomsService.GetRoomAsync<RoomDetailsViewModel>(roomId);
+
             return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Reserve(ReserveRoomInputModel input)
+        {
+            return this.Json(input);
         }
     }
 }

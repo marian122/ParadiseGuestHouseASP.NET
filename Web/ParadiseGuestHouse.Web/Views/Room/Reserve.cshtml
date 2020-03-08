@@ -4,6 +4,7 @@
     ViewData["Title"] = "Reserve";
 }
 @inject SignInManager<ApplicationUser> SignInManager
+@model ParadiseGuestHouse.Web.ViewModels.InputModels.Room.ReserveRoomInputModel
 <section id="conferenceHallReserveForm">
     <div class="container">
         <div id="reserveHeader" class="d-flex justify-content-center">
@@ -15,48 +16,55 @@
         </div>
         <div class="row">
             <div class="col-lg-5">
-                <form>
+                <form asp-controller="Room" asp-action="Reserve">
                     <div class="form-group">
                         <i class="fa fa-user icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Имена">
+                        <input class="form-control" asp-for="FirstName" placeholder="Име">
                     </div>
-                    @if (!this.SignInManager.IsSignedIn(this.User))
+                    <div class="form-group">
+                        <i class="fa fa-user icon"></i>
+                        <input class="form-control" asp-for="LastName" placeholder="Фамилия">
+                    </div>
+                    @if (this.SignInManager.IsSignedIn(this.User))
                     {
                         <div class="form-group">
                             <i class="fa fa-envelope icon"></i>
-                            <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+                            <input class="form-control" asp-for="Email" value="@this.User.Identity.Name" placeholder="Имейл">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <i class="fa fa-envelope icon"></i>
+                            <input class="form-control" asp-for="Email" placeholder="Имейл">
                         </div>
                     }
                     <div class="form-group">
                         <i class="fa fa-phone icon"></i>
-                        <input type="tel" class="form-control" name="" value="" placeholder="Тел. номер">
+                        <input class="form-control" asp-for="PhoneNumber" placeholder="Тел. номер">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-group icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Брой възрастни">
-                    </div>
-                    <div class="form-group">
-                        <i class="fa fa-group icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Брой деца">
+                        <input class="form-control" asp-for="CountOfPeople" placeholder="Брой гости">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Дата на настаняване" onfocus="(this.type='date')" id="date">
+                        <input class="form-control" asp-for="CheckIn" placeholder="Дата на настаняване">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
-                        <input type="text" class="form-control" name="" value="" placeholder="Дата на напускане" onfocus="(this.type='date')" id="date">
+                        <input class="form-control" asp-for="CheckOut" placeholder="Дата на напускане">
                     </div>
                     <div class="form-group">
                         <i class="fa fa-commenting icon"></i>
-                        <textarea class="form-control" name="" rows="3" placeholder="Вашето съобщение."></textarea>
+                        <textarea class="form-control" asp-for="Message" rows="3" placeholder="Вашето съобщение."></textarea>
                     </div>
 
-                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="Index">Резервирай</a>
+                    <input type="submit" value="Резервирай" class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Reserve">
                 </form>
             </div>
 
-            <div id="confHallReserveSlider" class="col-lg-7">
+            <div id="confHallReserveSlider" class="col-lg-7">   
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">

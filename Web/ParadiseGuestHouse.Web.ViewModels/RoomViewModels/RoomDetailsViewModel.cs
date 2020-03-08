@@ -5,6 +5,8 @@
 
     public class RoomDetailsViewModel : IMapFrom<Room>
     {
+        public string Id { get; set; }
+
         public string RoomType { get; set; }
 
         public int NumberOfBeds { get; set; }

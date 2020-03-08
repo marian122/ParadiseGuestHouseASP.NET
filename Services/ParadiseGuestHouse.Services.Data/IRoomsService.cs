@@ -14,5 +14,7 @@
         Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>();
 
         Task<TViewModel> GetRoomAsync<TViewModel>(string id);
+
+        Task<bool> ReserveRoom()
     }
 }
