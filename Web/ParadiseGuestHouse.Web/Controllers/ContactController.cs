@@ -66,7 +66,7 @@
             //    model.Title,
             //    model.Content);
 
-            var client = new SendGridClient("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");
+            var client = new SendGridClient("");
             var name = model.FirstName + " " + model.LastName;
             var from = new EmailAddress(model.Email, name);
             var subject = model.Title;
