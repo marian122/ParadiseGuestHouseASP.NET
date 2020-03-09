@@ -13,6 +13,14 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
+        public string RoomId { get; set; }
+
+        public Room Room { get; set; }
+
+        public string UserId { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
         public DateTime CheckIn { get; set; }
 
         public DateTime CheckOut { get; set; }

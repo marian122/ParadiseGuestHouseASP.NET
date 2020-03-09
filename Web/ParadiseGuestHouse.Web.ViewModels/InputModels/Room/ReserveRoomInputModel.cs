@@ -28,10 +28,10 @@
         public int CountOfPeople { get; set; }
 
         [Required(ErrorMessage = "Датата на настаняване е задължителна")]
-        public string CheckIn { get; set; }
+        public DateTime CheckIn { get; set; }
 
         [Required(ErrorMessage = "Датата на напускане е задължителна")]
-        public string CheckOut { get; set; }
+        public DateTime CheckOut { get; set; }
 
         [MaxLength(300, ErrorMessage = "Допустима дължина 300 символа!")]
         public string Message { get; set; }

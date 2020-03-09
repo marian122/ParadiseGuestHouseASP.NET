@@ -40,7 +40,5 @@
         public bool HasHeater { get; set; }
 
         public IList<Picture> Pictures { get; set; }
-
-        public ICollection<RoomReservation> RoomReservations { get; set; }
     }
 }

@@ -52,9 +52,17 @@
         }
 
         [HttpPost]
-        public IActionResult Reserve(ReserveRoomInputModel input)
+        [Route("Room/Reserve/{roomId}")]
+        public async Task<IActionResult> Reserve([FromRoute]string roomId, ReserveRoomInputModel input, ApplicationUser user)
         {
-            return this.Json(input);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.roomsService.ReserveRoom(roomId, input, user);
+
+            return this.Redirect("/");
         }
     }
 }

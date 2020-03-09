@@ -9,6 +9,7 @@
 
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
     using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
@@ -18,14 +19,12 @@
 
     public class ContactController : Controller
     {
-    //    private readonly IRepository<ContactForm> contactsRepository;
-    //    private readonly IEmailSender emailSender;
+        private readonly IConfiguration configuration;
 
-    //    public ContactController(IRepository<ContactForm> contactsRepository, IEmailSender emailSender)
-    //    {
-    //        this.contactsRepository = contactsRepository;
-    //        this.emailSender = emailSender;
-    //    }
+        public ContactController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
 
         public IActionResult Index()
         {
@@ -40,33 +39,9 @@
                 return this.View(model);
             }
 
-            // TODO: Extract to IP provider (service)
-            //var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
+            var apiKey = this.configuration.GetValue<string>("SendGrid:ApiKey");
 
-            //var contactFormEntry = new ContactForm
-            //{
-            //    FirstName = model.FirstName,
-            //    LastName = model.LastName,
-            //    Email = model.Email,
-            //    Title = model.Title,
-            //    Content = model.Content,
-            //    Ip = ip,
-            //};
-
-            //await this.contactsRepository.AddAsync(contactFormEntry);
-            //await this.contactsRepository.SaveChangesAsync();
-
-            //await this.emailSender.SendEmailAsync(model.Email, model.Title, model.Content);
-
-            //await this.emailSender.SendEmailAsync(
-            //    model.Email,
-            //    model.FirstName,
-            //    model.LastName,
-            //    GlobalConstants.SystemEmail,
-            //    model.Title,
-            //    model.Content);
-
-            var client = new SendGridClient("");
+            var client = new SendGridClient(apiKey);
             var name = model.FirstName + " " + model.LastName;
             var from = new EmailAddress(model.Email, name);
             var subject = model.Title;

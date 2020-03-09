@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
+    using ParadiseGuestHouse.Web.ViewModels.InputModels.Room;
 
     public interface IRoomsService
     {
@@ -15,6 +16,6 @@
 
         Task<TViewModel> GetRoomAsync<TViewModel>(string id);
 
-        Task<bool> ReserveRoom();
+        Task<bool> ReserveRoom(string id, ReserveRoomInputModel input, ApplicationUser user);
     }
 }

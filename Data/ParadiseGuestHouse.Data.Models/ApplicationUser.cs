@@ -16,6 +16,7 @@ namespace ParadiseGuestHouse.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.RoomReservations = new HashSet<RoomReservation>();
         }
 
         public string FirstName { get; set; }
@@ -32,9 +33,7 @@ namespace ParadiseGuestHouse.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public string RoomReservationId { get; set; }
-
-        public RoomReservation Reservation { get; set; }
+        public ICollection<RoomReservation> RoomReservations { get; set; }
 
         public string ConferenceHallReservationId { get; set; }
 

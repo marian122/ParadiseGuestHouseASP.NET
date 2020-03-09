@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParadiseGuestHouse.Data;
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200309143239_addsomethings")]
+    partial class addsomethings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -665,9 +667,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
@@ -702,15 +701,15 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RoomReservations");
                 });
@@ -866,13 +865,13 @@ namespace ParadiseGuestHouse.Data.Migrations
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RoomReservation", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", null)
-                        .WithMany("RoomReservations")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("ParadiseGuestHouse.Data.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("RoomReservations")
                         .HasForeignKey("RoomId");
+
+                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", "User")
+                        .WithMany("RoomReservations")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
