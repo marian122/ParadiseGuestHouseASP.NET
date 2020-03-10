@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.Restaurant
+﻿namespace ParadiseGuestHouse.Web.InputModels.Restaurant
 {
     using System;
     using System.Collections.Generic;

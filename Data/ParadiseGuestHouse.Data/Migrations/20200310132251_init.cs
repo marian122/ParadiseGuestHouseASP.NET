@@ -2,27 +2,21 @@
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
-    public partial class addsomethings : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_RoomReservations_RoomReservationId",
-                table: "AspNetUsers");
+                name: "FK_RoomReservations_AspNetUsers_ApplicationUserId",
+                table: "RoomReservations");
 
             migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_RoomReservationId",
-                table: "AspNetUsers");
+                name: "IX_RoomReservations_ApplicationUserId",
+                table: "RoomReservations");
 
             migrationBuilder.DropColumn(
-                name: "RoomReservationId",
-                table: "AspNetUsers");
-
-            migrationBuilder.AddColumn<decimal>(
-                name: "TotalPrice",
-                table: "RoomReservations",
-                nullable: false,
-                defaultValue: 0m);
+                name: "ApplicationUserId",
+                table: "RoomReservations");
 
             migrationBuilder.AddColumn<string>(
                 name: "UserId",
@@ -54,29 +48,25 @@ namespace ParadiseGuestHouse.Data.Migrations
                 table: "RoomReservations");
 
             migrationBuilder.DropColumn(
-                name: "TotalPrice",
-                table: "RoomReservations");
-
-            migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "RoomReservations");
 
             migrationBuilder.AddColumn<string>(
-                name: "RoomReservationId",
-                table: "AspNetUsers",
+                name: "ApplicationUserId",
+                table: "RoomReservations",
                 type: "nvarchar(450)",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_RoomReservationId",
-                table: "AspNetUsers",
-                column: "RoomReservationId");
+                name: "IX_RoomReservations_ApplicationUserId",
+                table: "RoomReservations",
+                column: "ApplicationUserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_RoomReservations_RoomReservationId",
-                table: "AspNetUsers",
-                column: "RoomReservationId",
-                principalTable: "RoomReservations",
+                name: "FK_RoomReservations_AspNetUsers_ApplicationUserId",
+                table: "RoomReservations",
+                column: "ApplicationUserId",
+                principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

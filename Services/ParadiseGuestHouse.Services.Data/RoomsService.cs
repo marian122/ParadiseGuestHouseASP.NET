@@ -20,11 +20,13 @@
     {
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IDeletableEntityRepository<RoomReservation> roomReservationRepository;
+        private readonly IUsersService usersService;
 
-        public RoomsService(IDeletableEntityRepository<Room> repository, IDeletableEntityRepository<RoomReservation> roomReservationRepository)
+        public RoomsService(IDeletableEntityRepository<Room> repository, IDeletableEntityRepository<RoomReservation> roomReservationRepository, IUsersService usersService)
         {
             this.repository = repository;
             this.roomReservationRepository = roomReservationRepository;
+            this.usersService = usersService;
         }
 
         public async Task<bool> CreateRoom(RoomType roomType, decimal price, int numberOfBeds, bool hasBathroom, bool hasRoomService, bool hasSeaView, bool hasMountainView, bool hasWifi, bool hasTv, bool hasPhone, bool hasAirConditioner, bool hasHeater)
@@ -84,16 +86,16 @@
             .To<TViewModel>()
             .FirstOrDefaultAsync();
 
-        public async Task<bool> ReserveRoom(string id, ReserveRoomInputModel input, ApplicationUser user)
+        public async Task<bool> ReserveRoom(ReserveRoomInputModel input)
         {
             var room = this.repository.All()
-                .FirstOrDefault(r => r.Id == id);
+                .FirstOrDefault(r => r.Id == input.RoomId);
 
             if (room != null)
             {
                 var reservation = new RoomReservation()
                 {
-                    UserId = user.Id,
+                    UserId = input.UserId,
                     RoomId = room.Id,
                     RoomType = room.RoomType,
                     CheckIn = input.CheckIn,

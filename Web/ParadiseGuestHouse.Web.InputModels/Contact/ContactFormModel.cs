@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.Contact
+﻿namespace ParadiseGuestHouse.Web.InputModels.Contact
 {
     using System;
     using System.Collections.Generic;

@@ -1,7 +1,7 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.Feedback
+﻿namespace ParadiseGuestHouse.Web.InputModels.Feedback
 {
     using System.ComponentModel.DataAnnotations;
-
+    
     public class FeedbackInputModel
     {
         [Required(ErrorMessage = "Полето е задължително!")]

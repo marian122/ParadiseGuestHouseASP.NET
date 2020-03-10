@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.ConferenceHall
+﻿namespace ParadiseGuestHouse.Web.InputModels.ConferenceHall
 {
     using System;
     using System.Collections.Generic;

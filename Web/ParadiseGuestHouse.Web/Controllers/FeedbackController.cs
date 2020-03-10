@@ -7,8 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Services.Data;
-    using ParadiseGuestHouse.Web.ViewModels.Feedback;
-    using ParadiseGuestHouse.Web.ViewModels.InputModels.Feedback;
+    using ParadiseGuestHouse.Web.InputModels.Feedback;
 
     public class FeedbackController : Controller
     {

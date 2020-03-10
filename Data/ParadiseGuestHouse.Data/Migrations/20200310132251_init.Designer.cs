@@ -10,8 +10,8 @@ using ParadiseGuestHouse.Data;
 namespace ParadiseGuestHouse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200305154849_feedbackAddedTable")]
-    partial class feedbackAddedTable
+    [Migration("20200310132251_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,9 +232,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<string>("RestaurantReservationId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("RoomReservationId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -260,8 +257,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("RestaurantReservationId");
-
-                    b.HasIndex("RoomReservationId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -338,6 +333,106 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("ConferenceHallReservations");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ContactForm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("ContactFormEntries");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Feedback", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("GuestId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuestId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Guest", b =>
@@ -602,11 +697,19 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<int>("RoomType")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RoomReservations");
                 });
@@ -703,10 +806,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasOne("ParadiseGuestHouse.Data.Models.RestaurantReservation", "RestaurantReservation")
                         .WithMany()
                         .HasForeignKey("RestaurantReservationId");
-
-                    b.HasOne("ParadiseGuestHouse.Data.Models.RoomReservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("RoomReservationId");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ConferenceHallReservation", b =>
@@ -714,6 +813,17 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasOne("ParadiseGuestHouse.Data.Models.ConferenceHall", null)
                         .WithMany("ConferenceHallReservations")
                         .HasForeignKey("ConferenceHallId");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Feedback", b =>
+                {
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Guest", "Guest")
+                        .WithMany()
+                        .HasForeignKey("GuestId");
+
+                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Guest", b =>
@@ -755,9 +865,13 @@ namespace ParadiseGuestHouse.Data.Migrations
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RoomReservation", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.Room", null)
-                        .WithMany("RoomReservations")
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Room", "Room")
+                        .WithMany()
                         .HasForeignKey("RoomId");
+
+                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", "User")
+                        .WithMany("RoomReservations")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

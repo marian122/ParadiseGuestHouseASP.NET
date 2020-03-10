@@ -19,6 +19,8 @@
 
         public string UserId { get; set; }
 
+        public ApplicationUser User { get; set; }
+
         public decimal TotalPrice { get; set; }
 
         public DateTime CheckIn { get; set; }

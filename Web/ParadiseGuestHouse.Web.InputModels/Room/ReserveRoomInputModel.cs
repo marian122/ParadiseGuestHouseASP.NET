@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.Room
+﻿namespace ParadiseGuestHouse.Web.InputModels.Room
 {
     using System;
     using System.Collections.Generic;
@@ -35,5 +35,10 @@
 
         [MaxLength(300, ErrorMessage = "Допустима дължина 300 символа!")]
         public string Message { get; set; }
+
+        public string RoomId { get; set; }
+
+        public string UserId { get; set; }
+
     }
 }

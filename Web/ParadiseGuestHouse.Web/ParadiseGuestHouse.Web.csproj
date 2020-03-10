@@ -43,6 +43,7 @@
     <ProjectReference Include="..\..\Services\ParadiseGuestHouse.Services.Messaging\ParadiseGuestHouse.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\ParadiseGuestHouse.Services\ParadiseGuestHouse.Services.csproj" />
     <ProjectReference Include="..\ParadiseGuestHouse.Web.Infrastructure\ParadiseGuestHouse.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\ParadiseGuestHouse.Web.InputModels\ParadiseGuestHouse.Web.InputModels.csproj" />
     <ProjectReference Include="..\ParadiseGuestHouse.Web.ViewModels\ParadiseGuestHouse.Web.ViewModels.csproj" />
   </ItemGroup>
 </Project>

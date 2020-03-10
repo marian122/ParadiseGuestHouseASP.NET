@@ -10,13 +10,16 @@
 
     public class RoomController : Controller
     {
+
         private readonly IRoomsService roomsService;
         private readonly IDeletableEntityRepository<Room> repository;
+        private readonly IUsersService usersService;
 
-        public RoomController(IRoomsService roomsService, IDeletableEntityRepository<Room> repository)
+        public RoomController(IRoomsService roomsService, IDeletableEntityRepository<Room> repository, IUsersService usersService)
         {
             this.roomsService = roomsService;
             this.repository = repository;
+            this.usersService = usersService;
         }
 
         [HttpGet]
@@ -53,14 +56,19 @@
 
         [HttpPost]
         [Route("Room/Reserve/{roomId}")]
-        public async Task<IActionResult> Reserve([FromRoute]string roomId, ReserveRoomInputModel input, ApplicationUser user)
+        public async Task<IActionResult> Reserve([FromRoute]string roomId, ReserveRoomInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            await this.roomsService.ReserveRoom(roomId, input, user);
+            var userId = await this.usersService.GetUserIdAsync(this.User);
+
+            input.UserId = userId;
+            input.RoomId = roomId;
+
+            await this.roomsService.ReserveRoom(input);
 
             return this.Redirect("/");
         }

@@ -1,4 +1,4 @@
-﻿namespace ParadiseGuestHouse.Web.ViewModels.InputModels.Room
+﻿namespace ParadiseGuestHouse.Web.InputModels.Room
 {
     using System.ComponentModel.DataAnnotations;
 

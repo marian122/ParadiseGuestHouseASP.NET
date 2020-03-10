@@ -665,9 +665,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
@@ -702,15 +699,15 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RoomReservations");
                 });
@@ -866,13 +863,13 @@ namespace ParadiseGuestHouse.Data.Migrations
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RoomReservation", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", null)
-                        .WithMany("RoomReservations")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("ParadiseGuestHouse.Data.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId");
+
+                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", "User")
+                        .WithMany("RoomReservations")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
