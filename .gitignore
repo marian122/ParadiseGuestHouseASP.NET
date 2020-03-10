@@ -60,9 +60,7 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-appsettings.json
-appsettings.Development.json
-.editorconfig
+
 
 # StyleCop
 StyleCopReport.xml
@@ -358,5 +356,7 @@ MigrationBackup/
 # Custom ignores
 **/wwwroot/lib/
 appsettings.Production.json
+appsettings.Production.json
+/Web/ParadiseGuestHouse.Web.appsettings.json
 *.min.css
 *.min.js
