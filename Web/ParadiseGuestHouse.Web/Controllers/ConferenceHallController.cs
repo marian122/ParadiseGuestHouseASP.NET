@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using ParadiseGuestHouse.Web.ViewModels.InputModels.ConferenceHall;
+    using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
 
     public class ConferenceHallController : Controller
     {

@@ -1,0 +1,53 @@
+﻿
+@model ParadiseGuestHouse.Web.ViewModels.RoomViewModels.ReservationViewModel
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Име</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Тип стая</th>
+                    <th scope="col">Гости</th>
+                    <th scope="col">Обща цена</th>
+                    <th scope="col">От</th>
+                    <th scope="col">До</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AllReservations)
+                {
+                    var roomtype = "";
+
+                    if (item.RoomType == "SingleRoom")
+                    {
+                        roomtype = "Единична";
+                    }
+                    if (item.RoomType == "DoubleRoom")
+                    {
+                        roomtype = "Двойна";
+                    }
+                    if (item.RoomType == "Apartment")
+                    {
+                        roomtype = "Апартамент";
+                    }
+                <tr>
+                    <td>@item.User.FirstName</td>
+                    <td>@item.User.LastName</td>
+                    <td>@roomtype</td>
+                    <td>@item.NumberOfGuests</td>
+                    <td>@item.TotalPrice лв.</td>
+                    <td>@item.CheckIn.ToString("dd/MM/yyyy")</td>
+                    <td>@item.CheckOut.ToString("dd/MM/yyyy")</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

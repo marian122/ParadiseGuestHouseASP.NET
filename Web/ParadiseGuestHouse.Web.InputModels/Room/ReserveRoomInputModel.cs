@@ -7,11 +7,9 @@
 
     public class ReserveRoomInputModel
     {
-        [Required(ErrorMessage = "Името е задължително")]
         [MaxLength(20)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Фамилията е задължителна")]
         [MaxLength(20)]
         public string LastName { get; set; }
 

@@ -1,16 +1,16 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
-    using ParadiseGuestHouse.Web.ViewModels.InputModels.Room;
+    using ParadiseGuestHouse.Web.InputModels.Room;
     using ParadiseGuestHouse.Web.ViewModels.RoomViewModels;
-    using System.Threading.Tasks;
 
     public class RoomController : Controller
     {
-
         private readonly IRoomsService roomsService;
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IUsersService usersService;
@@ -70,7 +70,23 @@
 
             await this.roomsService.ReserveRoom(input);
 
-            return this.Redirect("/");
+            return this.Redirect("/Room/Reservations");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Reservations()
+        {
+            var userId = await this.usersService.GetUserIdAsync(this.User);
+
+            var reservations = await this.roomsService
+                .GetAllReservationsAsync<ReservationsAllViewModel>(userId);
+
+            var reservationView = new ReservationViewModel()
+            {
+                AllReservations = reservations,
+            };
+
+            return this.View(reservationView);
         }
     }
 }

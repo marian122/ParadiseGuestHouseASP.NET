@@ -13,7 +13,7 @@
     using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
-    using ParadiseGuestHouse.Web.ViewModels.Contact;
+    using ParadiseGuestHouse.Web.InputModels.Contact;
     using SendGrid;
     using SendGrid.Helpers.Mail;
 

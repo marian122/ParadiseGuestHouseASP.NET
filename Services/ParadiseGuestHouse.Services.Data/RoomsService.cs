@@ -14,7 +14,7 @@
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
-    using ParadiseGuestHouse.Web.ViewModels.InputModels.Room;
+    using ParadiseGuestHouse.Web.InputModels.Room;
 
     public class RoomsService : IRoomsService
     {
@@ -71,6 +71,17 @@
             throw new NullReferenceException();
         }
 
+        public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
+        {
+            var result = await this.roomReservationRepository
+            .All()
+            .Where(r => r.IsDeleted != true && r.UserId == userId && r.CheckIn > DateTime.UtcNow && r.CheckOut > DateTime.UtcNow)
+            .To<TViewModel>()
+            .ToListAsync();
+
+            return result;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>()
             => await this.repository
             .All()
@@ -100,10 +111,18 @@
                     RoomType = room.RoomType,
                     CheckIn = input.CheckIn,
                     CheckOut = input.CheckOut,
-                    TotalPrice = room.Price,
+                    TotalPrice = 0,
                     NumberOfGuests = input.CountOfPeople,
-                    NumberOfNights = 2,
+                    NumberOfNights = 0,
                 };
+
+                var days = (reservation.CheckOut - reservation.CheckIn).TotalDays;
+
+                var totalPrice = ((decimal)days * room.Price) * reservation.NumberOfGuests;
+
+                reservation.NumberOfNights = (int)days;
+
+                reservation.TotalPrice = totalPrice;
 
                 await this.roomReservationRepository.AddAsync(reservation);
 

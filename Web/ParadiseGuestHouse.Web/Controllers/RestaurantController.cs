@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using ParadiseGuestHouse.Web.ViewModels.InputModels.Restaurant;
+    using ParadiseGuestHouse.Web.InputModels.Restaurant;
 
     public class RestaurantController : Controller
     {

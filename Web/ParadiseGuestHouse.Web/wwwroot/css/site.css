@@ -86,6 +86,11 @@ p, a {
  align-content: center;
 }
 
+/*Table*/
+.table{
+    background-color: seashell;
+}
+
 /*Inside Profile Options*/
 
 #profileSettingsButtons li :hover {
