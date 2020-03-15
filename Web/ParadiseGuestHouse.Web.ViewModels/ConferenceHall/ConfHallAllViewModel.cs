@@ -2,25 +2,27 @@
 using ParadiseGuestHouse.Services.Mapping;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ParadiseGuestHouse.Web.ViewModels.RoomViewModels
+namespace ParadiseGuestHouse.Web.ViewModels.ConferenceHall
 {
-    public class ReservationsAllViewModel : IMapFrom<RoomReservation>
+    public class ConfHallAllViewModel : IMapFrom<ConferenceHallReservation>
     {
         public ApplicationUser User { get; set; }
 
         public string PhoneNumber { get; set; }
 
-        public string RoomType { get; set; }
+        public string EventType { get; set; }
 
         public int NumberOfGuests { get; set; }
+
+        public DateTime EventDate { get; set; }
 
         public DateTime CheckIn { get; set; }
 
         public DateTime CheckOut { get; set; }
 
         public decimal TotalPrice { get; set; }
+
     }
 }

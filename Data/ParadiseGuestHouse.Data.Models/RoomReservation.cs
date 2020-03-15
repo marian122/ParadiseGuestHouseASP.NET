@@ -21,6 +21,8 @@
 
         public ApplicationUser User { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public decimal TotalPrice { get; set; }
 
         public DateTime CheckIn { get; set; }

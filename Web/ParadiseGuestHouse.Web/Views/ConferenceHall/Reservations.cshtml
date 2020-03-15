@@ -1,5 +1,5 @@
 ﻿
-@model ParadiseGuestHouse.Web.ViewModels.RoomViewModels.ReservationViewModel
+@model ParadiseGuestHouse.Web.ViewModels.ConferenceHall.ConfHallViewModel
 @{
     ViewData["Title"] = "Reservations";
 }
@@ -13,40 +13,46 @@
                     <th scope="col">Име</th>
                     <th scope="col">Фамилия</th>
                     <th scope="col">Тел. номер</th>
-                    <th scope="col">Тип стая</th>
+                    <th scope="col">Тип събрание</th>
                     <th scope="col">Гости</th>
-                    <th scope="col">Обща цена</th>
+                    <th scope="col">Дата</th>
                     <th scope="col">От</th>
                     <th scope="col">До</th>
+                    <th scope="col">Обща цена</th>
 
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.AllReservations)
                 {
-                    var roomtype = "";
+                    var eventType = "";
 
-                    if (item.RoomType == "SingleRoom")
+                    if (item.EventType == "Conference")
                     {
-                        roomtype = "Единична";
+                        eventType = "Конференция";
                     }
-                    if (item.RoomType == "DoubleRoom")
+                    if (item.EventType == "TeamBuilding")
                     {
-                        roomtype = "Двойна";
+                        eventType = "Тийм-билдинг";
                     }
-                    if (item.RoomType == "Apartment")
+                    if (item.EventType == "Sports")
                     {
-                        roomtype = "Апартамент";
+                        eventType = "Спорт";
+                    }
+                    if (item.EventType == "BusinessMeeting")
+                    {
+                        eventType = "Бизнес среща";
                     }
                 <tr>
                     <td>@item.User.FirstName</td>
                     <td>@item.User.LastName</td>
                     <td>@item.PhoneNumber</td>
-                    <td>@roomtype</td>
+                    <td>@eventType</td>
                     <td>@item.NumberOfGuests</td>
+                    <td>@item.EventDate.ToString("dd/MM/yyyy")</td>
+                    <td>@item.CheckIn.ToString("hh:mm")</td>
+                    <td>@item.CheckOut.ToString("hh:mm")</td>
                     <td>@item.TotalPrice лв.</td>
-                    <td>@item.CheckIn.ToString("dd/MM/yyyy")</td>
-                    <td>@item.CheckOut.ToString("dd/MM/yyyy")</td>
                 </tr>
                 }
             </tbody>

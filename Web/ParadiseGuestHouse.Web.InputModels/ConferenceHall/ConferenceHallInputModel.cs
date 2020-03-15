@@ -1,5 +1,6 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.ConferenceHall
 {
+    using ParadiseGuestHouse.Data.Models.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -7,13 +8,13 @@
 
     public class ConferenceHallInputModel
     {
-        [Required(ErrorMessage = "Полето е задължително")]
         [MaxLength(20, ErrorMessage = "Полето може да съдържа най-много 20 символа")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
         [MaxLength(20, ErrorMessage = "Полето може да съдържа най-много 20 символа")]
         public string LastName { get; set; }
+
+        public string UserId { get; set; }
 
         [EmailAddress(ErrorMessage = "Невалиден имейл!")]
         public string EmailAddress { get; set; }
@@ -27,19 +28,19 @@
         public int NumberOfGuests { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
-        public string EventType { get; set; }
+        public ConfHallEventType EventType { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Date)]
-        public string EventDate { get; set; }
+        public DateTime EventDate { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Time)]
-        public string ArrivalTime { get; set; }
+        public DateTime CheckIn { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Time)]
-        public string LeavingTime { get; set; }
+        public DateTime CheckOut { get; set; }
 
         [MaxLength(300)]
         public string Message { get; set; }

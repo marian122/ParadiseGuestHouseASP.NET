@@ -17,6 +17,8 @@ namespace ParadiseGuestHouse.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.RoomReservations = new HashSet<RoomReservation>();
+            this.ConferenceHallReservations = new HashSet<ConferenceHallReservation>();
+            this.RestaurantReservations = new HashSet<RestaurantReservation>();
         }
 
         public string FirstName { get; set; }
@@ -35,13 +37,9 @@ namespace ParadiseGuestHouse.Data.Models
 
         public virtual ICollection<RoomReservation> RoomReservations { get; set; }
 
-        public string ConferenceHallReservationId { get; set; }
+        public virtual ICollection<ConferenceHallReservation> ConferenceHallReservations { get; set; }
 
-        public ConferenceHallReservation ConferenceHallReservation { get; set; }
-
-        public string RestaurantReservationId { get; set; }
-
-        public RestaurantReservation RestaurantReservation { get; set; }
+        public virtual ICollection<RestaurantReservation> RestaurantReservations { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

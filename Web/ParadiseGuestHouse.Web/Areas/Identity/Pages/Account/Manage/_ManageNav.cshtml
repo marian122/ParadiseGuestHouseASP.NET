@@ -12,5 +12,7 @@
         }
         <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
         <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Лични данни</a></li>
-        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Room" asp-action="Reservations">Моите резервации</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Room" asp-action="Reservations">Резервации за стаи</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="ConferenceHall" asp-action="Reservations">Резервации за конферентна зала</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Restaurant" asp-action="Reservations">Резервации за ресторант</a></li>
     </ul>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParadiseGuestHouse.Data;
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200315122335_phonenumberadded")]
+    partial class phonenumberadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,6 +178,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ConferenceHallReservationId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -224,6 +229,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RestaurantReservationId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -236,6 +244,8 @@ namespace ParadiseGuestHouse.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConferenceHallReservationId");
+
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("NormalizedEmail")
@@ -246,6 +256,8 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("RestaurantReservationId");
+
                     b.ToTable("AspNetUsers");
                 });
 
@@ -253,12 +265,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ConfHallType")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -275,9 +281,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
@@ -290,10 +293,7 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CheckIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CheckOut")
+                    b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ConferenceHallId")
@@ -314,6 +314,9 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("LeaveTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
@@ -323,22 +326,11 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<int>("NumberOfGuests")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ConferenceHallId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ConferenceHallReservations");
                 });
@@ -571,9 +563,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
@@ -605,8 +594,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("IsDeleted");
 
@@ -813,15 +800,22 @@ namespace ParadiseGuestHouse.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("ParadiseGuestHouse.Data.Models.ConferenceHallReservation", "ConferenceHallReservation")
+                        .WithMany()
+                        .HasForeignKey("ConferenceHallReservationId");
+
+                    b.HasOne("ParadiseGuestHouse.Data.Models.RestaurantReservation", "RestaurantReservation")
+                        .WithMany()
+                        .HasForeignKey("RestaurantReservationId");
+                });
+
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.ConferenceHallReservation", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.ConferenceHall", "ConferenceHall")
+                    b.HasOne("ParadiseGuestHouse.Data.Models.ConferenceHall", null)
                         .WithMany("ConferenceHallReservations")
                         .HasForeignKey("ConferenceHallId");
-
-                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", "User")
-                        .WithMany("ConferenceHallReservations")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Feedback", b =>
@@ -867,10 +861,6 @@ namespace ParadiseGuestHouse.Data.Migrations
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RestaurantReservation", b =>
                 {
-                    b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", null)
-                        .WithMany("RestaurantReservations")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("ParadiseGuestHouse.Data.Models.Restaurant", null)
                         .WithMany("RestaurantReservations")
                         .HasForeignKey("RestaurantId");

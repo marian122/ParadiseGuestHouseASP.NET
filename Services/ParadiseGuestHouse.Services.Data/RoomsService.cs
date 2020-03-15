@@ -72,15 +72,14 @@
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
-        {
-            var result = await this.roomReservationRepository
+            => await this.roomReservationRepository
             .All()
-            .Where(r => r.IsDeleted != true && r.UserId == userId && r.CheckIn > DateTime.UtcNow && r.CheckOut > DateTime.UtcNow)
+            .Where(r => r.IsDeleted != true
+            && r.UserId == userId
+            && r.CheckIn > DateTime.UtcNow
+            && r.CheckOut > DateTime.UtcNow)
             .To<TViewModel>()
             .ToListAsync();
-
-            return result;
-        }
 
         public async Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>()
             => await this.repository
@@ -109,6 +108,7 @@
                     UserId = input.UserId,
                     RoomId = room.Id,
                     RoomType = room.RoomType,
+                    PhoneNumber = input.PhoneNumber,
                     CheckIn = input.CheckIn,
                     CheckOut = input.CheckOut,
                     TotalPrice = 0,
