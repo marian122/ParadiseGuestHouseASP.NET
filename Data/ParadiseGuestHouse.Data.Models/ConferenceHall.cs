@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using ParadiseGuestHouse.Data.Common.Models;
@@ -16,14 +17,23 @@
             this.ConferenceHallReservations = new HashSet<ConferenceHallReservation>();
         }
 
-        public ConfHallEventType ConfHallType { get; set; }
+        [Required]
+        public ConfHallEventType EventType { get; set; }
 
         public IList<Picture> Pictures { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
-        public int Capacity { get; set; }
+        [Required]
+        public int CurrentCapacity { get; set; }
 
+        [Required]
+        [Range(0, 100)]
+        public int MaxCapacity { get; set; }
+
+        [Required]
+        [Range(0, 100)]
         public decimal Price { get; set; }
 
         public ICollection<ConferenceHallReservation> ConferenceHallReservations { get; set; }

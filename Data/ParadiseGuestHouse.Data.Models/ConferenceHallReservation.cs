@@ -24,7 +24,7 @@
 
         public ConfHallEventType EventType { get; set; }
 
-        public DateTime DateOfEvent { get; set; }
+        public DateTime EventDate { get; set; }
 
         public DateTime CheckIn { get; set; }
 

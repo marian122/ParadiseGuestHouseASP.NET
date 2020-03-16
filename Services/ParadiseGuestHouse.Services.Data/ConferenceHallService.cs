@@ -34,14 +34,21 @@ namespace ParadiseGuestHouse.Services.Data
 
             var eventDate = await this.conferenceHallReservationRepository
                 .All()
-                .Where(x => x.DateOfEvent < DateTime.Now && x.CheckOut < DateTime.Now)
+                .Where(x => x.EventDate < DateTime.Now && x.CheckOut < DateTime.Now)
                 .ToListAsync();
+
+            var conferenceHalls = await this.conferenceHallRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
 
             if (eventDate != null && eventDate.Count > 0)
             {
                 foreach (var item in eventDate)
                 {
                     this.conferenceHallReservationRepository.Delete(item);
+
+                    foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    {
+                        hall.CurrentCapacity = hall.MaxCapacity;
+                    }
                 }
             }
 
@@ -54,33 +61,43 @@ namespace ParadiseGuestHouse.Services.Data
         public async Task<bool> ReserveConferenceHall(ConferenceHallInputModel input)
         {
             var conferenceHall = this.conferenceHallRepository.All()
-                .FirstOrDefault(c => c.IsDeleted == false && c.Capacity > 0 && c.ConfHallType == input.EventType);
+                .FirstOrDefault(c => c.IsDeleted == false);
 
-            var conferenceHallReservation = new ConferenceHallReservation()
+            if (conferenceHall != null &&
+                input.NumberOfGuests <= conferenceHall.MaxCapacity &&
+                input.EventDate < DateTime.Now)
             {
-                UserId = input.UserId,
-                PhoneNumber = input.PhoneNumber,
-                NumberOfGuests = input.NumberOfGuests,
-                TotalPrice = 0,
-                EventType = input.EventType,
-                DateOfEvent = input.EventDate,
-                CheckIn = input.CheckIn,
-                CheckOut = input.CheckOut,
-            };
+                var conferenceHallReservation = new ConferenceHallReservation()
+                {
+                    UserId = input.UserId,
+                    PhoneNumber = input.PhoneNumber,
+                    NumberOfGuests = input.NumberOfGuests,
+                    TotalPrice = 0,
+                    EventType = conferenceHall.EventType,
+                    EventDate = input.EventDate,
+                    CheckIn = input.CheckIn,
+                    CheckOut = input.CheckOut,
+                    ConferenceHallId = conferenceHall.Id,
+                };
 
-            var totalHours = (decimal)(conferenceHallReservation.CheckIn - conferenceHallReservation.CheckOut).TotalHours;
+                var totalHours = (decimal)(conferenceHallReservation.CheckIn - conferenceHallReservation.CheckOut).TotalHours;
 
-            var price = Math.Abs(conferenceHall.Price * totalHours);
+                var price = Math.Abs(conferenceHall.Price * totalHours);
 
-            conferenceHallReservation.TotalPrice = price;
+                conferenceHallReservation.TotalPrice = price;
 
-            conferenceHall.Capacity -= conferenceHallReservation.NumberOfGuests;
+                conferenceHall.CurrentCapacity = conferenceHall.MaxCapacity;
 
-            await this.conferenceHallReservationRepository.AddAsync(conferenceHallReservation);
+                conferenceHall.CurrentCapacity -= conferenceHallReservation.NumberOfGuests;
 
-            var result = await this.conferenceHallReservationRepository.SaveChangesAsync();
+                await this.conferenceHallReservationRepository.AddAsync(conferenceHallReservation);
 
-            return result > 0;
+                var result = await this.conferenceHallReservationRepository.SaveChangesAsync();
+
+                return result > 0;
+            }
+
+            throw new NullReferenceException();
         }
     }
 }
