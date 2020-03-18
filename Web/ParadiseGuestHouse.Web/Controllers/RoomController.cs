@@ -1,7 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
@@ -45,6 +45,7 @@
             return this.View(room);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("Room/Reserve/{roomId}")]
         public async Task<IActionResult> Reserve([FromRoute]string roomId)

@@ -19,7 +19,7 @@
         public string LastName { get; set; }
 
         [EmailAddress(ErrorMessage = "Невалиден имейл!")]
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително")]
         [RegularExpression(@"08[789]\d{7}", ErrorMessage = "Грешен телефонен номер")]

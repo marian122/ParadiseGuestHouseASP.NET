@@ -3,9 +3,8 @@
     public enum RestaurantEventType
     {
         Wedding = 1,
-        RomanticDinner = 2,
-        Prom = 3,
-        Birthday = 4,
-        ChildrensParty = 5,
+        Prom = 2,
+        Birthday = 3,
+        ChildrensParty = 4,
     }
 }

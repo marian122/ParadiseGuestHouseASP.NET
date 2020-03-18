@@ -91,8 +91,24 @@ p, a {
     background-color: seashell;
 }
 
-/*Inside Profile Options*/
+/*ReservationsTitles*/
 
+
+#noReservationsTitle {
+    left: 0;
+    line-height: 200px;
+    width: 100%;
+    text-align: center;
+}
+
+#reservationsTitle {
+    margin-top: -35px;
+    margin-left: 45%;
+    line-height: 100px;
+    width: 100%;
+    text-align: center;
+}
+/*Inside Profile Options*/
 #profileSettingsButtons li :hover {
     color: rgba(21, 16, 16, 0.99);
     border: solid;
@@ -409,3 +425,28 @@ ul {
 #conferenceHallReserveForm a {
     margin-left: 60px;
 }
+
+/*Date and Time fixing*/
+
+input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
+
+input[type="time"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+
+input[type="time"]:focus:before,
+input[type="time"]:valid:before {
+    content: "";
+}
+

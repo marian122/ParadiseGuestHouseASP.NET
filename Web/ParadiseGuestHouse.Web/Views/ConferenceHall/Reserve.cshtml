@@ -71,17 +71,17 @@
                     </div>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
-                        <input type="date" class="form-control" asp-for="EventDate" placeholder="Дата на събитието">
+                        <input type="date" class="form-control" asp-for="EventDate" placeholder="Дата на събитието:">
                         <span asp-validation-for="EventDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
-                        <input class="form-control" asp-for="CheckIn" placeholder="Начален час">
+                        <input type="time" class="form-control" asp-for="CheckIn" placeholder="Начален час:">
                         <span asp-validation-for="CheckIn" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
-                        <input class="form-control" asp-for="CheckOut" placeholder="Краен час">
+                        <input type="time" class="form-control" asp-for="CheckOut" placeholder="Краен час:">
                         <span asp-validation-for="CheckOut" class="text-danger"></span>
                     </div>
                     <div class="form-group">

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Web.InputModels.Restaurant;
 
@@ -15,6 +15,8 @@
             return this.View();
         }
 
+        [Authorize]
+        [HttpGet]
         public IActionResult Reserve()
         {
             return this.View();
