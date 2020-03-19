@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ParadiseGuestHouse.Data.Models.Enums
+﻿namespace ParadiseGuestHouse.Data.Models.Enums
 {
     public enum ConfHallEventType
     {

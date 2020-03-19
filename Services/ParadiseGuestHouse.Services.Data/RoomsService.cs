@@ -3,12 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Claims;
-    using System.Security.Principal;
-    using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
+
     using Microsoft.EntityFrameworkCore;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
@@ -72,14 +68,30 @@
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
-            => await this.roomReservationRepository
+        {
+            var reservations = await this.roomReservationRepository
             .All()
             .Where(r => r.IsDeleted != true
             && r.UserId == userId
-            && r.CheckIn > DateTime.UtcNow
-            && r.CheckOut > DateTime.UtcNow)
+            && r.CheckIn > DateTime.Now // UtcNow
+            && r.CheckOut > DateTime.Now) // UtcNow
             .To<TViewModel>()
             .ToListAsync();
+
+            var reservationCheckOut = await this.roomReservationRepository.All().Where(x => x.CheckOut < DateTime.Now).ToListAsync();
+
+            if (reservationCheckOut.Any())
+            {
+                foreach (var res in reservationCheckOut)
+                {
+                    this.roomReservationRepository.Delete(res);
+
+                    await this.roomReservationRepository.SaveChangesAsync();
+                }
+            }
+
+            return reservations;
+        }
 
         public async Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>()
             => await this.repository

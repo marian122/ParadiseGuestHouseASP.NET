@@ -2,18 +2,19 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models.Enums;
 
     public class CreateRoomInputModel
     {
-        [Required(ErrorMessage = "Полето е задължително")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         public RoomType RoomType { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
-        [Range(1, 10, ErrorMessage = "Броят на леглата трябва да е между 1 и 10")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [Range(1, 10, ErrorMessage = GlobalConstants.NumberOfBedsRange)]
         public int NumberOfBeds { get; set; }
 
         public bool HasBathroom { get; set; }

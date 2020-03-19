@@ -1,6 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using ParadiseGuestHouse.Data.Common.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
@@ -16,24 +17,33 @@
 
         public ApplicationUser User { get; set; }
 
+        [Required]
+        [Phone]
         public string PhoneNumber { get; set; }
 
+        [Required]
+        [Range(0, 100)]
         public int NumberOfGuests { get; set; }
 
         public decimal TotalPrice { get; set; }
 
+        [Required]
         public ConfHallEventType EventType { get; set; }
 
+        [Required]
         public DateTime EventDate { get; set; }
 
+        [Required]
         public DateTime CheckIn { get; set; }
 
+        [Required]
         public DateTime CheckOut { get; set; }
 
         public string ConferenceHallId { get; set; }
 
         public ConferenceHall ConferenceHall { get; set; }
 
+        [MaxLength(300)]
         public string Message { get; set; }
     }
 }

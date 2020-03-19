@@ -1,9 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Data.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using ParadiseGuestHouse.Data.Common.Models;
 
@@ -15,23 +13,23 @@
         }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [MaxLength(20)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [MaxLength(20)]
         public string LastName { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = "Невалиден имейл адрес.")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(30, ErrorMessage = "Максимална дължина 30 символа.")]
+        [MaxLength(30)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
+        [MaxLength(300)]
         public string Content { get; set; }
 
         public string Ip { get; set; }

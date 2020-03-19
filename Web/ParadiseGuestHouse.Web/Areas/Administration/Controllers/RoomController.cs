@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ParadiseGuestHouse.Data.Common.Repositories;
-using ParadiseGuestHouse.Data.Models;
-using ParadiseGuestHouse.Services.Data;
-using ParadiseGuestHouse.Web.InputModels.Room;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ParadiseGuestHouse.Web.Areas.Administration.Controllers
+﻿namespace ParadiseGuestHouse.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Data.Common.Repositories;
+    using ParadiseGuestHouse.Data.Models;
+    using ParadiseGuestHouse.Services.Data;
+    using ParadiseGuestHouse.Web.InputModels.Room;
+
     public class RoomController : Controller
     {
         private readonly IRoomsService roomsService;

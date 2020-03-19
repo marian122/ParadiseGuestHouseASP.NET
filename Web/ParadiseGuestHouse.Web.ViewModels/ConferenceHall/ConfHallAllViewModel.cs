@@ -1,11 +1,10 @@
-﻿using ParadiseGuestHouse.Data.Models;
-using ParadiseGuestHouse.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ParadiseGuestHouse.Web.ViewModels.ConferenceHall
+﻿namespace ParadiseGuestHouse.Web.ViewModels.ConferenceHall
 {
+    using System;
+
+    using ParadiseGuestHouse.Data.Models;
+    using ParadiseGuestHouse.Services.Mapping;
+
     public class ConfHallAllViewModel : IMapFrom<ConferenceHallReservation>
     {
         public ApplicationUser User { get; set; }

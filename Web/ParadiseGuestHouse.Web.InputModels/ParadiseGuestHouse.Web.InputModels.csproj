@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ParadiseGuestHouse.Data.Models\ParadiseGuestHouse.Data.Models.csproj" />
+    <ProjectReference Include="..\..\ParadiseGuestHouse.Common\ParadiseGuestHouse.Common.csproj" />
     <ProjectReference Include="..\..\Services\ParadiseGuestHouse.Services.Mapping\ParadiseGuestHouse.Services.Mapping.csproj" />
     <ProjectReference Include="..\ParadiseGuestHouse.Web.Infrastructure\ParadiseGuestHouse.Web.Infrastructure.csproj" />
   </ItemGroup>

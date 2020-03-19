@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ParadiseGuestHouse.Data.Common.Repositories;
-using ParadiseGuestHouse.Data.Models;
-using ParadiseGuestHouse.Services.Mapping;
-using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ParadiseGuestHouse.Services.Data
+﻿namespace ParadiseGuestHouse.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Data.Common.Repositories;
+    using ParadiseGuestHouse.Data.Models;
+    using ParadiseGuestHouse.Services.Mapping;
+    using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
+
     public class ConferenceHallService : IConferenceHallService
     {
         private readonly IDeletableEntityRepository<ConferenceHallReservation> conferenceHallReservationRepository;
@@ -73,10 +73,11 @@ namespace ParadiseGuestHouse.Services.Data
                     PhoneNumber = input.PhoneNumber,
                     NumberOfGuests = input.NumberOfGuests,
                     TotalPrice = 0,
-                    EventType = conferenceHall.EventType,
+                    EventType = input.EventType,
                     EventDate = input.EventDate,
                     CheckIn = input.CheckIn,
                     CheckOut = input.CheckOut,
+                    Message = input.Message,
                     ConferenceHallId = conferenceHall.Id,
                 };
 

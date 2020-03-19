@@ -1,37 +1,38 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Room
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
+
+    using ParadiseGuestHouse.Common;
 
     public class ReserveRoomInputModel
     {
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 
         [MaxLength(20)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Имейл адреса е задължителен")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Тел. номер е задължителен")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         [Phone]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Броят на гостите е задължителен")]
-        [Range(0, 20, ErrorMessage = "Максималния брой гости е 20.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [Range(0, 10, ErrorMessage = GlobalConstants.CountOfPeopleInRoomLength)]
         public int CountOfPeople { get; set; }
 
-        [Required(ErrorMessage = "Датата на настаняване е задължителна")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         public DateTime CheckIn { get; set; }
 
-        [Required(ErrorMessage = "Датата на напускане е задължителна")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         public DateTime CheckOut { get; set; }
 
-        [MaxLength(300, ErrorMessage = "Допустима дължина 300 символа!")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(300, ErrorMessage = GlobalConstants.ContentMessageMaxLength)]
         public string Message { get; set; }
 
         public string RoomId { get; set; }

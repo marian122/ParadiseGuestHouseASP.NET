@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
+    using ParadiseGuestHouse.Web.InputModels.Restaurant;
 
-    public interface IConferenceHallService
+    public interface IRestaurantService
     {
-        Task<bool> ReserveConferenceHall(ConferenceHallInputModel input);
+        Task<bool> ReserveRestaurant(RestaurantInputModel input);
 
         Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId);
     }

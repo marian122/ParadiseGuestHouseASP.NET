@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.ViewModels;

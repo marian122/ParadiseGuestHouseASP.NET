@@ -1,46 +1,53 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Restaurant
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models;
+    using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
 
     public class RestaurantInputModel : IMapFrom<Restaurant>
     {
-        [Required(ErrorMessage = "Полето е задължително")]
-        [MaxLength(20, ErrorMessage = "Полето може да съдържа най-много 20 символа")]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
-        [MaxLength(20, ErrorMessage = "Полето може да съдържа най-много 20 символа")]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string LastName { get; set; }
 
-        [EmailAddress(ErrorMessage = "Невалиден имейл!")]
+        [Required]
+        [EmailAddress(ErrorMessage = GlobalConstants.InvalidEmail)]
         public string EmailAddress { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
-        [RegularExpression(@"08[789]\d{7}", ErrorMessage = "Грешен телефонен номер")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [Phone(ErrorMessage = GlobalConstants.InvalidPhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
-        [Range(0, 120, ErrorMessage = "Полето трябва де бъде между 0 и 120")]
-        public int NumberOfPeople { get; set; }
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [Range(0, 120, ErrorMessage = GlobalConstants.RestaurantReserveGuestsMax)]
+        public int NumberOfGuests { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
-        public string EventType { get; set; }
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        public RestaurantEventType EventType { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         [DataType(DataType.Date)]
-        public DateTime DateOfMeeting { get; set; }
+        public DateTime EventDate { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
         [DataType(DataType.Time)]
-        public DateTime StartingHour { get; set; }
+        public DateTime CheckIn { get; set; }
 
-        [MaxLength(300)]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [DataType(DataType.Time)]
+        public DateTime CheckOut { get; set; }
+
+        [MaxLength(300, ErrorMessage = GlobalConstants.ContentMessageMaxLength)]
         public string Message { get; set; }
+
+        public string UserId { get; set; }
+
+        public string RestaurantId { get; set; }
     }
 }

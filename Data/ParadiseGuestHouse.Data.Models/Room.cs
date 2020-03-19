@@ -15,10 +15,14 @@
             this.Pictures = new List<Picture>();
         }
 
+        [Required]
         public RoomType RoomType { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
+        [Required]
+        [Range(0, 10)]
         public int NumberOfBeds { get; set; }
 
         public bool HasBathroom { get; set; }

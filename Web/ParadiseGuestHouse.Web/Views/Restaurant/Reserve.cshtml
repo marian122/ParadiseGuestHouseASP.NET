@@ -85,27 +85,33 @@
                     <div class="form-group">
                         <i class="fa fa-glass icon"></i>
                         <select class="form-control" asp-for="EventType">
-                            <option value="1">Сватба</option>
-                            <option value="2">Бал</option>
-                            <option value="3">Рожден ден</option>
-                            <option value="4">Детски рожден ден</option>
+                            <option value="1">Вечеря</option>
+                            <option value="2">Сватба</option>
+                            <option value="3">Бал</option>
+                            <option value="4">Рожден ден</option>
+                            <option value="5">Детски рожден ден</option>
                         </select>
                         <span asp-validation-for="EventType" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-group icon"></i>
-                        <input class="form-control" asp-for="NumberOfPeople" placeholder="Брой хора">
-                        <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+                        <input class="form-control" asp-for="NumberOfGuests" placeholder="Брой хора">
+                        <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
-                        <input type="date" class="form-control" asp-for="DateOfMeeting" placeholder="Дата на събитието:">
-                        <span asp-validation-for="DateOfMeeting" class="text-danger"></span>
+                        <input type="date" class="form-control" asp-for="EventDate" placeholder="Дата на събитието:">
+                        <span asp-validation-for="EventDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
-                        <input type="time" class="form-control" asp-for="StartingHour" placeholder="Начален час:">
-                        <span asp-validation-for="StartingHour" class="text-danger"></span>
+                        <input type="time" class="form-control" asp-for="CheckIn" placeholder="Начален час:">
+                        <span asp-validation-for="CheckIn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-clock-o icon"></i>
+                        <input type="time" class="form-control" asp-for="CheckOut" placeholder="Краен час:">
+                        <span asp-validation-for="CheckOut" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-commenting icon"></i>

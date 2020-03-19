@@ -12,16 +12,16 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [Required]
+        [MaxLength(20)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [Required]
+        [MaxLength(20)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
+        [Required]
+        [MaxLength(300)]
         public string Message { get; set; }
 
         public string UserId { get; set; }

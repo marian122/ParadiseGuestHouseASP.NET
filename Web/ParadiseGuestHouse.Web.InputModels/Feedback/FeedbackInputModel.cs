@@ -1,19 +1,21 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Feedback
 {
     using System.ComponentModel.DataAnnotations;
-    
+
+    using ParadiseGuestHouse.Common;
+
     public class FeedbackInputModel
     {
-        [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително!")]
-        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(300, ErrorMessage = GlobalConstants.ContentMessageMaxLength)]
         public string Message { get; set; }
     }
 }

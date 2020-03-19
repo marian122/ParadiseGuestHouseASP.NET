@@ -1,7 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Data.Models
 {
     using System;
-
+    using System.ComponentModel.DataAnnotations;
     using ParadiseGuestHouse.Data.Common.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
 
@@ -12,14 +12,38 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
+        [Required]
+        [Range(0, 120)]
         public int NumberOfGuests { get; set; }
 
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         public RestaurantEventType EventType { get; set; }
 
-        public DateTime DateOfMeeting { get; set; }
+        [Required]
+        public DateTime EventDate { get; set; }
 
-        public DateTime ArrivalTime { get; set; }
+        [Required]
+        public DateTime CheckIn { get; set; }
 
+        [Required]
+        public DateTime CheckOut { get; set; }
+
+        [Required]
+        public decimal TotalPrice { get; set; }
+
+        [MaxLength(300)]
         public string Message { get; set; }
+
+        public string UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
+
+        public string RestaurantId { get; set; }
+
+        public Restaurant Restaurant { get; set; }
     }
 }

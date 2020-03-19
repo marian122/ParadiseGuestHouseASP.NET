@@ -23,9 +23,11 @@
         public IList<Picture> Pictures { get; set; }
 
         [Required]
+        [MaxLength(800)]
         public string Description { get; set; }
 
         [Required]
+        [Range(0, 100)]
         public int CurrentCapacity { get; set; }
 
         [Required]

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ParadiseGuestHouse.Web.ViewModels.ConferenceHall
+﻿namespace ParadiseGuestHouse.Web.ViewModels.ConferenceHall
 {
+    using System.Collections.Generic;
+
     public class ConfHallViewModel
     {
         public IEnumerable<ConfHallAllViewModel> AllReservations { get; set; }

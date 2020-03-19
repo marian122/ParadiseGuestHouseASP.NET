@@ -1,33 +1,29 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Contact
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
-    using Microsoft.AspNetCore.Mvc;
-    using PressCenters.Web.Infrastructure;
+    using ParadiseGuestHouse.Common;
 
     public class ContactFormModel
     {
-        [Required(ErrorMessage = "Името е задължително")]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Фамилията е задължителна")]
-        [MaxLength(20, ErrorMessage = "Максимална дължина 20 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Имейл адреса е задължителен")]
-        [EmailAddress(ErrorMessage = "Невалиден имей адрес.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [EmailAddress(ErrorMessage = GlobalConstants.InvalidEmail)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Заглавието е задължително")]
-        [MaxLength(30, ErrorMessage = "Максимална дължина 30 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(30, ErrorMessage = GlobalConstants.ContactFormTitleMaxLength)]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Съобщението е задължително")]
-        [MaxLength(300, ErrorMessage = "Максимална дължина 300 символа.")]
+        [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [MaxLength(300, ErrorMessage = GlobalConstants.ContentMessageMaxLength)]
         public string Content { get; set; }
 
         //[GoogleReCaptchaValidation]
