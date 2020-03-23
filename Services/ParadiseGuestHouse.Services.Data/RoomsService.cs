@@ -94,9 +94,8 @@
         {
             var reservations = await this.roomReservationRepository
             .All()
-            .Where(r => r.IsDeleted != true
+            .Where(r => r.IsDeleted == false
             && r.UserId == userId
-            && r.CheckIn > DateTime.Now // UtcNow
             && r.CheckOut > DateTime.Now) // UtcNow
             .To<TViewModel>()
             .ToListAsync();
