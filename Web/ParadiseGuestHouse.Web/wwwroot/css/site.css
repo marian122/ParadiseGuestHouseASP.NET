@@ -28,6 +28,9 @@
     background-color: seashell;
 }
 
+#roomDetailsDeleteEditBtns{
+    padding-top: 10px;
+}
 
 li {
     font-family: Lato;

@@ -5,16 +5,21 @@
 
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Web.InputModels.Room;
+    using ParadiseGuestHouse.Web.ViewModels.Room;
 
     public interface IRoomsService
     {
-        Task<bool> CreateRoom(RoomType roomType, decimal price, int numberOfBeds, bool hasBathroom, bool hasRoomService, bool hasSeaView, bool hasMountainView, bool hasWifi, bool hasTv, bool hasPhone, bool hasAirConditioner, bool hasHeater);
+        Task<bool> CreateRoom(CreateRoomInputModel input);
+
+        Task<bool> EditRoomAsync(string id, EditRoomViewModel input);
 
         Task<bool> DeleteRoom(string id);
 
         Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>();
 
         Task<TViewModel> GetRoomAsync<TViewModel>(string id);
+
+        Task<EditRoomViewModel> GetRoomForEditAsync(string id);
 
         Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId);
 

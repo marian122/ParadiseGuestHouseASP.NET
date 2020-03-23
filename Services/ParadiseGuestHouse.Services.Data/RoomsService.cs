@@ -11,36 +11,35 @@
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
     using ParadiseGuestHouse.Web.InputModels.Room;
+    using ParadiseGuestHouse.Web.ViewModels.Room;
 
     public class RoomsService : IRoomsService
     {
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IDeletableEntityRepository<RoomReservation> roomReservationRepository;
-        private readonly IUsersService usersService;
 
-        public RoomsService(IDeletableEntityRepository<Room> repository, IDeletableEntityRepository<RoomReservation> roomReservationRepository, IUsersService usersService)
+        public RoomsService(IDeletableEntityRepository<Room> repository, IDeletableEntityRepository<RoomReservation> roomReservationRepository)
         {
             this.repository = repository;
             this.roomReservationRepository = roomReservationRepository;
-            this.usersService = usersService;
         }
 
-        public async Task<bool> CreateRoom(RoomType roomType, decimal price, int numberOfBeds, bool hasBathroom, bool hasRoomService, bool hasSeaView, bool hasMountainView, bool hasWifi, bool hasTv, bool hasPhone, bool hasAirConditioner, bool hasHeater)
+        public async Task<bool> CreateRoom(CreateRoomInputModel input)
         {
             var room = new Room
             {
-                RoomType = roomType,
-                Price = price,
-                NumberOfBeds = numberOfBeds,
-                HasBathroom = hasBathroom,
-                HasRoomService = hasRoomService,
-                HasSeaView = hasSeaView,
-                HasMountainView = hasMountainView,
-                HasWifi = hasWifi,
-                HasTv = hasTv,
-                HasPhone = hasPhone,
-                HasAirConditioner = hasAirConditioner,
-                HasHeater = hasHeater,
+                RoomType = input.RoomType,
+                Price = input.Price,
+                NumberOfBeds = input.NumberOfBeds,
+                HasBathroom = input.HasBathroom,
+                HasRoomService = input.HasRoomService,
+                HasSeaView = input.HasSeaView,
+                HasMountainView = input.HasMountainView,
+                HasWifi = input.HasWifi,
+                HasTv = input.HasTv,
+                HasPhone = input.HasPhone,
+                HasAirConditioner = input.HasAirConditioner,
+                HasHeater = input.HasHeater,
             };
 
             await this.repository.AddAsync(room);
@@ -65,6 +64,30 @@
             }
 
             throw new NullReferenceException();
+        }
+
+        public async Task<bool> EditRoomAsync(string id, EditRoomViewModel input)
+        {
+            var currentRoom = this.GetRoomById(id);
+
+            currentRoom.RoomType = input.RoomType;
+            currentRoom.Price = input.Price;
+            currentRoom.NumberOfBeds = input.NumberOfBeds;
+            currentRoom.HasWifi = input.HasWifi;
+            currentRoom.HasAirConditioner = input.HasAirConditioner;
+            currentRoom.HasBathroom = input.HasBathroom;
+            currentRoom.HasHeater = input.HasHeater;
+            currentRoom.HasMountainView = input.HasMountainView;
+            currentRoom.HasPhone = input.HasPhone;
+            currentRoom.HasRoomService = input.HasRoomService;
+            currentRoom.HasSeaView = input.HasSeaView;
+            currentRoom.HasTv = input.HasTv;
+
+            this.repository.Update(currentRoom);
+
+            var result = await this.repository.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
@@ -108,6 +131,29 @@
             .To<TViewModel>()
             .FirstOrDefaultAsync();
 
+        public async Task<EditRoomViewModel> GetRoomForEditAsync(string id)
+        {
+            var room = this.GetRoomById(id);
+
+            var result = new EditRoomViewModel()
+            {
+                RoomType = room.RoomType,
+                Price = room.Price,
+                NumberOfBeds = room.NumberOfBeds,
+                HasWifi = room.HasWifi,
+                HasAirConditioner = room.HasAirConditioner,
+                HasBathroom = room.HasBathroom,
+                HasHeater = room.HasHeater,
+                HasMountainView = room.HasMountainView,
+                HasPhone = room.HasPhone,
+                HasRoomService = room.HasRoomService,
+                HasSeaView = room.HasSeaView,
+                HasTv = room.HasTv,
+            };
+
+            return result;
+        }
+
         public async Task<bool> ReserveRoom(ReserveRoomInputModel input)
         {
             var room = this.repository.All()
@@ -144,5 +190,8 @@
 
             throw new NullReferenceException();
         }
+
+        private Room GetRoomById(string id)
+            => this.repository.All()?.FirstOrDefault(x => x.Id == id);
     }
 }
