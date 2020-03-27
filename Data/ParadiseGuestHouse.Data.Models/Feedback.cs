@@ -1,6 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using ParadiseGuestHouse.Data.Common.Models;
@@ -31,6 +32,8 @@
         public string GuestId { get; set; }
 
         public Guest Guest { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
 
     }
 }

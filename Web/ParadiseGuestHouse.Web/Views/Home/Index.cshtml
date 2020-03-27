@@ -99,21 +99,32 @@
     </div>
 </div>
 
-<div id="homeSectionFeedback" class="container">
-    @foreach (var feedback in Model.AllFeedbacks)
-    {
-        <div id="feedbackRow" class="row">
-            <a href="#" class="pull-left">
-                <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-            </a>
-            <div class="media-body">
-                <strong class="text-break">@feedback.FirstName @feedback.LastName</strong>
-                <p>@feedback.Message</p>
+@if (Model.AllFeedbacks.Count() != 0)
+{
+    <div id="homeSectionFeedback" class="container">
+        @foreach (var feedback in Model.AllFeedbacks)
+        {
+            <div id="feedbackRow" class="row">
+                <a href="#" class="pull-left">
+                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                </a>
+                <div class="media-body">
+                    <strong class="text-break">@feedback.FirstName @feedback.LastName</strong>
+                    <p>@feedback.Message</p>
+                </div>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Feedback" asp-action="DeleteFeedback" asp-route-feedbackId="@feedback.Id">X</a>
+                }
             </div>
-            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-            {
-                <a class="btn btn-outline-danger" asp-area="" asp-controller="Feedback" asp-action="DeleteFeedback" asp-route-feedbackId="@feedback.Id">X</a>
-            }
-        </div>
-    }
-</div>
+        }
+
+    </div>
+}
+
+else
+{
+    <div class="col-lg-12 text-center p-2">
+        <h2>Няма отзиви за този момент!</h2>
+    </div>
+}
