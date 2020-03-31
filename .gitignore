@@ -359,3 +359,5 @@ appsettings.Production.json
 /Web/ParadiseGuestHouse.Web.appsettings.json
 *.min.css
 *.min.js
+/Web/ParadiseGuestHouse.Web/appsettings.Development.json
+/Web/ParadiseGuestHouse.Web/appsettings.json
