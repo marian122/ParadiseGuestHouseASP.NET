@@ -357,6 +357,5 @@ MigrationBackup/
 **/wwwroot/lib/
 appsettings.Production.json
 /Web/ParadiseGuestHouse.Web.appsettings.json
-appsettings.json
 *.min.css
 *.min.js
