@@ -38,7 +38,7 @@
             var subject = model.Title;
             var to = new EmailAddress("paradiseguesthouse@abv.bg", "ParadiseGuestHouse");
             var plainTextContent = model.Content;
-            var htmlContent = $"<strong>{model.Content}</strong>";
+            var htmlContent = $"<p>{model.Content}</p>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
             await client.SendEmailAsync(msg);

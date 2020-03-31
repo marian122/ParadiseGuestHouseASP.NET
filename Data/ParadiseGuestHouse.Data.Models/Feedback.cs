@@ -33,7 +33,5 @@
 
         public Guest Guest { get; set; }
 
-        public virtual ICollection<Rating> Ratings { get; set; }
-
     }
 }
