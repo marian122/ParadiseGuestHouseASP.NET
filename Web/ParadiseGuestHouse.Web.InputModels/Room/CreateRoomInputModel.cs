@@ -1,7 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Room
 {
     using System.ComponentModel.DataAnnotations;
-
+    using Microsoft.AspNetCore.Http;
     using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models.Enums;
 
@@ -34,5 +34,8 @@
         public bool HasAirConditioner { get; set; }
 
         public bool HasHeater { get; set; }
+
+        [Required]
+        public IFormFile Picture { get; set; }
     }
 }

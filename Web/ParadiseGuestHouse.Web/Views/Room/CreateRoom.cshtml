@@ -23,7 +23,7 @@
                                 <option value="2">Двойна стая</option>
                                 <option value="3">Апартамент</option>
                             </select>
-                            <span asp-validation-for="RoomType" class="text-danger"></span>   
+                            <span asp-validation-for="RoomType" class="text-danger"></span>
                         </div>
                         <div class="form-check">
                             <label>Цена</label>
@@ -70,6 +70,11 @@
                         <div class="form-check">
                             <label>Парно</label>
                             <input type="checkbox" asp-for="HasHeater">
+                        </div>
+                        
+                        <div class="form-check">
+                             <input asp-for="Picture" type="file" class="btn btn-info">
+                             <span asp-validation-for="Picture" class="text-danger"></span>
                         </div>
 
                         <input type="submit" value="Добави стая" class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="CreateRoom">

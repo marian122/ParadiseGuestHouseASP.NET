@@ -12,7 +12,6 @@
         public Room()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Pictures = new List<Picture>();
         }
 
         [Required]
@@ -43,6 +42,10 @@
 
         public bool HasHeater { get; set; }
 
-        public IList<Picture> Pictures { get; set; }
+        [Required]
+        public string PictureId { get; set; }
+
+        [Required]
+        public Picture Picture { get; set; }
     }
 }

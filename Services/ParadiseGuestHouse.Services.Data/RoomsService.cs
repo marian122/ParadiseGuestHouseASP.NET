@@ -17,15 +17,29 @@
     {
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IDeletableEntityRepository<RoomReservation> roomReservationRepository;
+        private readonly IPictureService pictureService;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public RoomsService(IDeletableEntityRepository<Room> repository, IDeletableEntityRepository<RoomReservation> roomReservationRepository)
+        public RoomsService(
+            IDeletableEntityRepository<Room> repository,
+            IDeletableEntityRepository<RoomReservation> roomReservationRepository,
+            IPictureService pictureService,
+            ICloudinaryService cloudinaryService)
         {
             this.repository = repository;
             this.roomReservationRepository = roomReservationRepository;
+            this.pictureService = pictureService;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<bool> CreateRoom(CreateRoomInputModel input)
         {
+            string cloudinaryPicName = input.RoomType.ToString().ToLower();
+            string folderName = "room_images";
+
+            var url = await this.cloudinaryService.UploadPhotoAsync(input.Picture, cloudinaryPicName, folderName);
+            var pictureId = await this.pictureService.AddPictureAsync(url);
+
             var room = new Room
             {
                 RoomType = input.RoomType,
@@ -40,6 +54,7 @@
                 HasPhone = input.HasPhone,
                 HasAirConditioner = input.HasAirConditioner,
                 HasHeater = input.HasHeater,
+                PictureId = pictureId,
             };
 
             await this.repository.AddAsync(room);

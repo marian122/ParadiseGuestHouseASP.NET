@@ -1,7 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Web
 {
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -61,13 +61,23 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IRoomsService, RoomsService>();
             services.AddTransient<IFeedbacksService, FeedbacksService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IConferenceHallService, ConferenceHallService>();
             services.AddTransient<IRestaurantService, RestaurantsService>();
+            services.AddTransient<IPictureService, PictureService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+
+            Account cloudinaryCredentials = new Account(
+                    this.configuration["Cloudinary:CloudName"],
+                    this.configuration["Cloudinary:ApiKey"],
+                    this.configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+
+            services.AddSingleton(cloudinaryUtility);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
