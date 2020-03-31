@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParadiseGuestHouse.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -115,33 +115,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Restaurants", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rooms",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    RoomType = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    NumberOfBeds = table.Column<int>(nullable: false),
-                    HasBathroom = table.Column<bool>(nullable: false),
-                    HasRoomService = table.Column<bool>(nullable: false),
-                    HasSeaView = table.Column<bool>(nullable: false),
-                    HasMountainView = table.Column<bool>(nullable: false),
-                    HasWifi = table.Column<bool>(nullable: false),
-                    HasTv = table.Column<bool>(nullable: false),
-                    HasPhone = table.Column<bool>(nullable: false),
-                    HasAirConditioner = table.Column<bool>(nullable: false),
-                    HasHeater = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -306,6 +279,36 @@ namespace ParadiseGuestHouse.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pictures",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Url = table.Column<string>(nullable: false),
+                    ConferenceHallId = table.Column<string>(nullable: true),
+                    RestaurantId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pictures_ConferenceHalls_ConferenceHallId",
+                        column: x => x.ConferenceHallId,
+                        principalTable: "ConferenceHalls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pictures_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RestaurantReservations",
                 columns: table => new
                 {
@@ -343,7 +346,7 @@ namespace ParadiseGuestHouse.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pictures",
+                name: "Rooms",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -351,30 +354,27 @@ namespace ParadiseGuestHouse.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
-                    ConferenceHallId = table.Column<string>(nullable: true),
-                    RestaurantId = table.Column<string>(nullable: true),
-                    RoomId = table.Column<string>(nullable: true)
+                    PictureId = table.Column<string>(nullable: false),
+                    RoomType = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    NumberOfBeds = table.Column<int>(nullable: false),
+                    HasBathroom = table.Column<bool>(nullable: false),
+                    HasRoomService = table.Column<bool>(nullable: false),
+                    HasSeaView = table.Column<bool>(nullable: false),
+                    HasMountainView = table.Column<bool>(nullable: false),
+                    HasWifi = table.Column<bool>(nullable: false),
+                    HasTv = table.Column<bool>(nullable: false),
+                    HasPhone = table.Column<bool>(nullable: false),
+                    HasAirConditioner = table.Column<bool>(nullable: false),
+                    HasHeater = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pictures", x => x.Id);
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pictures_ConferenceHalls_ConferenceHallId",
-                        column: x => x.ConferenceHallId,
-                        principalTable: "ConferenceHalls",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Pictures_Restaurants_RestaurantId",
-                        column: x => x.RestaurantId,
-                        principalTable: "Restaurants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Pictures_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
+                        name: "FK_Rooms_Pictures_PictureId",
+                        column: x => x.PictureId,
+                        principalTable: "Pictures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -612,11 +612,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_RoomId",
-                table: "Pictures",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantReservations_IsDeleted",
                 table: "RestaurantReservations",
                 column: "IsDeleted");
@@ -657,6 +652,11 @@ namespace ParadiseGuestHouse.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rooms_PictureId",
+                table: "Rooms",
+                column: "PictureId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Settings_IsDeleted",
                 table: "Settings",
                 column: "IsDeleted");
@@ -686,9 +686,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                 name: "Feedbacks");
 
             migrationBuilder.DropTable(
-                name: "Pictures");
-
-            migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
@@ -707,16 +704,19 @@ namespace ParadiseGuestHouse.Data.Migrations
                 name: "RoomReservations");
 
             migrationBuilder.DropTable(
-                name: "ConferenceHalls");
-
-            migrationBuilder.DropTable(
-                name: "Restaurants");
-
-            migrationBuilder.DropTable(
                 name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Pictures");
+
+            migrationBuilder.DropTable(
+                name: "ConferenceHalls");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants");
         }
     }
 }

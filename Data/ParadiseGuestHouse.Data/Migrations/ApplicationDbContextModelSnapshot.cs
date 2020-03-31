@@ -524,9 +524,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<string>("RestaurantId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("RoomId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -538,8 +535,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("RestaurantId");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Pictures");
                 });
@@ -691,6 +686,10 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.Property<int>("NumberOfBeds")
                         .HasColumnType("int");
 
+                    b.Property<string>("PictureId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -700,6 +699,8 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PictureId");
 
                     b.ToTable("Rooms");
                 });
@@ -890,10 +891,6 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasOne("ParadiseGuestHouse.Data.Models.Restaurant", null)
                         .WithMany("Pictures")
                         .HasForeignKey("RestaurantId");
-
-                    b.HasOne("ParadiseGuestHouse.Data.Models.Room", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("RoomId");
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RestaurantReservation", b =>
@@ -905,6 +902,15 @@ namespace ParadiseGuestHouse.Data.Migrations
                     b.HasOne("ParadiseGuestHouse.Data.Models.ApplicationUser", "User")
                         .WithMany("RestaurantReservations")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ParadiseGuestHouse.Data.Models.Room", b =>
+                {
+                    b.HasOne("ParadiseGuestHouse.Data.Models.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ParadiseGuestHouse.Data.Models.RoomReservation", b =>

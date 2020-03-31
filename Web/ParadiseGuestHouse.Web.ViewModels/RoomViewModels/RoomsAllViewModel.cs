@@ -31,6 +31,6 @@
 
         public bool HasHeater { get; set; }
 
-        //public IList<Picture> Pictures { get; set; }
+        public string PictureUrl { get; set; }
     }
 }

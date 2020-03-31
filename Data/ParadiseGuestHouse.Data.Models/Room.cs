@@ -15,6 +15,12 @@
         }
 
         [Required]
+        public string PictureId { get; set; }
+
+        [Required]
+        public Picture Picture { get; set; }
+
+        [Required]
         public RoomType RoomType { get; set; }
 
         [Required]
@@ -41,11 +47,5 @@
         public bool HasAirConditioner { get; set; }
 
         public bool HasHeater { get; set; }
-
-        [Required]
-        public string PictureId { get; set; }
-
-        [Required]
-        public Picture Picture { get; set; }
     }
 }
