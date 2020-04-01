@@ -1,5 +1,6 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -64,6 +65,9 @@
             var pictures = await this.picturesRepository.All().Where(x => x.RoomId == roomId).ToListAsync();
 
             inputModel.Pictures = pictures.Select(x => x.Url).ToList();
+
+            inputModel.CheckIn = DateTime.Now;
+            inputModel.CheckOut = DateTime.Now;
 
             return this.View(inputModel);
         }
