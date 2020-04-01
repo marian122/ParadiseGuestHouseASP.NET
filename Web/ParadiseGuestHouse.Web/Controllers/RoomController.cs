@@ -65,7 +65,7 @@
             var pictures = await this.picturesRepository.All().Where(x => x.RoomId == roomId).ToListAsync();
 
             inputModel.Pictures = pictures.Select(x => x.Url).ToList();
-
+            inputModel.PhoneNumber = await this.usersService.GetUserPhoneNumberAsync(this.User);
             inputModel.CheckIn = DateTime.Now;
             inputModel.CheckOut = DateTime.Now;
 

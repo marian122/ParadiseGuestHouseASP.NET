@@ -1,5 +1,6 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -26,9 +27,15 @@
 
         [Authorize]
         [HttpGet]
-        public IActionResult Reserve()
+        public async Task<IActionResult> Reserve()
         {
-            return this.View();
+            var inputModel = new ConferenceHallInputModel
+            {
+                PhoneNumber = await this.usersService.GetUserPhoneNumberAsync(this.User),
+                EventDate = DateTime.Now,
+            };
+
+            return this.View(inputModel);
         }
 
         [HttpPost]

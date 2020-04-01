@@ -34,9 +34,11 @@
         public DateTime EventDate { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
         public DateTime CheckIn { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
         public DateTime CheckOut { get; set; }
 
         public string ConferenceHallId { get; set; }

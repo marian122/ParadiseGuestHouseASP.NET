@@ -6,5 +6,7 @@
     public interface IUsersService
     {
         Task<string> GetUserIdAsync(ClaimsPrincipal claims);
+
+        Task<string> GetUserPhoneNumberAsync(ClaimsPrincipal claims);
     }
 }
