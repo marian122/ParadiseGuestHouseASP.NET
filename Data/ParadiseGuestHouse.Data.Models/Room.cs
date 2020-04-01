@@ -12,13 +12,11 @@
         public Room()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Pictures = new HashSet<Picture>();
         }
 
         [Required]
-        public string PictureId { get; set; }
-
-        [Required]
-        public Picture Picture { get; set; }
+        public virtual ICollection<Picture> Pictures { get; set; }
 
         [Required]
         public RoomType RoomType { get; set; }

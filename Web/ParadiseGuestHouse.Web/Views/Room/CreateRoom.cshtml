@@ -73,8 +73,8 @@
                         </div>
                         
                         <div class="form-check">
-                             <input asp-for="Picture" type="file" class="btn btn-info">
-                             <span asp-validation-for="Picture" class="text-danger"></span>
+                             <input multiple asp-for="Pictures" type="file" class="btn btn-info">
+                             <span asp-validation-for="Pictures" class="text-danger"></span>
                         </div>
 
                         <input type="submit" value="Добави стая" class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="CreateRoom">

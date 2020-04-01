@@ -14,5 +14,9 @@
 
         [Required]
         public string Url { get; set; }
+
+        public string RoomId { get; set; }
+
+        public virtual Room Room { get; set; }
     }
 }

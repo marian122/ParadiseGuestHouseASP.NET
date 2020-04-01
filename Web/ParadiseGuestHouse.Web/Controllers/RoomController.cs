@@ -1,9 +1,11 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
@@ -15,12 +17,18 @@
         private readonly IRoomsService roomsService;
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IUsersService usersService;
+        private readonly IDeletableEntityRepository<Picture> picturesRepository;
 
-        public RoomController(IRoomsService roomsService, IDeletableEntityRepository<Room> repository, IUsersService usersService)
+        public RoomController(
+            IRoomsService roomsService,
+            IDeletableEntityRepository<Room> repository,
+            IUsersService usersService,
+            IDeletableEntityRepository<Picture> picturesRepository)
         {
             this.roomsService = roomsService;
             this.repository = repository;
             this.usersService = usersService;
+            this.picturesRepository = picturesRepository;
         }
 
         [HttpGet]
@@ -51,9 +59,13 @@
         [Route("Room/Reserve/{roomId}")]
         public async Task<IActionResult> Reserve([FromRoute]string roomId)
         {
-            var reserveRoom = await this.roomsService.GetRoomAsync<RoomDetailsViewModel>(roomId);
+            var inputModel = new ReserveRoomInputModel();
 
-            return this.View();
+            var pictures = await this.picturesRepository.All().Where(x => x.RoomId == roomId).ToListAsync();
+
+            inputModel.Pictures = pictures.Select(x => x.Url).ToList();
+
+            return this.View(inputModel);
         }
 
         [HttpPost]

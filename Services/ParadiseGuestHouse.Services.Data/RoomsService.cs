@@ -4,11 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     using Microsoft.EntityFrameworkCore;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
-    using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
     using ParadiseGuestHouse.Web.InputModels.Room;
     using ParadiseGuestHouse.Web.ViewModels.Room;
@@ -34,11 +32,13 @@
 
         public async Task<bool> CreateRoom(CreateRoomInputModel input)
         {
-            string cloudinaryPicName = input.RoomType.ToString().ToLower();
             string folderName = "room_images";
 
-            var url = await this.cloudinaryService.UploadPhotoAsync(input.Picture, cloudinaryPicName, folderName);
-            var pictureId = await this.pictureService.AddPictureAsync(url);
+            var pictureUrls = input.Pictures
+                .Select(async x =>
+                    await this.cloudinaryService.UploadPhotoAsync(x, x.FileName, folderName))
+                .Select(x => x.Result)
+                .ToList();
 
             var room = new Room
             {
@@ -54,7 +54,8 @@
                 HasPhone = input.HasPhone,
                 HasAirConditioner = input.HasAirConditioner,
                 HasHeater = input.HasHeater,
-                PictureId = pictureId,
+                Pictures = pictureUrls.Select(x => new Picture { Url = x })
+                .ToList(),
             };
 
             await this.repository.AddAsync(room);

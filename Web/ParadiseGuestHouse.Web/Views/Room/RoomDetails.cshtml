@@ -9,18 +9,26 @@
         <div id="spaImgSlider" class="col-lg-7">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="~/Images/thirdSectionHome.jpg" />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="~/Images/firstSectionHome.jpg" />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="~/Images/homePageFirstSection.jpg" />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="~/Images/forthSectionHome.jpg" />
-                    </div>
+                    @{
+                        var counter = 1;
+                        foreach (var picture in Model.Pictures)
+                        {
+                            if (counter == 1)
+                            {
+                                <div class="carousel-item active">
+                                    <img src=@picture />
+                                </div>
+                                counter++;
+                            }
+                            else
+                            {
+                                <div class="carousel-item">
+                                    <img src=@picture />
+                                </div>
+                            }
+
+                        }
+                    }
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -110,14 +118,13 @@
 
                 }
                 <li><a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Reserve" asp-route-roomId="@Model.Id">Направете своята резервация сега!</a></li>
-                
+
                 <li id="roomDetailsDeleteEditBtns">
                     <a class="btn btn-outline-warning" asp-area="" asp-controller="Room" asp-action="Edit" asp-route-roomId="@Model.Id">Промени</a>
                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Room" asp-action="DeleteRoom" asp-route-roomId="@Model.Id">Изтрий</a>
                 </li>
             </ul>
-            
+
         </div>
     </div>
 </div>
-    

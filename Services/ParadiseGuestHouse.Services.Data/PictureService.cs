@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using Microsoft.EntityFrameworkCore;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
+    using ParadiseGuestHouse.Services.Mapping;
 
     public class PictureService : IPictureService
     {

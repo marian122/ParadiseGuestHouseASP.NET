@@ -1,5 +1,6 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Room
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Http;
     using ParadiseGuestHouse.Common;
@@ -35,7 +36,7 @@
 
         public bool HasHeater { get; set; }
 
-        [Required]
-        public IFormFile Picture { get; set; }
+        [DataType(DataType.Upload)]
+        public ICollection<IFormFile> Pictures { get; set; }
     }
 }

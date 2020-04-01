@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using ParadiseGuestHouse.Data.Common.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
 

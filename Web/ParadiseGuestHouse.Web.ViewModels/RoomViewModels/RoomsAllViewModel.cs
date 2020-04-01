@@ -1,9 +1,13 @@
 ﻿namespace ParadiseGuestHouse.Web.ViewModels.RoomViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AutoMapper;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
 
-    public class RoomsAllViewModel : IMapFrom<Room>
+    public class RoomsAllViewModel : IMapFrom<Room>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -31,6 +35,12 @@
 
         public bool HasHeater { get; set; }
 
-        public string PictureUrl { get; set; }
+        public ICollection<string> Pictures { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Room, RoomsAllViewModel>()
+            .ForMember(x => x.Pictures, cfg => cfg.MapFrom(x => x.Pictures.Select(pic => pic.Url)));
+        }
     }
 }
