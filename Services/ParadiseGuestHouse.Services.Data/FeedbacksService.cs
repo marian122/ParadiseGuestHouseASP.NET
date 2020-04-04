@@ -65,5 +65,22 @@
 
             throw new NullReferenceException();
         }
+
+        public async Task<bool> ApproveFeedback(string id)
+        {
+            var feedback = this.repository.All()
+                .FirstOrDefault(f => f.Id == id);
+
+            if (feedback != null)
+            {
+                feedback.IsApproved = true;
+
+                var result = await this.repository.SaveChangesAsync();
+
+                return result > 0;
+            }
+
+            throw new NullReferenceException();
+        }
     }
 }

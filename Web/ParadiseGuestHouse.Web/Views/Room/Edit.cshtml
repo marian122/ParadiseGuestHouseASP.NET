@@ -72,6 +72,11 @@
                             <input type="checkbox" asp-for="HasHeater">
                         </div>
 
+                        @*<div class="form-check">
+                            <input multiple asp-for="Pictures" type="file" class="btn btn-info">
+                            <span asp-validation-for="Pictures" class="text-danger"></span>
+                        </div>*@
+
                         <input type="submit" value="Редактирай" class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Edit">
 
                     </form>

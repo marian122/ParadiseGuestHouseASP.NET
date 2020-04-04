@@ -50,7 +50,7 @@
                             <h2>Апартамент</h2>
                         }
                         <h3>Цена: @item.Price лв.</h3>
-                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="RoomDetails" asp-route-roomId="@item.Id">Повече информация</a>
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Details" asp-route-roomId="@item.Id">Повече информация</a>
                         <a class="btn btn-outline-warning" asp-area="" asp-controller="Room" asp-action="Edit" asp-route-roomId="@item.Id">Промени</a>
                         <a class="btn btn-outline-danger" asp-area="" asp-controller="Room" asp-action="DeleteRoom" asp-route-roomId="@item.Id">Изтрий</a>
                     </div>
@@ -78,7 +78,8 @@
                             <h2>Апартамент</h2>
                         }
                         <h3>Цена: @item.Price лв.</h3>
-                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="RoomDetails" asp-route-roomId="@item.Id">Повече информация</a>
+
+                        <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Details" asp-route-roomId="@item.Id">Повече информация</a>
 
                     </div>
                 </div>
@@ -89,7 +90,7 @@
     {
         <div class="row">
             <div class="col-lg-12">
-                <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="CreateRoom">Добави стая</a>
+                <a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Create">Добави стая</a>
             </div>
         </div>
     }

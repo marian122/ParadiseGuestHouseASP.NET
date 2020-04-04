@@ -28,5 +28,17 @@
 
             return this.NotFound();
         }
+
+        public async Task<IActionResult> ApproveFeedback(string feedbackId)
+        {
+            var result = await this.feedbackService.ApproveFeedback(feedbackId);
+
+            if (result == true)
+            {
+                return this.Redirect("/");
+            }
+
+            return this.NotFound();
+        }
     }
 }

@@ -12,5 +12,7 @@
         public string LastName { get; set; }
 
         public string Message { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }

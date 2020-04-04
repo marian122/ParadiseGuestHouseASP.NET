@@ -86,6 +86,14 @@
         {
             var currentRoom = this.GetRoomById(id);
 
+            //string folderName = "room_images";
+
+            //var pictureUrls = input.Pictures
+            //    .Select(async x =>
+            //        await this.cloudinaryService.UploadPhotoAsync(x, x.FileName, folderName))
+            //    .Select(x => x.Result)
+            //    .ToList();
+
             currentRoom.RoomType = input.RoomType;
             currentRoom.Price = input.Price;
             currentRoom.NumberOfBeds = input.NumberOfBeds;
@@ -98,6 +106,7 @@
             currentRoom.HasRoomService = input.HasRoomService;
             currentRoom.HasSeaView = input.HasSeaView;
             currentRoom.HasTv = input.HasTv;
+            //currentRoom.Pictures = pictureUrls.Select(x => new Picture { Url = x }).ToList();
 
             this.repository.Update(currentRoom);
 

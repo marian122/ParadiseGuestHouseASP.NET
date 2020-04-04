@@ -104,19 +104,44 @@
     <div id="homeSectionFeedback" class="container">
         @foreach (var feedback in Model.AllFeedbacks)
         {
-            <div id="feedbackRow" class="row">
-                <a href="#" class="pull-left">
-                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-                </a>
-                <div class="media-body">
-                    <strong class="text-break">@feedback.FirstName @feedback.LastName</strong>
-                    <p>@feedback.Message</p>
-                </div>
-                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
+            if (feedback.IsApproved == false && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <div id="feedbackRow" class="row">
+                    <a href="#" class="pull-left">
+                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                    </a>
+                    <div class="media-body">
+                        <strong class="text-break">@feedback.FirstName @feedback.LastName</strong>
+                        <p>@feedback.Message</p>
+                    </div>
+
+                    <a class="btn btn-outline-success" asp-area="" asp-controller="Feedback" asp-action="ApproveFeedback" asp-route-feedbackId="@feedback.Id">V</a>
                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Feedback" asp-action="DeleteFeedback" asp-route-feedbackId="@feedback.Id">X</a>
-                }
-            </div>
+
+                </div>
+            }
+
+
+            @if (feedback.IsApproved)
+            {
+                <div id="feedbackRow" class="row">
+                    <a href="#" class="pull-left">
+                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                    </a>
+                    <div class="media-body">
+                        <strong class="text-break">@feedback.FirstName @feedback.LastName</strong>
+                        <p>@feedback.Message</p>
+                    </div>
+
+
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <a class="btn btn-outline-danger" asp-area="" asp-controller="Feedback" asp-action="DeleteFeedback" asp-route-feedbackId="@feedback.Id">X</a>
+                    }
+
+                </div>
+            }
+
         }
 
     </div>

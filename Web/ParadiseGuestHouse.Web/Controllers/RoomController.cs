@@ -47,8 +47,8 @@
         }
 
         [HttpGet]
-        [Route("Room/RoomDetails/{roomId}")]
-        public async Task<IActionResult> RoomDetails([FromRoute]string roomId)
+        [Route("Room/Details/{roomId}")]
+        public async Task<IActionResult> Details([FromRoute]string roomId)
         {
             var room = await this.roomsService.GetRoomAsync<RoomDetailsViewModel>(roomId);
 

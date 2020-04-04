@@ -1,13 +1,15 @@
 ﻿namespace ParadiseGuestHouse.Web.ViewModels.Room
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
     using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
 
-    public class EditRoomViewModel : IMapFrom<Room>
+    public class EditRoomViewModel
     {
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
         public RoomType RoomType { get; set; }
@@ -36,5 +38,8 @@
         public bool HasAirConditioner { get; set; }
 
         public bool HasHeater { get; set; }
+
+        [DataType(DataType.Upload)]
+        public ICollection<IFormFile> Pictures { get; set; }
     }
 }

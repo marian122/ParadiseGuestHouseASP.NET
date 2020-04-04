@@ -12,5 +12,7 @@
         Task<TViewModel> GetFeedbackAsync<TViewModel>(string id);
 
         Task<bool> DeleteFeedback(string id);
+
+        Task<bool> ApproveFeedback(string id);
     }
 }

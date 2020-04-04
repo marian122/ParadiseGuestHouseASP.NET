@@ -29,9 +29,6 @@
 
         public ApplicationUser User { get; set; }
 
-        public string GuestId { get; set; }
-
-        public Guest Guest { get; set; }
-
+        public bool IsApproved { get; set; }
     }
 }

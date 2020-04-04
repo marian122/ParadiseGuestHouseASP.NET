@@ -12,21 +12,20 @@
     public class RoomController : Controller
     {
         private readonly IRoomsService roomsService;
-        private readonly IDeletableEntityRepository<Room> repository;
 
-        public RoomController(IRoomsService roomsService, IDeletableEntityRepository<Room> repository)
+        public RoomController(IRoomsService roomsService)
         {
             this.roomsService = roomsService;
-            this.repository = repository;
         }
 
-        public IActionResult CreateRoom()
+        [HttpGet]
+        public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRoom(CreateRoomInputModel input)
+        public async Task<IActionResult> Create(CreateRoomInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
