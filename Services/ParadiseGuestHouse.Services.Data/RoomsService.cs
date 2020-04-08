@@ -58,10 +58,15 @@
                 .ToList(),
             };
 
-            await this.repository.AddAsync(room);
-            var result = await this.repository.SaveChangesAsync();
+            if (room != null && room.Price > 0)
+            {
+                await this.repository.AddAsync(room);
+                var result = await this.repository.SaveChangesAsync();
 
-            return result > 0;
+                return result > 0;
+            }
+
+            throw new ArgumentNullException();
         }
 
         public async Task<bool> DeleteRoom(string id)

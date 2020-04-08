@@ -22,10 +22,11 @@
         public RoomType RoomType { get; set; }
 
         [Required]
+        [Range(typeof(decimal), "0", "1000")]
         public decimal Price { get; set; }
 
         [Required]
-        [Range(0, 10)]
+        [Range(typeof(decimal), "0", "10")]
         public int NumberOfBeds { get; set; }
 
         public bool HasBathroom { get; set; }

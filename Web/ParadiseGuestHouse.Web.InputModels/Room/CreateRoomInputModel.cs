@@ -13,10 +13,11 @@
         public RoomType RoomType { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [Range(typeof(decimal), "0", "1000")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
-        [Range(1, 10, ErrorMessage = GlobalConstants.NumberOfBedsRange)]
+        [Range(typeof(decimal), "0", "10", ErrorMessage = GlobalConstants.NumberOfBedsRange)]
         public int NumberOfBeds { get; set; }
 
         public bool HasBathroom { get; set; }
