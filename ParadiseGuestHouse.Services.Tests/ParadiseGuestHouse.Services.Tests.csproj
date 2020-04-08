@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\ParadiseGuestHouse.Data.Models\ParadiseGuestHouse.Data.Models.csproj" />
+    <ProjectReference Include="..\Data\ParadiseGuestHouse.Data\ParadiseGuestHouse.Data.csproj" />
+    <ProjectReference Include="..\ParadiseGuestHouse.Tests.Common\ParadiseGuestHouse.Tests.Common.csproj" />
+    <ProjectReference Include="..\Services\ParadiseGuestHouse.Services.Data\ParadiseGuestHouse.Services.Data.csproj" />
+  </ItemGroup>
+
+</Project>

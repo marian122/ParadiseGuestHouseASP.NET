@@ -17,6 +17,8 @@
 
     public class SettingsServiceTests
     {
+        public readonly IRoomsService roomsService;
+
         [Fact]
         public void GetCountShouldReturnCorrectNumber()
         {
