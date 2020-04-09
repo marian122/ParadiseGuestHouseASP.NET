@@ -66,7 +66,7 @@
                 return result > 0;
             }
 
-            throw new ArgumentNullException();
+            return false;
         }
 
         public async Task<bool> DeleteRoom(string id)
