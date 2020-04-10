@@ -8,6 +8,7 @@ using ParadiseGuestHouse.Data.Repositories;
 using ParadiseGuestHouse.Services.Data;
 using ParadiseGuestHouse.Tests.Common;
 using ParadiseGuestHouse.Web.InputModels.Room;
+using ParadiseGuestHouse.Web.ViewModels.RoomViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,6 @@ namespace ParadiseGuestHouse.Services.Tests
     {
         private ApplicationDbContext dbContext;
         private RoomsService roomService;
-
 
         [Fact]
         public async Task ManualCreateRoom_WithValidData_ShouldReturnCorrectRoom()
@@ -106,7 +106,7 @@ namespace ParadiseGuestHouse.Services.Tests
                 HasWifi = false,
                 NumberOfBeds = 1,
             };
-            
+
             if (room != null && room.Price > 0 && room.NumberOfBeds < 10)
             {
                 await this.dbContext.AddAsync(room);
@@ -188,7 +188,7 @@ namespace ParadiseGuestHouse.Services.Tests
             {
                 RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
                 Price = 10,
-                Pictures = new List<IFormFile> 
+                Pictures = new List<IFormFile>
                 {
                     moqIFormFile.Object
                 },
@@ -250,6 +250,51 @@ namespace ParadiseGuestHouse.Services.Tests
             var actual = await this.roomService.CreateRoom(room);
 
             Assert.False(actual);
+        }
+
+        [Fact]
+        public async Task DeleteRoom_ShouldDelete()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                          .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                          .Options;
+
+            this.dbContext = new ApplicationDbContext(options);
+
+            var roomRepository = new EfDeletableEntityRepository<Room>(this.dbContext);
+            var roomReservationRepository = new EfDeletableEntityRepository<RoomReservation>(this.dbContext);
+            var pictureRepository = new EfDeletableEntityRepository<Picture>(this.dbContext);
+            var pictureService = new PictureService(pictureRepository);
+            var moqCloudinaryService = new Mock<ICloudinaryService>();
+
+
+            this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
+
+            var room = new Room
+            {
+                RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
+                Price = 10,
+                Pictures = null,
+                HasAirConditioner = true,
+                HasBathroom = true,
+                HasHeater = false,
+                HasMountainView = false,
+                HasPhone = false,
+                HasRoomService = false,
+                HasSeaView = false,
+                HasTv = false,
+                HasWifi = false,
+                NumberOfBeds = 1,
+            };
+
+            await this.dbContext.AddAsync(room);
+            await this.dbContext.SaveChangesAsync();
+
+            var deletingRoom = this.dbContext.Rooms.FirstOrDefault(x => x.Id == room.Id);
+
+            var actual = await this.roomService.DeleteRoom(deletingRoom.Id);
+
+            Assert.True(actual);
         }
     }
 }
