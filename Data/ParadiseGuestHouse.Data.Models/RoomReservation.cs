@@ -41,7 +41,7 @@
         public RoomType RoomType { get; set; }
 
         [Required]
-        [Range(0, 10)]
+        [Range(1, 10)]
         public int NumberOfGuests { get; set; }
 
         [Required]

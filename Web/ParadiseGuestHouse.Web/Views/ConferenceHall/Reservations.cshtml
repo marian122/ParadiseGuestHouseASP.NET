@@ -7,14 +7,14 @@
 @if (Model.AllReservations == null || !Model.AllReservations.Any())
 {
     <div class="col-lg-12 text-center">
-        <h2>Нямате активни резервации за конферентна зала!</h2>
+        <h2>Нямате активни резервации за конферентна зала</h2>
         <a class="btn btn-outline-warning" href="/Identity/Account/Manage">Върни се</a>
     </div>
 }
 else
 {
     <div class="col-lg-12 text-center">
-        <h2>Моите резервации за конферентна зала!</h2>
+        <h2>Моите резервации за конферентна зала! <a class="btn btn-outline-warning" href="/Identity/Account/Manage">Върни се</a></h2>
     </div>
 
     <div class="row">

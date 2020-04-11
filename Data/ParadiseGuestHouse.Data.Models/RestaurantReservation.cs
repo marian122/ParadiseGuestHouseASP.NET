@@ -13,7 +13,7 @@
         }
 
         [Required]
-        [Range(0, 120)]
+        [Range(1, 100)]
         public int NumberOfGuests { get; set; }
 
         [Required]

@@ -9,6 +9,7 @@
     using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
+    using ParadiseGuestHouse.Web.Infrastructure;
 
     public class ReserveRoomInputModel : IHaveCustomMappings
     {
@@ -27,13 +28,17 @@
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
-        [Range(0, 10, ErrorMessage = GlobalConstants.CountOfPeopleInRoomLength)]
+        [Range(1, 10, ErrorMessage = GlobalConstants.CountOfPeopleInRoomLength)]
         public int CountOfPeople { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [DataType(DataType.Date)]
+        [DateCheckAnnotation(ErrorMessage = GlobalConstants.CheckDateTimeAttribute)]
         public DateTime CheckIn { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
+        [DataType(DataType.Date)]
+        [DateCheckAnnotation(ErrorMessage = GlobalConstants.CheckDateTimeAttribute)]
         public DateTime CheckOut { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]

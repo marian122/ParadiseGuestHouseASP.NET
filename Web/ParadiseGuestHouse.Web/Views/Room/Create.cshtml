@@ -23,18 +23,21 @@
                                 <option value="2">Двойна стая</option>
                                 <option value="3">Апартамент</option>
                             </select>
-                            <span asp-validation-for="RoomType" class="text-danger"></span>
                         </div>
+                        <span asp-validation-for="RoomType" class="text-danger"></span>
+
                         <div class="form-check">
                             <label>Цена</label>
                             <input class="form-control" asp-for="Price">
-                            <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+
                         <div class="form-check">
                             <label>Брой легла</label>
                             <input class="form-control" asp-for="NumberOfBeds">
-                            <span asp-validation-for="NumberOfBeds" class="text-danger"></span>
                         </div>
+                        <span asp-validation-for="NumberOfBeds" class="text-danger"></span>
+
                         <div class="form-check">
                             <label>Баня</label>
                             <input type="checkbox" asp-for="HasBathroom">
@@ -71,11 +74,11 @@
                             <label>Парно</label>
                             <input type="checkbox" asp-for="HasHeater">
                         </div>
-                        
+
                         <div class="form-check">
-                             <input multiple asp-for="Pictures" type="file" class="btn btn-warning">
-                             <span asp-validation-for="Pictures" class="text-danger"></span>
+                            <input multiple asp-for="Pictures" type="file" class="btn btn-warning">
                         </div>
+                        <span asp-validation-for="Pictures" class="text-danger"></span>
 
                         <input type="submit" value="Добави стая" class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Create">
 
@@ -83,6 +86,6 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </section>

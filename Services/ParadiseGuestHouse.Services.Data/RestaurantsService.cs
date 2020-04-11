@@ -62,7 +62,7 @@
         {
             var restaurant = this.restaurantRepository.All().FirstOrDefault(x => x.IsDeleted == false);
 
-            if (restaurant != null && input.NumberOfGuests <= restaurant.MaxCapacity && input.EventDate < DateTime.Now)
+            if (restaurant != null && input.NumberOfGuests <= restaurant.MaxCapacity && input.EventDate >= DateTime.Now)
             {
                 var restaurantReservation = new RestaurantReservation()
                 {

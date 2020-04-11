@@ -22,7 +22,7 @@
         public string PhoneNumber { get; set; }
 
         [Required]
-        [Range(0, 100)]
+        [Range(1, 100)]
         public int NumberOfGuests { get; set; }
 
         public decimal TotalPrice { get; set; }

@@ -27,6 +27,8 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new ConferenceHallSeeder(),
+                              new RestaurantSeeder(),
                           };
 
             foreach (var seeder in seeders)

@@ -2,7 +2,7 @@
 @using ParadiseGuestHouse.Data.Models
 
 @{
-    ViewData["Title"] = "Reserve";
+    ViewData["Title"] = "Резервация";
 }
 @inject SignInManager<ApplicationUser> SignInManager
 @model ParadiseGuestHouse.Web.InputModels.Restaurant.RestaurantInputModel
@@ -56,41 +56,16 @@
 
             <div class="col-lg-5">
                 <form asp-controller="Restaurant" asp-action="Reserve">
-                    @if (!this.SignInManager.IsSignedIn(this.User))
-                    {
-                        <div class="form-group">
-                            <i class="fa fa-user icon"></i>
-                            <input class="form-control" asp-for="FirstName" placeholder="Име">
-                            <span asp-validation-for="FirstName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <i class="fa fa-user icon"></i>
-                            <input class="form-control" asp-for="LastName" placeholder="Фамилия">
-                            <span asp-validation-for="LastName" class="text-danger"></span>
-                        </div>
-                    }
-
-                    @if (!this.SignInManager.IsSignedIn(this.User))
-                    {
-                        <div class="form-group">
-                            <i class="fa fa-envelope icon"></i>
-                            <input class="form-control" asp-for="EmailAddress" placeholder="E-mail">
-                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-group">
-                            <i class="fa fa-envelope icon"></i>
-                            <input class="form-control" asp-for="EmailAddress" value="@this.User.Identity.Name" placeholder="E-mail">
-                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
-                        </div>
-                    }
+                    <div class="form-group">
+                        <i class="fa fa-envelope icon"></i>
+                        <input class="form-control" asp-for="EmailAddress" value="@this.User.Identity.Name" placeholder="E-mail">
+                    </div>
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-phone icon"></i>
                         <input class="form-control" asp-for="PhoneNumber" placeholder="Тел. номер">
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-glass icon"></i>
                         <select class="form-control" asp-for="EventType">
@@ -100,33 +75,33 @@
                             <option value="4">Рожден ден</option>
                             <option value="5">Детски рожден ден</option>
                         </select>
-                        <span asp-validation-for="EventType" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="EventType" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-group icon"></i>
                         <input class="form-control" asp-for="NumberOfGuests" placeholder="Брой хора">
-                        <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-calendar icon"></i>
                         <input type="date" class="form-control" asp-for="EventDate" placeholder="Дата на събитието:">
-                        <span asp-validation-for="EventDate" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="EventDate" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
                         <input type="time" class="form-control" asp-for="CheckIn" placeholder="Начален час:">
-                        <span asp-validation-for="CheckIn" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="CheckIn" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-clock-o icon"></i>
                         <input type="time" class="form-control" asp-for="CheckOut" placeholder="Краен час:">
-                        <span asp-validation-for="CheckOut" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="CheckOut" class="text-danger"></span>
                     <div class="form-group">
                         <i class="fa fa-commenting icon"></i>
                         <textarea class="form-control" asp-for="Message" rows="3" placeholder="Вашето съобщение."></textarea>
-                        <span asp-validation-for="Message" class="text-danger"></span>
                     </div>
+                    <span asp-validation-for="Message" class="text-danger"></span>
 
                     <input type="submit" value="Резервирай" class="btn btn-outline-dark" asp-area="" asp-controller="Restaurant" asp-action="Reserve">
 

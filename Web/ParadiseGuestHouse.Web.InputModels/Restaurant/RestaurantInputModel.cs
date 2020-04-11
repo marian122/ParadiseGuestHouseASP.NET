@@ -1,12 +1,14 @@
 ﻿namespace ParadiseGuestHouse.Web.InputModels.Restaurant
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
+    using ParadiseGuestHouse.Web.Infrastructure;
 
     public class RestaurantInputModel : IMapFrom<Restaurant>
     {
@@ -25,7 +27,7 @@
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
-        [Range(0, 120, ErrorMessage = GlobalConstants.RestaurantReserveGuestsMax)]
+        [Range(1, 100, ErrorMessage = GlobalConstants.RestaurantReserveGuestsMax)]
         public int NumberOfGuests { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
@@ -33,6 +35,7 @@
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
         [DataType(DataType.Date)]
+        [DateCheckAnnotation(ErrorMessage = GlobalConstants.CheckDateTimeAttribute)]
         public DateTime EventDate { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
