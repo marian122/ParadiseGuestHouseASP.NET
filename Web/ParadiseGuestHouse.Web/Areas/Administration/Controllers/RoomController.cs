@@ -1,7 +1,7 @@
 ﻿namespace ParadiseGuestHouse.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
@@ -19,12 +19,14 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateRoomInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -37,6 +39,7 @@
             return this.Redirect("/Room/All");
         }
 
+        [Authorize]
         public async Task<IActionResult> DeleteRoom(string roomId)
         {
             var result = await this.roomsService.DeleteRoom(roomId);
@@ -50,6 +53,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         [Route("Room/Edit/{roomId}")]
         public async Task<IActionResult> Edit([FromRoute]string roomId)
         {
@@ -59,6 +63,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         [Route("Room/Edit/{roomId}")]
         public async Task<IActionResult> Edit([FromRoute]string roomId, EditRoomViewModel input)
         {

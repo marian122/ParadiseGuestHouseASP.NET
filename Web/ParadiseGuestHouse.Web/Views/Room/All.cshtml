@@ -2,7 +2,7 @@
 @using ParadiseGuestHouse.Data.Models
 @using ParadiseGuestHouse.Common
 @{
-    ViewData["Title"] = "Room";
+    ViewData["Title"] = "Стаи";
 }
 @inject SignInManager<ApplicationUser> SignInManager
 @model ParadiseGuestHouse.Web.ViewModels.RoomViewModels.RoomViewModel
@@ -62,7 +62,26 @@
             <div id="singleRoom" class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="~/Images/singleRoom.jpg" />
+                        @{
+                            var counter = 1;
+                            foreach (var picture in item.Pictures)
+                            {
+                                if (counter == 1)
+                                {
+                                    <div class="carousel-item active">
+                                        <img src=@picture height="250" />
+                                    </div>
+                                    counter++;
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img src=@picture height="250" />
+                                    </div>
+                                }
+
+                            }
+                        }
                     </div>
                     <div class="col-lg-6">
                         @if (item.RoomType == "SingleRoom")

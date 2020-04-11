@@ -65,7 +65,7 @@
 
             if (conferenceHall != null &&
                 input.NumberOfGuests <= conferenceHall.MaxCapacity &&
-                input.EventDate < DateTime.Now)
+                input.EventDate.Day >= DateTime.Now.Day)
             {
                 var conferenceHallReservation = new ConferenceHallReservation()
                 {
