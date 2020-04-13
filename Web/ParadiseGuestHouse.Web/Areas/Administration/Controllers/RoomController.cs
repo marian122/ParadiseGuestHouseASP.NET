@@ -36,7 +36,9 @@
 
             await this.roomsService.CreateRoom(input);
 
-            return this.Redirect("/Room/All");
+            this.TempData["InfoMessage"] = "Room created successfuly!";
+
+            return this.RedirectToAction("All");
         }
 
         [Authorize]
@@ -46,7 +48,8 @@
 
             if (result == true)
             {
-                return this.Redirect("/Room/All");
+                this.TempData["InfoMessage"] = "Room deleted successfuly!";
+                return this.RedirectToAction("All");
             }
 
             return this.NotFound();
@@ -73,8 +76,8 @@
             }
 
             await this.roomsService.EditRoomAsync(roomId, input);
-
-            return this.Redirect("/Room/All");
+            this.TempData["InfoMessage"] = "Room edited successfuly!";
+            return this.RedirectToAction("All");
         }
     }
 }

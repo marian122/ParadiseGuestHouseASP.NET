@@ -9,7 +9,7 @@
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Mapping;
 
-    public class EditRoomViewModel
+    public class EditRoomViewModel : IMapTo<Room>, IMapFrom<Room>
     {
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
         public RoomType RoomType { get; set; }
@@ -39,7 +39,7 @@
 
         public bool HasHeater { get; set; }
 
-        [DataType(DataType.Upload)]
-        public ICollection<IFormFile> Pictures { get; set; }
+        //[DataType(DataType.Upload)]
+        //public ICollection<IFormFile> Pictures { get; set; }
     }
 }
