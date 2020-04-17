@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using ParadiseGuestHouse.Data.Common.Models;
+    using ParadiseGuestHouse.Data.Models.Enums;
 
     public class Restaurant : BaseDeletableModel<string>
     {

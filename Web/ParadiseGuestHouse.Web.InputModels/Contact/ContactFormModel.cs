@@ -25,8 +25,5 @@
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
         [MaxLength(300, ErrorMessage = GlobalConstants.ContentMessageMaxLength)]
         public string Content { get; set; }
-
-        //[GoogleReCaptchaValidation]
-        //public string RecaptchaValue { get; set; }
     }
 }

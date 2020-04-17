@@ -23,15 +23,17 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        //public DbSet<Setting> Settings { get; set; }
+
+        ///public DbSet<Guest> Guests { get; set; }
+        
+        //public DbSet<ContactForm> ContactFormEntries { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }
 
         public DbSet<RoomReservation> RoomReservations { get; set; }
-
-        public DbSet<Guest> Guests { get; set; }
 
         public DbSet<ConferenceHall> ConferenceHalls { get; set; }
 
@@ -42,8 +44,6 @@
         public DbSet<RestaurantReservation> RestaurantReservations { get; set; }
 
         public DbSet<Feedback> Feedbacks { get; set; }
-
-        public DbSet<ContactForm> ContactFormEntries { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
