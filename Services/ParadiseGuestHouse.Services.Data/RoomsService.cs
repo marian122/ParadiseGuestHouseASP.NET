@@ -145,6 +145,29 @@
             return reservations;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
+        {
+            var reservations = await this.roomReservationRepository
+            .All()
+            .Where(r => r.IsDeleted == false && r.CheckOut > DateTime.Now) // UtcNow
+            .To<TViewModel>()
+            .ToListAsync();
+
+            var reservationCheckOut = await this.roomReservationRepository.All().Where(x => x.CheckOut < DateTime.Now).ToListAsync();
+
+            if (reservationCheckOut.Any())
+            {
+                foreach (var res in reservationCheckOut)
+                {
+                    this.roomReservationRepository.Delete(res);
+
+                    await this.roomReservationRepository.SaveChangesAsync();
+                }
+            }
+
+            return reservations;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>()
             => await this.repository
             .All()

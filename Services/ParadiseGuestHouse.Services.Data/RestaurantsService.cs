@@ -58,6 +58,40 @@
             return result;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
+        {
+            var result = await this.restaurantReservationRepository
+              .All()
+              .Where(r => r.IsDeleted != true)
+              .To<TViewModel>()
+              .ToListAsync();
+
+            var eventDate = await this.restaurantReservationRepository
+                .All()
+                .Where(x => x.EventDate < DateTime.Now && x.CheckOut < DateTime.Now)
+                .ToListAsync();
+
+            var conferenceHalls = await this.restaurantRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
+
+            if (eventDate != null && eventDate.Count > 0)
+            {
+                foreach (var item in eventDate)
+                {
+                    this.restaurantReservationRepository.Delete(item);
+
+                    foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    {
+                        hall.CurrentCapacity = hall.MaxCapacity;
+                    }
+                }
+            }
+
+            await this.restaurantRepository.SaveChangesAsync();
+            await this.restaurantReservationRepository.SaveChangesAsync();
+
+            return result;
+        }
+
         public async Task<bool> ReserveRestaurant(RestaurantInputModel input)
         {
             var restaurant = this.restaurantRepository.All().FirstOrDefault(x => x.IsDeleted == false);

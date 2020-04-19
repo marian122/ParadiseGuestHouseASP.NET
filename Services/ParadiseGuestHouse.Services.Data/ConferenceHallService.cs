@@ -58,6 +58,40 @@
             return result;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
+        {
+            var result = await this.conferenceHallReservationRepository
+              .All()
+              .Where(r => r.IsDeleted != true)
+              .To<TViewModel>()
+              .ToListAsync();
+
+            var eventDate = await this.conferenceHallReservationRepository
+                .All()
+                .Where(x => x.EventDate < DateTime.Now && x.CheckOut < DateTime.Now)
+                .ToListAsync();
+
+            var conferenceHalls = await this.conferenceHallRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
+
+            if (eventDate != null && eventDate.Count > 0)
+            {
+                foreach (var item in eventDate)
+                {
+                    this.conferenceHallReservationRepository.Delete(item);
+
+                    foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    {
+                        hall.CurrentCapacity = hall.MaxCapacity;
+                    }
+                }
+            }
+
+            await this.conferenceHallRepository.SaveChangesAsync();
+            await this.conferenceHallReservationRepository.SaveChangesAsync();
+
+            return result;
+        }
+
         public async Task<bool> ReserveConferenceHall(ConferenceHallInputModel input)
         {
             var conferenceHall = this.conferenceHallRepository.All()

@@ -23,6 +23,8 @@
 
         Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId);
 
+        Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>();
+
         Task<bool> ReserveRoom(ReserveRoomInputModel input);
     }
 }
