@@ -18,6 +18,7 @@ using Xunit;
 
 namespace ParadiseGuestHouse.Services.Tests
 {
+    [Collection(nameof(MapperFixture))]
     public class RoomServiceTests
     {
         private ApplicationDbContext dbContext;

@@ -15,6 +15,7 @@ using Xunit;
 
 namespace ParadiseGuestHouse.Services.Tests
 {
+    [Collection(nameof(MapperFixture))]
     public class RestaurantServiceTests
     {
         private ApplicationDbContext dbContext;
@@ -37,7 +38,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var restaurantRepository = new EfDeletableEntityRepository<Restaurant>(this.dbContext);
             var restaurantReservationRepository = new EfDeletableEntityRepository<RestaurantReservation>(this.dbContext);
 
-            restaurantRepository.AddAsync(new Restaurant
+            await restaurantRepository.AddAsync(new Restaurant
             {
                 Id = "restaurantid",
                 CurrentCapacity = 100,
@@ -45,13 +46,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 Description = "restaurant",
                 Price = 50,
                 Title = "restaurant",
-            }).GetAwaiter().GetResult();
+            });
 
-            restaurantRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await restaurantRepository.SaveChangesAsync();
 
             this.restaurantsService = new RestaurantsService(restaurantRepository, restaurantReservationRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRestaurant).Assembly);
 
             var actualResult = restaurantRepository.All().ToList();
 
@@ -71,7 +70,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var restaurantRepository = new EfDeletableEntityRepository<Restaurant>(this.dbContext);
             var restaurantReservationRepository = new EfDeletableEntityRepository<RestaurantReservation>(this.dbContext);
 
-            restaurantRepository.AddAsync(new Restaurant
+            await restaurantRepository.AddAsync(new Restaurant
             {
                 Id = "restaurantid",
                 CurrentCapacity = 100,
@@ -79,13 +78,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 Description = "restaurant",
                 Price = 50,
                 Title = "restaurant",
-            }).GetAwaiter().GetResult();
+            });
 
-            restaurantRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await restaurantRepository.SaveChangesAsync();
 
             this.restaurantsService = new RestaurantsService(restaurantRepository, restaurantReservationRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRestaurant).Assembly);
 
             var reservation = new RestaurantInputModel
             {
@@ -117,7 +114,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var restaurantRepository = new EfDeletableEntityRepository<Restaurant>(this.dbContext);
             var restaurantReservationRepository = new EfDeletableEntityRepository<RestaurantReservation>(this.dbContext);
 
-            restaurantRepository.AddAsync(new Restaurant
+            await restaurantRepository.AddAsync(new Restaurant
             {
                 Id = "restaurantid",
                 CurrentCapacity = 100,
@@ -125,13 +122,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 Description = "restaurant",
                 Price = 50,
                 Title = "restaurant",
-            }).GetAwaiter().GetResult();
+            });
 
-            restaurantRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await restaurantRepository.SaveChangesAsync();
 
             this.restaurantsService = new RestaurantsService(restaurantRepository, restaurantReservationRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRestaurant).Assembly);
 
             var reservation = new RestaurantInputModel
             {
@@ -169,7 +164,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var restaurantRepository = new EfDeletableEntityRepository<Restaurant>(this.dbContext);
             var restaurantReservationRepository = new EfDeletableEntityRepository<RestaurantReservation>(this.dbContext);
 
-            restaurantRepository.AddAsync(new Restaurant
+            await restaurantRepository.AddAsync(new Restaurant
             {
                 Id = "restaurantid",
                 CurrentCapacity = 100,
@@ -177,15 +172,13 @@ namespace ParadiseGuestHouse.Services.Tests
                 Description = "restaurant",
                 Price = 50,
                 Title = "restaurant",
-            }).GetAwaiter().GetResult();
+            });
 
-            restaurantRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await restaurantRepository.SaveChangesAsync();
 
             this.restaurantsService = new RestaurantsService(restaurantRepository, restaurantReservationRepository);
 
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRestaurant).Assembly);
-
-            restaurantReservationRepository.AddAsync(new RestaurantReservation
+            await restaurantReservationRepository.AddAsync(new RestaurantReservation
             {
                 EventDate = DateTime.Now.AddDays(1),
                 CheckIn = DateTime.Now.AddDays(1).AddHours(10),
@@ -193,9 +186,9 @@ namespace ParadiseGuestHouse.Services.Tests
                 NumberOfGuests = 50,
                 PhoneNumber = "0888186978",
                 EventType = (RestaurantEventType)Enum.Parse(typeof(RestaurantEventType), "Birthday"),
-            }).GetAwaiter().GetResult();
+            });
 
-            restaurantReservationRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await restaurantReservationRepository.SaveChangesAsync();
 
             var actualResult = restaurantReservationRepository.All().First().EventType.ToString();
 

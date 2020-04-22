@@ -9,11 +9,12 @@
 
     <div>
         <script>
-    var msg = '@TempData["InfoMessage"]';
+        var msg = '@TempData["InfoMessage"]';
             if (msg.length) {
-        alert(msg);
-    }
+            alert(msg);
+        }
         </script>
+
 
         @foreach (var item in Model.AllRooms)
         {

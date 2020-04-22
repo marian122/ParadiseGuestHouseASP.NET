@@ -15,6 +15,7 @@ using Xunit;
 
 namespace ParadiseGuestHouse.Services.Tests
 {
+    [Collection(nameof(MapperFixture))]
     public class ConferenceHallServiceTests
     {
         private ApplicationDbContext dbContext;
@@ -37,7 +38,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var conferenceHallRepository = new EfDeletableEntityRepository<ConferenceHall>(this.dbContext);
             var conferenceHallReservationRepository = new EfDeletableEntityRepository<ConferenceHallReservation>(this.dbContext);
 
-            conferenceHallRepository.AddAsync(new ConferenceHall
+            await conferenceHallRepository.AddAsync(new ConferenceHall
             {
                 Id = "conferenceid",
                 CreatedOn = DateTime.UtcNow,
@@ -47,13 +48,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 CurrentCapacity = 100,
                 MaxCapacity = 100,
                 Price = 50,
-            }).GetAwaiter().GetResult();
+            });
 
             conferenceHallRepository.SaveChangesAsync().GetAwaiter().GetResult();
 
             this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestConferenceHall).Assembly);
 
             var actualResult = conferenceHallRepository.All().ToList();
 
@@ -74,7 +73,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var conferenceHallRepository = new EfDeletableEntityRepository<ConferenceHall>(this.dbContext);
             var conferenceHallReservationRepository = new EfDeletableEntityRepository<ConferenceHallReservation>(this.dbContext);
 
-            conferenceHallRepository.AddAsync(new ConferenceHall
+            await conferenceHallRepository.AddAsync(new ConferenceHall
             {
                 Id = "conferenceid",
                 CreatedOn = DateTime.UtcNow,
@@ -84,13 +83,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 CurrentCapacity = 100,
                 MaxCapacity = 100,
                 Price = 50,
-            }).GetAwaiter().GetResult();
+            });
 
-            conferenceHallRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await conferenceHallRepository.SaveChangesAsync();
 
             this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestConferenceHall).Assembly);
 
             var reservation = new ConferenceHallInputModel
             {
@@ -122,7 +119,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var conferenceHallRepository = new EfDeletableEntityRepository<ConferenceHall>(this.dbContext);
             var conferenceHallReservationRepository = new EfDeletableEntityRepository<ConferenceHallReservation>(this.dbContext);
 
-            conferenceHallRepository.AddAsync(new ConferenceHall
+            await conferenceHallRepository.AddAsync(new ConferenceHall
             {
                 Id = "conferenceid",
                 CreatedOn = DateTime.UtcNow,
@@ -132,13 +129,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 CurrentCapacity = 100,
                 MaxCapacity = 100,
                 Price = 50,
-            }).GetAwaiter().GetResult();
+            });
 
-            conferenceHallRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await conferenceHallRepository.SaveChangesAsync();
 
             this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestConferenceHall).Assembly);
 
             var reservation = new ConferenceHallInputModel
             {
@@ -176,7 +171,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var conferenceHallRepository = new EfDeletableEntityRepository<ConferenceHall>(this.dbContext);
             var conferenceHallReservationRepository = new EfDeletableEntityRepository<ConferenceHallReservation>(this.dbContext);
 
-            conferenceHallRepository.AddAsync(new ConferenceHall
+            await conferenceHallRepository.AddAsync(new ConferenceHall
             {
                 Id = "conferenceid",
                 CreatedOn = DateTime.UtcNow,
@@ -186,13 +181,11 @@ namespace ParadiseGuestHouse.Services.Tests
                 CurrentCapacity = 100,
                 MaxCapacity = 100,
                 Price = 50,
-            }).GetAwaiter().GetResult();
+            });
 
-            conferenceHallRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await conferenceHallRepository.SaveChangesAsync();
 
             this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
-
-            AutoMapperConfig.RegisterMappings(typeof(MyTestConferenceHall).Assembly);
 
             conferenceHallReservationRepository.AddAsync(new ConferenceHallReservation
             {
@@ -205,7 +198,7 @@ namespace ParadiseGuestHouse.Services.Tests
                 ConferenceHallId = "conferenceid",
             }).GetAwaiter().GetResult();
 
-            conferenceHallReservationRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await conferenceHallReservationRepository.SaveChangesAsync();
 
             var actualResult = conferenceHallReservationRepository.All().FirstOrDefault(x => x.ConferenceHallId == "conferenceid").EventType.ToString();
 
