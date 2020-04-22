@@ -208,7 +208,7 @@
             var room = this.repository.All()
                 .FirstOrDefault(r => r.Id == input.RoomId);
 
-            if (room != null && room.NumberOfBeds >= input.CountOfPeople)
+            if (room != null)
             {
                 var reservation = new RoomReservation()
                 {
