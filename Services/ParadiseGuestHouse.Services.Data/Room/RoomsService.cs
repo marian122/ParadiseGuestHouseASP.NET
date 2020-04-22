@@ -15,18 +15,15 @@
     {
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IDeletableEntityRepository<RoomReservation> roomReservationRepository;
-        private readonly IPictureService pictureService;
         private readonly ICloudinaryService cloudinaryService;
 
         public RoomsService(
             IDeletableEntityRepository<Room> repository,
             IDeletableEntityRepository<RoomReservation> roomReservationRepository,
-            IPictureService pictureService,
             ICloudinaryService cloudinaryService)
         {
             this.repository = repository;
             this.roomReservationRepository = roomReservationRepository;
-            this.pictureService = pictureService;
             this.cloudinaryService = cloudinaryService;
         }
 
@@ -211,7 +208,7 @@
             var room = this.repository.All()
                 .FirstOrDefault(r => r.Id == input.RoomId);
 
-            if (room != null)
+            if (room != null && room.NumberOfBeds >= input.CountOfPeople)
             {
                 var reservation = new RoomReservation()
                 {
@@ -240,7 +237,7 @@
                 return result > 0;
             }
 
-            throw new NullReferenceException();
+            throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<RoomReservation>");
         }
 
         private Room GetRoomById(string id)

@@ -16,7 +16,7 @@
 
         public const string InvalidPhoneNumber = "Невалиден телефонен номер";
 
-        public const string CountOfPeopleInRoomLength = "Полето трябва да е между 1 и 10.";
+        public const string CountOfPeopleInRoomLength = "Полето трябва да е между 1 и 5.";
 
         public const string NumberOfBedsRange = "Броят на леглата трябва да е между 1 и 10";
 

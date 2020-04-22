@@ -55,80 +55,58 @@
             {
                 <h2>Апартамент</h2>
             }
-            <ul class="social-network social-circle" style="list-style: none;">
-                @if (Model.RoomType == "SingleRoom" && Model.NumberOfBeds == 1)
-                {
-                    <li><a><i class="fa fa-bed"></i>Единично легло</a></li>
-                }
-                @if (Model.RoomType == "SingleRoom" && Model.NumberOfBeds == 2)
-                {
-                    <li><a><i class="fa fa-bed"></i>Две единични легла</a></li>
-                }
-                @if (Model.RoomType == "DoubleRoom" && Model.NumberOfBeds == 1)
-                {
-                    <li><a><i class="fa fa-bed"></i>Двойно легло</a></li>
-                }
-                @if (Model.RoomType == "DoubleRoom" && Model.NumberOfBeds == 2)
-                {
-                    <li><a><i class="fa fa-bed"></i>Две единични легла</a></li>
-                }
-                @if (Model.RoomType == "DoubleRoom" && Model.NumberOfBeds == 3)
-                {
-                    <li><a><i class="fa fa-bed"></i>Двойно легло и едно единично</a></li>
-                }
-                @if (Model.RoomType == "Apartment")
-                {
-                    <li><a><i class="fa fa-bed"></i>Двойно легло и две единични легла</a></li>
-                }
-                @if (Model.HasBathroom == true)
-                {
-                    <li><a><i class="fa fa-bathtub"></i>Баня с душ</a></li>
-                }
-                @if (Model.HasRoomService == true)
-                {
-                    <li><a><i class="fa fa-bell"></i>Руум сървиз 24/7</a></li>
-                }
-                @if (Model.HasSeaView == true)
-                {
-                    <li><a><i class="fa fa-binoculars"></i>Изглед към морето</a></li>
+        <ul class="social-network social-circle" style="list-style: none;">
+        
+            <li><a><i class="fa fa-bed"></i>@Model.NumberOfBeds легла</a></li>
+            @if (Model.HasBathroom == true)
+            {
+                <li><a><i class="fa fa-bathtub"></i>Баня с душ</a></li>
+            }
+            @if (Model.HasRoomService == true)
+            {
+                <li><a><i class="fa fa-bell"></i>Руум сървиз 24/7</a></li>
+            }
+            @if (Model.HasSeaView == true)
+            {
+                <li><a><i class="fa fa-binoculars"></i>Изглед към морето</a></li>
 
-                }
-                @if (Model.HasWifi == true)
-                {
-                    <li><a><i class="fa fa-wifi"></i>Безжичен интернет</a></li>
+            }
+            @if (Model.HasWifi == true)
+            {
+                <li><a><i class="fa fa-wifi"></i>Безжичен интернет</a></li>
 
-                }
-                @if (Model.HasTv == true)
-                {
-                    <li><a><i class="fa fa-tv"></i>LCD Телевизор</a></li>
+            }
+            @if (Model.HasTv == true)
+            {
+                <li><a><i class="fa fa-tv"></i>LCD Телевизор</a></li>
 
-                }
-                @if (Model.HasPhone == true)
-                {
-                    <li><a><i class="fa fa-phone"></i>Телефон</a></li>
+            }
+            @if (Model.HasPhone == true)
+            {
+                <li><a><i class="fa fa-phone"></i>Телефон</a></li>
 
-                }
-                @if (Model.HasAirConditioner == true)
-                {
-                    <li><a><i class="fa fa-fa fa-snowflake-o"></i>Климатик</a></li>
+            }
+            @if (Model.HasAirConditioner == true)
+            {
+                <li><a><i class="fa fa-fa fa-snowflake-o"></i>Климатик</a></li>
 
-                }
-                @if (Model.HasHeater == true)
-                {
-                    <li><a><i class="fa fa-thermometer-full"></i>Парно</a></li>
+            }
+            @if (Model.HasHeater == true)
+            {
+                <li><a><i class="fa fa-thermometer-full"></i>Парно</a></li>
 
-                }
-                <li><a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Reserve" asp-route-roomId="@Model.Id">Направете своята резервация сега!</a></li>
+            }
+            <li><a class="btn btn-outline-dark" asp-area="" asp-controller="Room" asp-action="Reserve" asp-route-roomId="@Model.Id">Направете своята резервация сега!</a></li>
 
-                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
-                    <li id="roomDetailsDeleteEditBtns">
-                        <a class="btn btn-outline-warning" asp-area="" asp-controller="Room" asp-action="Edit" asp-route-roomId="@Model.Id">Промени</a>
-                        <a class="btn btn-outline-danger" asp-area="" asp-controller="Room" asp-action="DeleteRoom" asp-route-roomId="@Model.Id">Изтрий</a>
-                    </li>
-                }
+            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <li id="roomDetailsDeleteEditBtns">
+                    <a class="btn btn-outline-warning" asp-area="" asp-controller="Room" asp-action="Edit" asp-route-roomId="@Model.Id">Промени</a>
+                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Room" asp-action="DeleteRoom" asp-route-roomId="@Model.Id">Изтрий</a>
+                </li>
+            }
 
-            </ul>
+        </ul>
 
         </div>
     </div>
