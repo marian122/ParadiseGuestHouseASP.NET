@@ -52,6 +52,8 @@
 
             await this.conferenceHallService.ReserveConferenceHall(input);
 
+            this.TempData["InfoMessage"] = "You successfully booked a Conference Hall!";
+
             return this.Redirect("/ConferenceHall/Reservations");
         }
 

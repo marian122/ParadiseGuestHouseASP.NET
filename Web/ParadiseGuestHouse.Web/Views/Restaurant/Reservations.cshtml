@@ -4,6 +4,13 @@
     ViewData["Title"] = "ConferenceHallReservations";
 }
 
+    <script>
+        var msg = '@TempData["InfoMessage"]';
+            if (msg.length) {
+            alert(msg);
+        }
+    </script>
+
 @if (Model.AllReservations == null || !Model.AllReservations.Any())
 {
     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))

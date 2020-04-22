@@ -19,6 +19,8 @@
         {
             await this.feedbackService.SendFeedback(input.FirstName, input.LastName, input.Message);
 
+            this.TempData["InfoMessage"] = "Thank you for your feedback!";
+
             return this.Redirect("/");
         }
     }

@@ -61,7 +61,6 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IRoomsService, RoomsService>();
             services.AddTransient<IFeedbacksService, FeedbacksService>();
             services.AddTransient<IUsersService, UsersService>();

@@ -43,6 +43,8 @@
 
             await client.SendEmailAsync(msg);
 
+            this.TempData["InfoMessage"] = "You have successfully sent an email! Please check your mailbox for a reply!";
+
             return this.Redirect("/");
         }
     }

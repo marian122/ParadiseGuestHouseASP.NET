@@ -52,6 +52,8 @@
 
             await this.restaurantService.ReserveRestaurant(input);
 
+            this.TempData["InfoMessage"] = "You successfully booked a restaurant!";
+
             return this.Redirect("/Restaurant/Reservations");
         }
 

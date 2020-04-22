@@ -88,6 +88,8 @@
 
             await this.roomsService.ReserveRoom(input);
 
+            this.TempData["InfoMessage"] = "You successfully booked a room!";
+
             return this.Redirect("/Room/Reservations");
         }
 
