@@ -76,8 +76,13 @@
         [Route("Room/Reserve/{roomId}")]
         public async Task<IActionResult> Reserve([FromRoute]string roomId, ReserveRoomInputModel input)
         {
-            if (!this.ModelState.IsValid)
+            var pictures = await this.picturesRepository.All().Where(x => x.RoomId == roomId).ToListAsync();
+            var room = this.roomsService.GetRoomById(roomId);
+
+            if (!this.ModelState.IsValid || room.NumberOfBeds < input.CountOfPeople)
             {
+                this.ModelState.AddModelError("CountOfPeople", $"Максимален брой гости {room.NumberOfBeds}");
+                input.Pictures = pictures.Select(x => x.Url).ToList();
                 return this.View(input);
             }
 

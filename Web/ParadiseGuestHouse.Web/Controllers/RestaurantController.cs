@@ -41,8 +41,10 @@
         [HttpPost]
         public async Task<IActionResult> Reserve(RestaurantInputModel input)
         {
-            if (!this.ModelState.IsValid)
+            var remainingCapacity = this.restaurantService.GetRemainingCapacity();
+            if (!this.ModelState.IsValid || remainingCapacity < input.NumberOfGuests)
             {
+                this.ModelState.AddModelError("NumberOfGuests", $"Оставащи места в ресоранта {remainingCapacity}");
                 return this.View(input);
             }
 

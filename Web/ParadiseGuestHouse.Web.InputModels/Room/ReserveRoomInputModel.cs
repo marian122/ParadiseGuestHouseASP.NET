@@ -28,7 +28,7 @@
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]
-        [Range(1, 5, ErrorMessage = GlobalConstants.CountOfPeopleInRoomLength)]
+        [Range(1, 10, ErrorMessage = GlobalConstants.CountOfPeopleInRoomLength)]
         public int CountOfPeople { get; set; }
 
         [Required(ErrorMessage = GlobalConstants.RequiredField)]

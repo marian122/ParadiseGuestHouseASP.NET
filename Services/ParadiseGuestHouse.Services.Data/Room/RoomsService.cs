@@ -13,6 +13,7 @@
 
     public class RoomsService : IRoomsService
     {
+        private readonly IPictureService pictureService;
         private readonly IDeletableEntityRepository<Room> repository;
         private readonly IDeletableEntityRepository<RoomReservation> roomReservationRepository;
         private readonly ICloudinaryService cloudinaryService;
@@ -20,8 +21,10 @@
         public RoomsService(
             IDeletableEntityRepository<Room> repository,
             IDeletableEntityRepository<RoomReservation> roomReservationRepository,
+            IPictureService pictureService,
             ICloudinaryService cloudinaryService)
         {
+            this.pictureService = pictureService;
             this.repository = repository;
             this.roomReservationRepository = roomReservationRepository;
             this.cloudinaryService = cloudinaryService;
@@ -208,7 +211,7 @@
             var room = this.repository.All()
                 .FirstOrDefault(r => r.Id == input.RoomId);
 
-            if (room != null)
+            if (room != null && input.CountOfPeople <= room.NumberOfBeds)
             {
                 var reservation = new RoomReservation()
                 {
@@ -240,7 +243,7 @@
             throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<RoomReservation>");
         }
 
-        private Room GetRoomById(string id)
+        public Room GetRoomById(string id)
             => this.repository.All()?.FirstOrDefault(x => x.Id == id);
     }
 }

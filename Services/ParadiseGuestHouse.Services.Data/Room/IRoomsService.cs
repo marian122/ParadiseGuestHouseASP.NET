@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Web.InputModels.Room;
     using ParadiseGuestHouse.Web.ViewModels.Room;
@@ -26,5 +26,7 @@
         Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>();
 
         Task<bool> ReserveRoom(ReserveRoomInputModel input);
+
+        Room GetRoomById(string id);
     }
 }
