@@ -35,7 +35,5 @@
         public int MaxCapacity { get; set; }
 
         public virtual ICollection<RestaurantReservation> RestaurantReservations { get; set; }
-
-        public virtual IList<string> OccupiedDates { get; set; }
     }
 }

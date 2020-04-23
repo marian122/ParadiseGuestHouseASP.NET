@@ -132,17 +132,6 @@
             throw new NullReferenceException();
         }
 
-        public async Task<bool> FillOccupiedDates(RestaurantInputModel input)
-        {
-            var restaurant = this.restaurantRepository.All().First();
-
-            restaurant.OccupiedDates.Add(input.EventDate.ToString());
-
-            var result = await this.restaurantRepository.SaveChangesAsync();
-
-            return result > 0;
-        }
-
         public int GetRemainingCapacity()
         => this.restaurantRepository.All().First().CurrentCapacity;
     }
