@@ -15,5 +15,7 @@
         Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>();
 
         int GetRemainingCapacity();
+
+        int GetMaxCapacity();
     }
 }

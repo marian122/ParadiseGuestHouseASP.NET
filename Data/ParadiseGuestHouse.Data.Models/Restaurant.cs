@@ -27,11 +27,11 @@
         public decimal Price { get; set; }
 
         [Required]
-        [Range(0, 120)]
+        [Range(0, 100)]
         public int CurrentCapacity { get; set; }
 
         [Required]
-        [Range(0, 120)]
+        [Range(0, 100)]
         public int MaxCapacity { get; set; }
 
         public virtual ICollection<RestaurantReservation> RestaurantReservations { get; set; }

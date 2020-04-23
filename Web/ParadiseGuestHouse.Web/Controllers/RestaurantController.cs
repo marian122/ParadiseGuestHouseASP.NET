@@ -1,10 +1,15 @@
 ﻿namespace ParadiseGuestHouse.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Data.Common.Repositories;
+    using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.InputModels.Restaurant;
     using ParadiseGuestHouse.Web.ViewModels.Restaurant;
@@ -13,11 +18,16 @@
     {
         private readonly IUsersService usersService;
         private readonly IRestaurantService restaurantService;
+        private readonly IDeletableEntityRepository<RestaurantReservation> restaurantReservationRepository;
 
-        public RestaurantController(IUsersService usersService, IRestaurantService restaurantService)
+        public RestaurantController(
+            IUsersService usersService,
+            IRestaurantService restaurantService,
+            IDeletableEntityRepository<RestaurantReservation> restaurantReservationRepository)
         {
             this.usersService = usersService;
             this.restaurantService = restaurantService;
+            this.restaurantReservationRepository = restaurantReservationRepository;
         }
 
         public IActionResult Index()
@@ -41,10 +51,32 @@
         [HttpPost]
         public async Task<IActionResult> Reserve(RestaurantInputModel input)
         {
-            var remainingCapacity = this.restaurantService.GetRemainingCapacity();
-            if (!this.ModelState.IsValid || remainingCapacity < input.NumberOfGuests)
+            //var remainingCapacity = this.restaurantService.GetRemainingCapacity();
+
+            //var maxCapacity = this.restaurantService.GetMaxCapacity();
+
+            //var allReservationsForDate = this.restaurantReservationRepository.All().Where(x => x.EventDate == input.EventDate);
+
+            //if (allReservationsForDate.Count() != 0)
+            //{
+            //    foreach (var item in allReservationsForDate)
+            //    {
+            //        if (item.EventDate != input.EventDate)
+            //        {
+            //            remainingCapacity = maxCapacity;
+            //        }
+
+            //        if (item.NumberOfGuests > remainingCapacity)
+            //        {
+            //            this.ModelState.AddModelError("EventDate", $"Няма свободни места за {input.EventDate.Date}");
+            //            return this.View(input);
+            //        }
+            //    }
+            //}
+
+            //remainingCapacity -= input.NumberOfGuests;
+            if (!this.ModelState.IsValid)
             {
-                this.ModelState.AddModelError("NumberOfGuests", $"Оставащи места в ресоранта {remainingCapacity}");
                 return this.View(input);
             }
 

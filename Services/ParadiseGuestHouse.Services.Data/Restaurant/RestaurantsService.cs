@@ -37,7 +37,7 @@
                 .Where(x => x.EventDate < DateTime.Now && x.CheckOut < DateTime.Now)
                 .ToListAsync();
 
-            var conferenceHalls = await this.restaurantRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
+            var restaurants = await this.restaurantRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
 
             if (eventDate != null && eventDate.Count > 0)
             {
@@ -45,10 +45,10 @@
                 {
                     this.restaurantReservationRepository.Delete(item);
 
-                    foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
-                    {
-                        hall.CurrentCapacity = hall.MaxCapacity;
-                    }
+                    //foreach (var hall in restaurants.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    //{
+                    //    hall.CurrentCapacity = hall.MaxCapacity;
+                    //}
                 }
             }
 
@@ -79,10 +79,10 @@
                 {
                     this.restaurantReservationRepository.Delete(item);
 
-                    foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
-                    {
-                        hall.CurrentCapacity = hall.MaxCapacity;
-                    }
+                    //foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    //{
+                    //    hall.CurrentCapacity = hall.MaxCapacity;
+                    //}
                 }
             }
 
@@ -118,9 +118,30 @@
 
                 restaurantReservation.TotalPrice = price;
 
-                restaurant.CurrentCapacity = restaurant.MaxCapacity;
+                var allReservationsForDate = this.restaurantReservationRepository.All().Where(x => x.EventDate == input.EventDate);
 
-                restaurant.CurrentCapacity -= restaurantReservation.NumberOfGuests;
+                var allReservations = this.restaurantReservationRepository.All().Select(x => x.EventDate).ToList();
+
+                if (allReservationsForDate.Count() != 0)
+                {
+                    foreach (var item in allReservationsForDate)
+                    {
+                        if (restaurantReservation.NumberOfGuests > restaurant.CurrentCapacity)
+                        {
+                            
+                        }
+                    }
+                }
+
+                if (allReservations.Contains(input.EventDate))
+                {
+                    restaurant.CurrentCapacity -= input.NumberOfGuests;
+                }
+                else
+                {
+                    restaurant.CurrentCapacity = restaurant.MaxCapacity;
+                    restaurant.CurrentCapacity -= input.NumberOfGuests;
+                }
 
                 await this.restaurantReservationRepository.AddAsync(restaurantReservation);
 
@@ -134,5 +155,8 @@
 
         public int GetRemainingCapacity()
         => this.restaurantRepository.All().First().CurrentCapacity;
+
+        public int GetMaxCapacity()
+        => this.restaurantRepository.All().First().MaxCapacity;
     }
 }
