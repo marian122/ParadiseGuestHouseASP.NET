@@ -5,8 +5,10 @@
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
 
-    public class ConfHallAllViewModel : IMapFrom<ConferenceHallReservation>
+    public class ConfHallAllViewModel : IMapFrom<ConferenceHallReservation>, IMapFrom<ConferenceHall>
     {
+        public string ConferenceHallId { get; set; }
+
         public ApplicationUser User { get; set; }
 
         public string PhoneNumber { get; set; }

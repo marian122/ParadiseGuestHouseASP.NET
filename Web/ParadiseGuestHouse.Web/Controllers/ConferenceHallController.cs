@@ -5,6 +5,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
     using ParadiseGuestHouse.Web.ViewModels.ConferenceHall;
@@ -50,7 +51,16 @@
 
             input.UserId = userId;
 
-            await this.conferenceHallService.ReserveConferenceHall(input);
+            var result = await this.conferenceHallService.ReserveConferenceHall(input);
+
+            var capacity = await this.conferenceHallService 
+                .GetAllHallsAsync<ConfHallAllViewModel>(input);
+
+            if (result == false)
+            {
+                this.ModelState.AddModelError("EventDate", $"Свободните места за тази дата са {capacity}");
+                return this.View(input);
+            }
 
             this.TempData["InfoMessage"] = "You successfully booked a Conference Hall!";
 

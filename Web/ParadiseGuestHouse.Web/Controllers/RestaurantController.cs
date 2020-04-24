@@ -51,30 +51,8 @@
         [HttpPost]
         public async Task<IActionResult> Reserve(RestaurantInputModel input)
         {
-            //var remainingCapacity = this.restaurantService.GetRemainingCapacity();
+            var remainingCapacity = this.restaurantService.GetRemainingCapacity();
 
-            //var maxCapacity = this.restaurantService.GetMaxCapacity();
-
-            //var allReservationsForDate = this.restaurantReservationRepository.All().Where(x => x.EventDate == input.EventDate);
-
-            //if (allReservationsForDate.Count() != 0)
-            //{
-            //    foreach (var item in allReservationsForDate)
-            //    {
-            //        if (item.EventDate != input.EventDate)
-            //        {
-            //            remainingCapacity = maxCapacity;
-            //        }
-
-            //        if (item.NumberOfGuests > remainingCapacity)
-            //        {
-            //            this.ModelState.AddModelError("EventDate", $"Няма свободни места за {input.EventDate.Date}");
-            //            return this.View(input);
-            //        }
-            //    }
-            //}
-
-            //remainingCapacity -= input.NumberOfGuests;
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -84,7 +62,13 @@
 
             input.UserId = userId;
 
-            await this.restaurantService.ReserveRestaurant(input);
+            var result = await this.restaurantService.ReserveRestaurant(input);
+
+            if (result == false)
+            {
+                this.ModelState.AddModelError("EventDate", $"Свободните места за тази дата са {remainingCapacity}");
+                return this.View(input);
+            }
 
             this.TempData["InfoMessage"] = "You successfully booked a restaurant!";
 

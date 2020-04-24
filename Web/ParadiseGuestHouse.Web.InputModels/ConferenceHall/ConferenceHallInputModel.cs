@@ -9,6 +9,8 @@
 
     public class ConferenceHallInputModel
     {
+        public string ConferenceHallId { get; set; }
+
         [MaxLength(20, ErrorMessage = GlobalConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 

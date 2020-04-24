@@ -128,7 +128,7 @@
                     {
                         if (restaurantReservation.NumberOfGuests > restaurant.CurrentCapacity)
                         {
-                            
+                            return false;
                         }
                     }
                 }
@@ -145,18 +145,15 @@
 
                 await this.restaurantReservationRepository.AddAsync(restaurantReservation);
 
-                var result = await this.restaurantReservationRepository.SaveChangesAsync();
+                await this.restaurantReservationRepository.SaveChangesAsync();
 
-                return result > 0;
+                return true;
             }
 
-            throw new NullReferenceException();
+            throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<RestaurantReservation>");
         }
 
         public int GetRemainingCapacity()
         => this.restaurantRepository.All().First().CurrentCapacity;
-
-        public int GetMaxCapacity()
-        => this.restaurantRepository.All().First().MaxCapacity;
     }
 }

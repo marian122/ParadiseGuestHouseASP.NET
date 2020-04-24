@@ -24,6 +24,15 @@
             this.conferenceHallRepository = conferenceHallRepository;
         }
 
+        public async Task<int> GetAllHallsAsync<TViewModel>(ConferenceHallInputModel input)
+        {
+            var conferenceHall = this.conferenceHallRepository.All()
+                .Where(x => x.IsDeleted == false && x.EventType == input.EventType)
+                .First();
+
+            return conferenceHall.CurrentCapacity;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
         {
             var result = await this.conferenceHallReservationRepository
@@ -95,7 +104,8 @@
         public async Task<bool> ReserveConferenceHall(ConferenceHallInputModel input)
         {
             var conferenceHall = this.conferenceHallRepository.All()
-                .FirstOrDefault(c => c.IsDeleted == false);
+                .Where(x => x.IsDeleted == false && x.EventType == input.EventType)
+                .First();
 
             if (conferenceHall != null &&
                 input.NumberOfGuests <= conferenceHall.MaxCapacity &&
@@ -121,18 +131,43 @@
 
                 conferenceHallReservation.TotalPrice = price;
 
-                conferenceHall.CurrentCapacity = conferenceHall.MaxCapacity;
+                var allReservationsForDateForHall = this.conferenceHallReservationRepository
+                    .All()
+                    .Where(x => x.EventDate == input.EventDate && x.EventType == input.EventType);
 
-                conferenceHall.CurrentCapacity -= conferenceHallReservation.NumberOfGuests;
+                var allReservations = this.conferenceHallReservationRepository.All().Select(x => x.EventDate).ToList();
+                var allReservationsForType = this.conferenceHallReservationRepository
+                    .All().Where(x => x.EventType == input.EventType).ToList();
+
+                if (allReservationsForDateForHall.Count() != 0)
+                {
+                    foreach (var item in allReservationsForDateForHall)
+                    {
+                        if (conferenceHallReservation.NumberOfGuests > conferenceHall.CurrentCapacity)
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                if (allReservations.Contains(input.EventDate) && allReservationsForType.Count > 0)
+                {
+                    conferenceHall.CurrentCapacity -= input.NumberOfGuests;
+                }
+                else
+                {
+                    conferenceHall.CurrentCapacity = conferenceHall.MaxCapacity;
+                    conferenceHall.CurrentCapacity -= input.NumberOfGuests;
+                }
 
                 await this.conferenceHallReservationRepository.AddAsync(conferenceHallReservation);
 
-                var result = await this.conferenceHallReservationRepository.SaveChangesAsync();
+                await this.conferenceHallReservationRepository.SaveChangesAsync();
 
-                return result > 0;
+                return true;
             }
 
-            throw new NullReferenceException();
+            throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<ConferenceHallReservation>");
         }
     }
 }
