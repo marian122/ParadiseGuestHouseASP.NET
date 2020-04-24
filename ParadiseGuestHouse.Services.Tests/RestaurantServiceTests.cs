@@ -6,6 +6,7 @@ using ParadiseGuestHouse.Data.Repositories;
 using ParadiseGuestHouse.Services.Data;
 using ParadiseGuestHouse.Services.Mapping;
 using ParadiseGuestHouse.Web.InputModels.Restaurant;
+using ParadiseGuestHouse.Web.ViewModels.Restaurant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -195,6 +196,98 @@ namespace ParadiseGuestHouse.Services.Tests
             var expected = "Birthday";
 
             Assert.Equal(expected, actualResult);
+        }
+
+        [Fact]
+        public async Task Get_All_Reservations_Should_Return_All_Reservations_For_Current_User()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                          .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                          .Options;
+
+            this.dbContext = new ApplicationDbContext(options);
+
+            var restaurantRepository = new EfDeletableEntityRepository<Restaurant>(this.dbContext);
+            var restaurantReservationRepository = new EfDeletableEntityRepository<RestaurantReservation>(this.dbContext);
+
+            await restaurantRepository.AddAsync(new Restaurant
+            {
+                Id = "restaurantid",
+                CurrentCapacity = 100,
+                MaxCapacity = 100,
+                Description = "restaurant",
+                Price = 50,
+                Title = "restaurant",
+            });
+
+            await restaurantRepository.SaveChangesAsync();
+
+            await restaurantReservationRepository.AddAsync(new RestaurantReservation
+            {
+                EventDate = DateTime.Now.AddDays(1),
+                CheckIn = DateTime.Now.AddDays(1).AddHours(10),
+                CheckOut = DateTime.Now.AddDays(1).AddHours(11),
+                NumberOfGuests = 50,
+                PhoneNumber = "0888186978",
+                EventType = (RestaurantEventType)Enum.Parse(typeof(RestaurantEventType), "Birthday"),
+                UserId = "1",
+            });
+
+            this.restaurantsService = new RestaurantsService(restaurantRepository, restaurantReservationRepository);
+
+            await restaurantReservationRepository.SaveChangesAsync();
+
+            int expectedResult = 1;
+
+            var actualResult = await this.restaurantsService.GetAllReservationsAsync<RestaurantAllViewModel>("1");
+
+            Assert.Equal(actualResult.Count(), expectedResult);
+        }
+
+        [Fact]
+        public async Task Get_All_Reservations_Should_Return_All_Reservations()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                          .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                          .Options;
+
+            this.dbContext = new ApplicationDbContext(options);
+
+            var restaurantRepository = new EfDeletableEntityRepository<Restaurant>(this.dbContext);
+            var restaurantReservationRepository = new EfDeletableEntityRepository<RestaurantReservation>(this.dbContext);
+
+            await restaurantRepository.AddAsync(new Restaurant
+            {
+                Id = "restaurantid",
+                CurrentCapacity = 100,
+                MaxCapacity = 100,
+                Description = "restaurant",
+                Price = 50,
+                Title = "restaurant",
+            });
+
+            await restaurantRepository.SaveChangesAsync();
+
+            await restaurantReservationRepository.AddAsync(new RestaurantReservation
+            {
+                EventDate = DateTime.Now.AddDays(1),
+                CheckIn = DateTime.Now.AddDays(1).AddHours(10),
+                CheckOut = DateTime.Now.AddDays(1).AddHours(11),
+                NumberOfGuests = 50,
+                PhoneNumber = "0888186978",
+                EventType = (RestaurantEventType)Enum.Parse(typeof(RestaurantEventType), "Birthday"),
+                UserId = "1",
+            });
+
+            this.restaurantsService = new RestaurantsService(restaurantRepository, restaurantReservationRepository);
+
+            await restaurantReservationRepository.SaveChangesAsync();
+
+            int expectedResult = 1;
+
+            var actualResult = await this.restaurantsService.GetAllReservationsAsyncForAdmin<RestaurantAllViewModel>();
+
+            Assert.Equal(actualResult.Count(), expectedResult);
         }
     }
 }

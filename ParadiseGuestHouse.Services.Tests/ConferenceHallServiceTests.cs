@@ -6,6 +6,7 @@ using ParadiseGuestHouse.Data.Repositories;
 using ParadiseGuestHouse.Services.Data;
 using ParadiseGuestHouse.Services.Mapping;
 using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
+using ParadiseGuestHouse.Web.ViewModels.ConferenceHall;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,6 @@ namespace ParadiseGuestHouse.Services.Tests
     {
         private ApplicationDbContext dbContext;
         private ConferenceHallService conferenceHallService;
-
-        public class MyTestConferenceHall : IMapFrom<ConferenceHall>
-        {
-            public string Id { get; set; }
-        }
 
         [Fact]
         public async Task Check_ConferenceHall_Seeder()
@@ -50,7 +46,7 @@ namespace ParadiseGuestHouse.Services.Tests
                 Price = 50,
             });
 
-            conferenceHallRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await conferenceHallRepository.SaveChangesAsync();
 
             this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
 
@@ -205,6 +201,106 @@ namespace ParadiseGuestHouse.Services.Tests
             var expected = "TeamBuilding";
 
             Assert.Equal(expected, actualResult);
+        }
+
+        [Fact]
+        public async Task Get_All_Reservations_Should_Return_All_Reservations_For_Current_User()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                           .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                           .Options;
+
+            this.dbContext = new ApplicationDbContext(options);
+
+            var conferenceHallRepository = new EfDeletableEntityRepository<ConferenceHall>(this.dbContext);
+            var conferenceHallReservationRepository = new EfDeletableEntityRepository<ConferenceHallReservation>(this.dbContext);
+
+            await conferenceHallRepository.AddAsync(new ConferenceHall
+            {
+                Id = "conferenceid",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+                EventType = (ConfHallEventType)Enum.Parse(typeof(ConfHallEventType), "TeamBuilding"),
+                Description = "TeamBuilding",
+                CurrentCapacity = 100,
+                MaxCapacity = 100,
+                Price = 50,
+            });
+
+            await conferenceHallRepository.SaveChangesAsync();
+
+
+            conferenceHallReservationRepository.AddAsync(new ConferenceHallReservation
+            {
+                EventDate = DateTime.Now,
+                CheckIn = DateTime.Now.AddHours(2),
+                CheckOut = DateTime.Now.AddHours(3),
+                NumberOfGuests = 50,
+                PhoneNumber = "0888186978",
+                EventType = (ConfHallEventType)Enum.Parse(typeof(ConfHallEventType), "TeamBuilding"),
+                ConferenceHallId = "conferenceid",
+                UserId = "1",
+            }).GetAwaiter().GetResult();
+
+            await conferenceHallReservationRepository.SaveChangesAsync();
+
+            this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
+
+            int expectedResult = 1;
+
+            var actualResult = await this.conferenceHallService.GetAllReservationsAsync<ConfHallAllViewModel>("1");
+
+            Assert.Equal(actualResult.Count(), expectedResult);
+        }
+
+        [Fact]
+        public async Task Get_All_Reservations_Should_Return_All_Reservations()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                           .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                           .Options;
+
+            this.dbContext = new ApplicationDbContext(options);
+
+            var conferenceHallRepository = new EfDeletableEntityRepository<ConferenceHall>(this.dbContext);
+            var conferenceHallReservationRepository = new EfDeletableEntityRepository<ConferenceHallReservation>(this.dbContext);
+
+            await conferenceHallRepository.AddAsync(new ConferenceHall
+            {
+                Id = "conferenceid",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+                EventType = (ConfHallEventType)Enum.Parse(typeof(ConfHallEventType), "TeamBuilding"),
+                Description = "TeamBuilding",
+                CurrentCapacity = 100,
+                MaxCapacity = 100,
+                Price = 50,
+            });
+
+            await conferenceHallRepository.SaveChangesAsync();
+
+
+            conferenceHallReservationRepository.AddAsync(new ConferenceHallReservation
+            {
+                EventDate = DateTime.Now,
+                CheckIn = DateTime.Now.AddHours(2),
+                CheckOut = DateTime.Now.AddHours(3),
+                NumberOfGuests = 50,
+                PhoneNumber = "0888186978",
+                EventType = (ConfHallEventType)Enum.Parse(typeof(ConfHallEventType), "TeamBuilding"),
+                ConferenceHallId = "conferenceid",
+                UserId = "1",
+            }).GetAwaiter().GetResult();
+
+            await conferenceHallReservationRepository.SaveChangesAsync();
+
+            this.conferenceHallService = new ConferenceHallService(conferenceHallReservationRepository, conferenceHallRepository);
+
+            int expectedResult = 1;
+
+            var actualResult = await this.conferenceHallService.GetAllReservationsAsyncForAdmin<ConfHallAllViewModel>();
+
+            Assert.Equal(actualResult.Count(), expectedResult);
         }
     }
 }

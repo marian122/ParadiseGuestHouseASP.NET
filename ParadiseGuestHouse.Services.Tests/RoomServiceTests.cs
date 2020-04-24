@@ -24,20 +24,6 @@ namespace ParadiseGuestHouse.Services.Tests
         private ApplicationDbContext dbContext;
         private RoomsService roomService;
 
-        public class MyTestRoom : IMapFrom<Room>
-        {
-            public string Id { get; set; }
-
-            public string RoomType { get; set; }
-        }
-
-        public class MyTestReservation : IMapFrom<RoomReservation>
-        {
-            public string RoomId { get; set; }
-
-            public string UserId { get; set; }
-        }
-
         [Fact]
         public async Task ManualCreateRoom_WithValidData_ShouldReturnCorrectRoom()
         {
@@ -220,7 +206,7 @@ namespace ParadiseGuestHouse.Services.Tests
                 NumberOfBeds = 1,
             };
 
-            var actual = await this.roomService.CreateRoom(room);
+            var actual = await this.roomService.CreateRoomAsync(room);
 
             Assert.True(actual);
         }
@@ -263,7 +249,7 @@ namespace ParadiseGuestHouse.Services.Tests
                 NumberOfBeds = 1,
             };
 
-            var actual = await this.roomService.CreateRoom(room);
+            var actual = await this.roomService.CreateRoomAsync(room);
 
             Assert.False(actual);
         }
@@ -328,7 +314,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var pictureService = new PictureService(pictureRepository);
             var moqCloudinaryService = new Mock<ICloudinaryService>();
 
-            roomRepository.AddAsync(new Room
+            await roomRepository.AddAsync(new Room
             {
                 RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
                 Price = 10,
@@ -342,17 +328,16 @@ namespace ParadiseGuestHouse.Services.Tests
                 HasSeaView = false,
                 HasTv = false,
                 HasWifi = false,
-                NumberOfBeds = 1,
-            }).GetAwaiter().GetResult();
+                NumberOfBeds = 3,
+            });
 
-            roomRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await roomRepository.SaveChangesAsync();
 
             this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRoom).Assembly);
 
             var actualResult = await this.roomService
-                .GetAllRoomsAsync<MyTestRoom>();
+                .GetAllRoomsAsync<RoomsAllViewModel>();
 
             int expectedResult = 1;
             Assert.Equal(actualResult.Count(), expectedResult);
@@ -376,10 +361,8 @@ namespace ParadiseGuestHouse.Services.Tests
 
             this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRoom).Assembly);
-
             var actualResult = await this.roomService
-                .GetAllRoomsAsync<MyTestRoom>();
+                .GetAllRoomsAsync<RoomsAllViewModel>();
 
             int expectedResult = 0;
             Assert.Equal(actualResult.Count(), expectedResult);
@@ -400,7 +383,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var pictureService = new PictureService(pictureRepository);
             var moqCloudinaryService = new Mock<ICloudinaryService>();
 
-            roomRepository.AddAsync(new Room
+            await roomRepository.AddAsync(new Room
             {
                 Id = "1",
                 RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
@@ -415,17 +398,15 @@ namespace ParadiseGuestHouse.Services.Tests
                 HasSeaView = false,
                 HasTv = false,
                 HasWifi = false,
-                NumberOfBeds = 1,
-            }).GetAwaiter().GetResult();
+                NumberOfBeds = 3,
+            });
 
-            roomRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await roomRepository.SaveChangesAsync();
 
             this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRoom).Assembly);
-
             var actualResult = await this.roomService
-                .GetRoomAsync<MyTestRoom>("1");
+                .GetRoomAsync<RoomsAllViewModel>("1");
 
             string expectedResult = "1";
             Assert.Equal(actualResult.Id, expectedResult);
@@ -446,7 +427,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var pictureService = new PictureService(pictureRepository);
             var moqCloudinaryService = new Mock<ICloudinaryService>();
 
-            roomRepository.AddAsync(new Room
+            await roomRepository.AddAsync(new Room
             {
                 Id = "1",
                 RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
@@ -461,14 +442,13 @@ namespace ParadiseGuestHouse.Services.Tests
                 HasSeaView = false,
                 HasTv = false,
                 HasWifi = false,
-                NumberOfBeds = 1,
-            }).GetAwaiter().GetResult();
+                NumberOfBeds = 3,
+            });
 
-            roomRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await roomRepository.SaveChangesAsync();
 
             this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRoom).Assembly);
 
             var reservation = new ReserveRoomInputModel
             {
@@ -502,7 +482,7 @@ namespace ParadiseGuestHouse.Services.Tests
             var pictureService = new PictureService(pictureRepository);
             var moqCloudinaryService = new Mock<ICloudinaryService>();
 
-            roomRepository.AddAsync(new Room
+            await roomRepository.AddAsync(new Room
             {
                 Id = "1",
                 RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
@@ -517,12 +497,12 @@ namespace ParadiseGuestHouse.Services.Tests
                 HasSeaView = false,
                 HasTv = false,
                 HasWifi = false,
-                NumberOfBeds = 1,
-            }).GetAwaiter().GetResult();
+                NumberOfBeds = 3,
+            });
 
-            roomRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await roomRepository.SaveChangesAsync();
 
-            roomReservationRepository.AddAsync(new RoomReservation
+            await roomReservationRepository.AddAsync(new RoomReservation
             {
                 Id = "1",
                 RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
@@ -532,19 +512,15 @@ namespace ParadiseGuestHouse.Services.Tests
                 RoomId = "1",
                 UserId = "1",
 
-            }).GetAwaiter().GetResult();
+            });
 
-            roomReservationRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await roomReservationRepository.SaveChangesAsync();
 
             this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(MyTestRoom).Assembly);
-            AutoMapperConfig.RegisterMappings(typeof(MyTestReservation).Assembly);
-
-
             int expectedResult = 1;
 
-            var actualResult = await this.roomService.GetAllReservationsAsync<MyTestReservation>("1");
+            var actualResult = await this.roomService.GetAllReservationsAsync<ReservationsAllViewModel>("1");
 
             Assert.Equal(actualResult.Count(), expectedResult);
         }

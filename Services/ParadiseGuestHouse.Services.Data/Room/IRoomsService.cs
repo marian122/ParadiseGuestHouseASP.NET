@@ -9,7 +9,7 @@
 
     public interface IRoomsService
     {
-        Task<bool> CreateRoom(CreateRoomInputModel input);
+        Task<bool> CreateRoomAsync(CreateRoomInputModel input);
 
         Task<bool> EditRoomAsync(string id, EditRoomViewModel input);
 

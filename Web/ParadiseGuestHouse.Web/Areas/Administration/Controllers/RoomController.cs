@@ -34,7 +34,7 @@
                 return this.View(input);
             }
 
-            await this.roomsService.CreateRoom(input);
+            await this.roomsService.CreateRoomAsync(input);
 
             this.TempData["InfoMessage"] = "Room created successfuly!";
 

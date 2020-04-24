@@ -12,7 +12,7 @@ namespace ParadiseGuestHouse.Services.Tests
     {
         public MapperFixture()
         {
-            AutoMapperConfig.RegisterMappings(typeof(RoomsAllViewModel).GetTypeInfo().Assembly, typeof(CreateRoomInputModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(RoomsAllViewModel).GetTypeInfo().Assembly, typeof(ReservationsAllViewModel).GetTypeInfo().Assembly);
         }
     }
 }

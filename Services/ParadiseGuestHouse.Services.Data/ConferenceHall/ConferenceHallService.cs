@@ -64,7 +64,12 @@
             await this.conferenceHallRepository.SaveChangesAsync();
             await this.conferenceHallReservationRepository.SaveChangesAsync();
 
-            return result;
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new InvalidOperationException("Exception happened in ConferenceHallService while getting all reservations for current user from IDeletableEntityRepository<ConferenceHallReservations>");
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
@@ -98,7 +103,12 @@
             await this.conferenceHallRepository.SaveChangesAsync();
             await this.conferenceHallReservationRepository.SaveChangesAsync();
 
-            return result;
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new InvalidOperationException("Exception happened in ConferenceHallService while getting all reservations for admin from IDeletableEntityRepository<ConferenceHallReservations>");
         }
 
         public async Task<bool> ReserveConferenceHall(ConferenceHallInputModel input)
@@ -167,7 +177,7 @@
                 return true;
             }
 
-            throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<ConferenceHallReservation>");
+            throw new InvalidOperationException("Exception happened in ConferenceHallService while saving the Reservation in IDeletableEntityRepository<ConferenceHallReservation>");
         }
     }
 }

@@ -32,30 +32,35 @@
               .To<TViewModel>()
               .ToListAsync();
 
-            var eventDate = await this.restaurantReservationRepository
+            var datesBeforeToday = await this.restaurantReservationRepository
                 .All()
                 .Where(x => x.EventDate < DateTime.Now && x.CheckOut < DateTime.Now)
                 .ToListAsync();
 
             var restaurants = await this.restaurantRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
 
-            if (eventDate != null && eventDate.Count > 0)
+            if (datesBeforeToday != null && datesBeforeToday.Count > 0)
             {
-                foreach (var item in eventDate)
+                foreach (var item in datesBeforeToday)
                 {
                     this.restaurantReservationRepository.Delete(item);
 
-                    //foreach (var hall in restaurants.Where(x => x.CurrentCapacity != x.MaxCapacity))
-                    //{
-                    //    hall.CurrentCapacity = hall.MaxCapacity;
-                    //}
+                    foreach (var rest in restaurants.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    {
+                        rest.CurrentCapacity = rest.MaxCapacity;
+                    }
                 }
             }
 
             await this.restaurantRepository.SaveChangesAsync();
             await this.restaurantReservationRepository.SaveChangesAsync();
 
-            return result;
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new InvalidOperationException("Exception happened in RestaurantService while getting all reservations for current user from IDeletableEntityRepository<RestaurantReservations>");
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
@@ -66,30 +71,35 @@
               .To<TViewModel>()
               .ToListAsync();
 
-            var eventDate = await this.restaurantReservationRepository
+            var datesBeforeToday = await this.restaurantReservationRepository
                 .All()
                 .Where(x => x.EventDate < DateTime.Now && x.CheckOut < DateTime.Now)
                 .ToListAsync();
 
-            var conferenceHalls = await this.restaurantRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
+            var restaurants = await this.restaurantRepository.All().Where(x => x.IsDeleted == false).ToListAsync();
 
-            if (eventDate != null && eventDate.Count > 0)
+            if (datesBeforeToday != null && datesBeforeToday.Count > 0)
             {
-                foreach (var item in eventDate)
+                foreach (var item in datesBeforeToday)
                 {
                     this.restaurantReservationRepository.Delete(item);
 
-                    //foreach (var hall in conferenceHalls.Where(x => x.CurrentCapacity != x.MaxCapacity))
-                    //{
-                    //    hall.CurrentCapacity = hall.MaxCapacity;
-                    //}
+                    foreach (var rest in restaurants.Where(x => x.CurrentCapacity != x.MaxCapacity))
+                    {
+                        rest.CurrentCapacity = rest.MaxCapacity;
+                    }
                 }
             }
 
             await this.restaurantRepository.SaveChangesAsync();
             await this.restaurantReservationRepository.SaveChangesAsync();
 
-            return result;
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new InvalidOperationException("Exception happened in RestaurantService while getting all reservations for admin from IDeletableEntityRepository<RestaurantReservations>");
         }
 
         public async Task<bool> ReserveRestaurant(RestaurantInputModel input)
@@ -150,7 +160,7 @@
                 return true;
             }
 
-            throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<RestaurantReservation>");
+            throw new InvalidOperationException("Exception happened in RestaurantService while saving the Reservation in IDeletableEntityRepository<RestaurantReservation>");
         }
 
         public int GetRemainingCapacity()

@@ -30,7 +30,7 @@
             this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<bool> CreateRoom(CreateRoomInputModel input)
+        public async Task<bool> CreateRoomAsync(CreateRoomInputModel input)
         {
             string folderName = "room_images";
 
@@ -63,7 +63,7 @@
                 await this.repository.AddAsync(room);
                 var result = await this.repository.SaveChangesAsync();
 
-                return result > 0;
+                return true;
             }
 
             return false;
@@ -84,40 +84,36 @@
                 return result > 0;
             }
 
-            throw new NullReferenceException();
+            throw new InvalidOperationException("Exception happened in RoomsService while deleting room from IDeletableEntityRepository<Room>");
         }
 
         public async Task<bool> EditRoomAsync(string id, EditRoomViewModel input)
         {
             var currentRoom = this.GetRoomById(id);
 
-            //string folderName = "room_images";
+            if (currentRoom != null)
+            {
+                currentRoom.RoomType = input.RoomType;
+                currentRoom.Price = input.Price;
+                currentRoom.NumberOfBeds = input.NumberOfBeds;
+                currentRoom.HasWifi = input.HasWifi;
+                currentRoom.HasAirConditioner = input.HasAirConditioner;
+                currentRoom.HasBathroom = input.HasBathroom;
+                currentRoom.HasHeater = input.HasHeater;
+                currentRoom.HasMountainView = input.HasMountainView;
+                currentRoom.HasPhone = input.HasPhone;
+                currentRoom.HasRoomService = input.HasRoomService;
+                currentRoom.HasSeaView = input.HasSeaView;
+                currentRoom.HasTv = input.HasTv;
 
-            //var pictureUrls = input.Pictures
-            //    .Select(async x =>
-            //        await this.cloudinaryService.UploadPhotoAsync(x, x.FileName, folderName))
-            //    .Select(x => x.Result)
-            //    .ToList();
+                this.repository.Update(currentRoom);
 
-            currentRoom.RoomType = input.RoomType;
-            currentRoom.Price = input.Price;
-            currentRoom.NumberOfBeds = input.NumberOfBeds;
-            currentRoom.HasWifi = input.HasWifi;
-            currentRoom.HasAirConditioner = input.HasAirConditioner;
-            currentRoom.HasBathroom = input.HasBathroom;
-            currentRoom.HasHeater = input.HasHeater;
-            currentRoom.HasMountainView = input.HasMountainView;
-            currentRoom.HasPhone = input.HasPhone;
-            currentRoom.HasRoomService = input.HasRoomService;
-            currentRoom.HasSeaView = input.HasSeaView;
-            currentRoom.HasTv = input.HasTv;
-            //currentRoom.Pictures = pictureUrls.Select(x => new Picture { Url = x }).ToList();
+                await this.repository.SaveChangesAsync();
 
-            this.repository.Update(currentRoom);
+                return true;
+            }
 
-            var result = await this.repository.SaveChangesAsync();
-
-            return result > 0;
+            throw new InvalidOperationException("Exception happened in RoomsService while editing room in IDeletableEntityRepository<Room>");
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
@@ -187,23 +183,28 @@
         {
             var room = this.GetRoomById(id);
 
-            var result = new EditRoomViewModel()
+            if (room != null)
             {
-                RoomType = room.RoomType,
-                Price = room.Price,
-                NumberOfBeds = room.NumberOfBeds,
-                HasWifi = room.HasWifi,
-                HasAirConditioner = room.HasAirConditioner,
-                HasBathroom = room.HasBathroom,
-                HasHeater = room.HasHeater,
-                HasMountainView = room.HasMountainView,
-                HasPhone = room.HasPhone,
-                HasRoomService = room.HasRoomService,
-                HasSeaView = room.HasSeaView,
-                HasTv = room.HasTv,
-            };
+                var result = new EditRoomViewModel()
+                {
+                    RoomType = room.RoomType,
+                    Price = room.Price,
+                    NumberOfBeds = room.NumberOfBeds,
+                    HasWifi = room.HasWifi,
+                    HasAirConditioner = room.HasAirConditioner,
+                    HasBathroom = room.HasBathroom,
+                    HasHeater = room.HasHeater,
+                    HasMountainView = room.HasMountainView,
+                    HasPhone = room.HasPhone,
+                    HasRoomService = room.HasRoomService,
+                    HasSeaView = room.HasSeaView,
+                    HasTv = room.HasTv,
+                };
 
-            return result;
+                return result;
+            }
+
+            throw new InvalidOperationException("Exception happened in RoomsService search for room in IDeletableEntityRepository<Room>");
         }
 
         public async Task<bool> ReserveRoom(ReserveRoomInputModel input)
@@ -237,7 +238,7 @@
                 await this.roomReservationRepository.AddAsync(reservation);
 
                 int result = await this.roomReservationRepository.SaveChangesAsync();
-                return result > 0;
+                return true;
             }
 
             throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<RoomReservation>");
