@@ -58,6 +58,8 @@
 
         public const string InvalidOperationExceptionForRoomCreate = "Exception happened in RoomsService while creating room in IDeletableEntityRepository<Room>";
 
+        public const string InvalidOperationExceptionInPictureService = "Exception happened in PictureService while saving the Picture in IDeletableEntityRepository<Picture>";
+
         public const string EnterValidNumberOfGuestsError = "Максимален брой гости ";
 
         public const string EnterAtleastOneNightStandsError = "Моля въведете резервация с поне 1 нощувка!";

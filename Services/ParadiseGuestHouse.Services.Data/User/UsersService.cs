@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using ParadiseGuestHouse.Data.Common.Repositories;
-using ParadiseGuestHouse.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ParadiseGuestHouse.Services.Data
+﻿namespace ParadiseGuestHouse.Services.Data
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using ParadiseGuestHouse.Data.Common.Repositories;
+    using ParadiseGuestHouse.Data.Models;
+
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> context;

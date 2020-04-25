@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using ParadiseGuestHouse.Common;
-    using ParadiseGuestHouse.Data.Models.Enums;
     using ParadiseGuestHouse.Services.Data;
     using ParadiseGuestHouse.Web.InputModels.ConferenceHall;
     using ParadiseGuestHouse.Web.ViewModels.ConferenceHall;

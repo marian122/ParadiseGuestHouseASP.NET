@@ -1,14 +1,11 @@
 ﻿namespace ParadiseGuestHouse.Services.Data
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
+
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
-    using ParadiseGuestHouse.Services.Mapping;
 
     public class PictureService : IPictureService
     {
@@ -28,7 +25,7 @@
 
             if (result < 0)
             {
-                throw new InvalidOperationException("Exception happened in PictureService while saving the Picture in IDeletableEntityRepository<Picture>");
+                throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionInPictureService);
             }
             else
             {
