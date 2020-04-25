@@ -212,49 +212,6 @@ namespace ParadiseGuestHouse.Services.Tests
         }
 
         [Fact]
-        public async Task AdministratorCreateRoom_WithInvalidPrice_ShouldReturnFalse()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                          .Options;
-
-            this.dbContext = new ApplicationDbContext(options);
-
-            var roomRepository = new EfDeletableEntityRepository<Room>(this.dbContext);
-            var roomReservationRepository = new EfDeletableEntityRepository<RoomReservation>(this.dbContext);
-            var pictureRepository = new EfDeletableEntityRepository<Picture>(this.dbContext);
-            var pictureService = new PictureService(pictureRepository);
-            var moqCloudinaryService = new Mock<ICloudinaryService>();
-            var moqIFormFile = new Mock<IFormFile>();
-
-            this.roomService = new RoomsService(roomRepository, roomReservationRepository, pictureService, moqCloudinaryService.Object);
-
-            var room = new CreateRoomInputModel
-            {
-                RoomType = (RoomType)Enum.Parse(typeof(RoomType), "SingleRoom"),
-                Price = 0,
-                Pictures = new List<IFormFile>
-                {
-                    moqIFormFile.Object
-                },
-                HasAirConditioner = true,
-                HasBathroom = true,
-                HasHeater = false,
-                HasMountainView = false,
-                HasPhone = false,
-                HasRoomService = false,
-                HasSeaView = false,
-                HasTv = false,
-                HasWifi = false,
-                NumberOfBeds = 1,
-            };
-
-            var actual = await this.roomService.CreateRoomAsync(room);
-
-            Assert.False(actual);
-        }
-
-        [Fact]
         public async Task DeleteRoom_ShouldDelete()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()

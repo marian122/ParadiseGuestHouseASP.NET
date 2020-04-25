@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
@@ -69,7 +70,7 @@
                 return result;
             }
 
-            throw new InvalidOperationException("Exception happened in ConferenceHallService while getting all reservations for current user from IDeletableEntityRepository<ConferenceHallReservations>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForConferenceHallGetAllReservations);
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
@@ -108,7 +109,7 @@
                 return result;
             }
 
-            throw new InvalidOperationException("Exception happened in ConferenceHallService while getting all reservations for admin from IDeletableEntityRepository<ConferenceHallReservations>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForConferenceHallGetAllReservationsForAdmin);
         }
 
         public async Task<bool> ReserveConferenceHall(ConferenceHallInputModel input)
@@ -177,7 +178,7 @@
                 return true;
             }
 
-            throw new InvalidOperationException("Exception happened in ConferenceHallService while saving the Reservation in IDeletableEntityRepository<ConferenceHallReservation>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForConferenceHallReservation);
         }
     }
 }

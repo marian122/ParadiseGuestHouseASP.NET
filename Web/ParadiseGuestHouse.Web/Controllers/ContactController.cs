@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Web.InputModels.Contact;
     using SendGrid;
     using SendGrid.Helpers.Mail;
@@ -43,7 +44,7 @@
 
             await client.SendEmailAsync(msg);
 
-            this.TempData["InfoMessage"] = "You have successfully sent an email! Please check your mailbox for a reply!";
+            this.TempData["InfoMessage"] = GlobalConstants.SuccessfullySentAnEmail;
 
             return this.Redirect("/");
         }

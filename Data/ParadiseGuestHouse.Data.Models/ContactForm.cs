@@ -31,7 +31,5 @@
         [Required]
         [MaxLength(300)]
         public string Content { get; set; }
-
-        public string Ip { get; set; }
     }
 }

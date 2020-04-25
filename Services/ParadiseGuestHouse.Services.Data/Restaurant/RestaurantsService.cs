@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
@@ -60,7 +61,7 @@
                 return result;
             }
 
-            throw new InvalidOperationException("Exception happened in RestaurantService while getting all reservations for current user from IDeletableEntityRepository<RestaurantReservations>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRestaurantGetAllReservations);
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
@@ -99,7 +100,7 @@
                 return result;
             }
 
-            throw new InvalidOperationException("Exception happened in RestaurantService while getting all reservations for admin from IDeletableEntityRepository<RestaurantReservations>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRestaurantGetAllReservationsForAdmin);
         }
 
         public async Task<bool> ReserveRestaurant(RestaurantInputModel input)
@@ -160,7 +161,7 @@
                 return true;
             }
 
-            throw new InvalidOperationException("Exception happened in RestaurantService while saving the Reservation in IDeletableEntityRepository<RestaurantReservation>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRestaurantReservation);
         }
 
         public int GetRemainingCapacity()

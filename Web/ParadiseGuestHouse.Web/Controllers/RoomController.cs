@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
@@ -81,7 +82,7 @@
 
             if (!this.ModelState.IsValid || room.NumberOfBeds < input.CountOfPeople)
             {
-                this.ModelState.AddModelError("CountOfPeople", $"Максимален брой гости {room.NumberOfBeds}");
+                this.ModelState.AddModelError("CountOfPeople", GlobalConstants.EnterValidNumberOfGuestsError + room.NumberOfBeds);
                 input.Pictures = pictures.Select(x => x.Url).ToList();
                 return this.View(input);
             }
@@ -91,9 +92,16 @@
             input.UserId = userId;
             input.RoomId = roomId;
 
-            await this.roomsService.ReserveRoom(input);
+            var result = await this.roomsService.ReserveRoom(input);
 
-            this.TempData["InfoMessage"] = "You successfully booked a room!";
+            if (result == false)
+            {
+                this.ModelState.AddModelError("NumberOfNights", GlobalConstants.EnterAtleastOneNightStandsError);
+                input.Pictures = pictures.Select(x => x.Url).ToList();
+                return this.View(input);
+            }
+
+            this.TempData["InfoMessage"] = GlobalConstants.ReserveRoomTempDataSuccess;
 
             return this.Redirect("/Room/Reservations");
         }

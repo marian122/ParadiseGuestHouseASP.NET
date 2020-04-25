@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
@@ -66,11 +67,11 @@
 
             if (result == false)
             {
-                this.ModelState.AddModelError("EventDate", $"Свободните места за тази дата са {remainingCapacity}");
+                this.ModelState.AddModelError("EventDate", GlobalConstants.FreeSeatsForRestaurantError + remainingCapacity);
                 return this.View(input);
             }
 
-            this.TempData["InfoMessage"] = "You successfully booked a restaurant!";
+            this.TempData["InfoMessage"] = GlobalConstants.ReserveRestaurantTempDataSuccess;
 
             return this.Redirect("/Restaurant/Reservations");
         }

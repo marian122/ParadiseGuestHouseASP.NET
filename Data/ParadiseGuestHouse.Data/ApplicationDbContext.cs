@@ -23,12 +23,6 @@
         {
         }
 
-        //public DbSet<Setting> Settings { get; set; }
-
-        ///public DbSet<Guest> Guests { get; set; }
-        
-        //public DbSet<ContactForm> ContactFormEntries { get; set; }
-
         public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }

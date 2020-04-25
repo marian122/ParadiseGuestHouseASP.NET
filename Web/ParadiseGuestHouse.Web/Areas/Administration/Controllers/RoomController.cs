@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Data;
@@ -36,7 +37,7 @@
 
             await this.roomsService.CreateRoomAsync(input);
 
-            this.TempData["InfoMessage"] = "Room created successfuly!";
+            this.TempData["InfoMessage"] = GlobalConstants.CreateRoomTempDataSuccess;
 
             return this.RedirectToAction("All");
         }
@@ -48,7 +49,7 @@
 
             if (result == true)
             {
-                this.TempData["InfoMessage"] = "Room deleted successfuly!";
+                this.TempData["InfoMessage"] = GlobalConstants.DeleteRoomTempDataSuccess;
                 return this.RedirectToAction("All");
             }
 
@@ -76,7 +77,7 @@
             }
 
             await this.roomsService.EditRoomAsync(roomId, input);
-            this.TempData["InfoMessage"] = "Room edited successfuly!";
+            this.TempData["InfoMessage"] = GlobalConstants.EditRoomTempDataSuccess;
             return this.RedirectToAction("All");
         }
     }

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using ParadiseGuestHouse.Common;
     using ParadiseGuestHouse.Data.Common.Repositories;
     using ParadiseGuestHouse.Data.Models;
     using ParadiseGuestHouse.Services.Mapping;
@@ -66,7 +67,7 @@
                 return true;
             }
 
-            return false;
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomCreate);
         }
 
         public async Task<bool> DeleteRoom(string id)
@@ -84,7 +85,7 @@
                 return result > 0;
             }
 
-            throw new InvalidOperationException("Exception happened in RoomsService while deleting room from IDeletableEntityRepository<Room>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomDelete);
         }
 
         public async Task<bool> EditRoomAsync(string id, EditRoomViewModel input)
@@ -113,7 +114,7 @@
                 return true;
             }
 
-            throw new InvalidOperationException("Exception happened in RoomsService while editing room in IDeletableEntityRepository<Room>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomEdit);
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsync<TViewModel>(string userId)
@@ -138,7 +139,12 @@
                 }
             }
 
-            return reservations;
+            if (reservations != null)
+            {
+                return reservations;
+            }
+
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomGetAllReservations);
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllReservationsAsyncForAdmin<TViewModel>()
@@ -161,7 +167,12 @@
                 }
             }
 
-            return reservations;
+            if (reservations != null)
+            {
+                return reservations;
+            }
+
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomGetAllReservationsForAdmin);
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllRoomsAsync<TViewModel>()
@@ -204,7 +215,7 @@
                 return result;
             }
 
-            throw new InvalidOperationException("Exception happened in RoomsService search for room in IDeletableEntityRepository<Room>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomSearchForEdit);
         }
 
         public async Task<bool> ReserveRoom(ReserveRoomInputModel input)
@@ -238,10 +249,16 @@
                 await this.roomReservationRepository.AddAsync(reservation);
 
                 int result = await this.roomReservationRepository.SaveChangesAsync();
+
+                if (reservation.NumberOfNights <= 0)
+                {
+                    return false;
+                }
+
                 return true;
             }
 
-            throw new InvalidOperationException("Exception happened in RoomsService while saving the Reservation in IDeletableEntityRepository<RoomReservation>");
+            throw new InvalidOperationException(GlobalConstants.InvalidOperationExceptionForRoomReservation);
         }
 
         public Room GetRoomById(string id)
